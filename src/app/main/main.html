@@ -21,6 +21,7 @@
           <h3>{{awesomeThing.title}}</h3>
           <p>{{awesomeThing.description}}</p>
           <p><a ng-href="{{awesomeThing.url}}">{{awesomeThing.url}}</a></p>
+          <p><a ui-sref="events({organization: awesomeThing.title, desc : awesomeThing.description })">View Events</a></p>
         </div>
       </div>
     </div>

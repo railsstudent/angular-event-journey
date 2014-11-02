@@ -15,6 +15,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         url: '/about_me',
         templateUrl: 'app/about/about_me.html',
         controller: 'AboutCtrl'
+      })
+    .state('events', {
+        url: '/events/:organization/:desc',
+        templateUrl: 'app/event/event.html',
+        controller: 'EventCtrl'
       });
     $urlRouterProvider.otherwise('/home');
   }]);
@@ -37,7 +42,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'LEARN_MORE' : 'Learn More',
     'PASSION_WEB_DEV' : 'Passionate about Software Development',
     'LOVE_TO_CODE' : 'Love to code pet projects to learn JS web frameworks',
-    'HOBBY' : 'Always a pleasure to attend local technology community events and talk to peers with similar background'
+    'HOBBY' : 'Always a pleasure to attend local technology community events and talk to peers with similar background',
+    'BACK_HOME' : 'Back home'
   };
 
   var hk_texts = {
@@ -56,7 +62,9 @@ app.config(['$translateProvider', function($translateProvider) {
     'LEARN_MORE' : '了解更多',
     'PASSION_WEB_DEV' : '熱愛軟件開發',
     'LOVE_TO_CODE' : '喜歡編寫代碼，學習JavaScript框架',
-    'HOBBY' : '喜歡參加當地技術社區活動，跟類似背景的同行談話'
+    'HOBBY' : '喜歡參加當地技術社區活動，跟類似背景的同行談話',
+    'BACK_HOME' : '返回首頁'
+
   };
 
   // register translation table
