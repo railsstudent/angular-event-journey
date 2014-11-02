@@ -2,7 +2,7 @@
 <html class="no-js" ng-app="angularEventJourney">
   <head>
     <meta charset="utf-8">
-    <title>AngularJS Event Journey</title>
+    <title>My Journey</title>
     <meta name="description" content="AngularJS">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -30,6 +30,14 @@
     <![endif]-->
 
     <div ui-view></div>
+
+    <hr />
+    
+    <div class="footer">
+      <div class="container">
+        <p class="text-muted"><i class="fa fa-copyright"> 2015</i> With <i class="fa fa-heart-o"></i> from <a target="_blank" href="https://twitter.com/con_leung">Connie Leung</a></p>
+      </div>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -63,6 +71,7 @@
     <!-- build:js({src,.tmp}) scripts/app.js -->
     <script src="app/index.js"></script>
     <script src="app/main/main.controller.js"></script>
+    <script src="app/about/about_me.controller.js"></script>
     <script src="components/navbar/navbar.controller.js"></script>
 
     <!-- inject:partials -->

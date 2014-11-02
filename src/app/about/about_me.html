@@ -1,0 +1,88 @@
+<div class="container">
+
+	 <div ng-include="'components/navbar/navbar.html'"></div>
+
+	<div class="page-header">
+		<h1 translate>ABOUT_ME</h1>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <i class="fa fa-female fa-lg"></i>	
+		      <div class="caption">
+		        <h3 translate>DESC</h3>
+		        <p>{{me.description}}</p>
+		      </div>
+		    </div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		       <i style="margin: 5px" ng-repeat="item in me.machines.icons" class="fa fa-lg {{item}}"></i>
+		      <div class="caption">
+		        <h3 translate>DEVMACHINE</h3>
+		        <p>{{me.machines.text}}</p>
+		      </div>
+		    </div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+			  <i ng-repeat="sm in me.socialMedia" style="margin: 5px" class="fa {{sm.icon}} fa-lg"></i>
+		      <div class="caption">
+		        <h3 translate>SOCIALMEDIA</h3>
+		        <ul ng-repeat="sm in me.socialMedia" class="hide_bullet">
+			        <li>{{sm.type}}: <a href="{{sm.url}}" target='blank'>   {{sm.url}}</a></li>
+			    </ul>
+		      </div>
+		    </div>
+		</div>
+ 	</div>
+ 	<div class="row">
+		<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail_large">
+		       <i style="margin: 5px" ng-repeat="item in me.skills.icons" class="fa {{item}} fa-lg"></i>
+		      <div class="caption">
+		        <h3 translate>SKILL</h3>
+		        <ul  ng-repeat="item in me.skills.list" class="hide_bullet" >
+			        <li>{{$index + 1}}. {{item}}</li>
+			    </ul>
+		      </div>
+		    </div>
+		</div>    
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail_large">
+			   	<i style="margin: 5px" ng-repeat="item in me.frameworks.icons" class="fa {{item}} fa-lg"></i>
+			    <div class="caption">
+			    	<h3 translate>FRAMEWORK</h3>
+			        <ul ng-repeat="item in me.frameworks.list" class="hide_bullet">
+				        <li>{{$index + 1}}. {{item}}</a</li>
+				    </ul>
+			    </div>
+			</div>
+	 	</div>
+	 	<div class="col-sm-6 col-md-4">
+			<div class="thumbnail_large">
+			    <i class="fa fa-database fa-lg"></i>
+			    <div class="caption">
+			    	<h3 translate>DATABASE</h3>
+			    	<ul ng-repeat="item in me.databases" class="hide_bullet">
+				        <li>{{$index + 1}}. {{item}}</a</li>
+				    </ul>
+			    </div>
+			</div>
+	 	</div>
+	 </div>
+	 <div class="row">
+	 	<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<i class="fa fa-desktop fa-lg"></i>
+			    <div class="caption">
+			    <h3 translate>SERVER</h3>
+			    <ul ng-repeat="item in me.servers" class="hide_bullet">
+				    <li>{{$index + 1}}. {{item}}</a</li>
+				</ul>
+			   	</div>
+			</div>
+	 	</div>
+ 	</div>
+</div>

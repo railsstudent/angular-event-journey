@@ -1,7 +1,26 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
+     function ($scope, $location, $anchorScroll) {
+
+    // https://www.firebase.com/docs/web/libraries/angular/guide.html
+    // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
+
+    // Create our Firebase reference
+    //var ref = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
+
+    // create an AngularFire reference to the data
+    //var sync = $firebase(ref);
+
+    // download the data into a local object
+    //$scope.organizations = sync.$asArray();
+
+    $scope.scrollToElement = function _scrollToElement(elementId) {
+      $location.hash(elementId);
+      $anchorScroll();
+    };
+
     $scope.awesomeThings = [
       {
         'key': 'angular',
@@ -63,4 +82,4 @@ angular.module('angularEventJourney')
     angular.forEach($scope.awesomeThings, function(awesomeThing) {
       awesomeThing.rank = Math.random();
     });
-  });
+  }]);
