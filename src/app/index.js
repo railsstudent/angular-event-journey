@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('angularEventJourney', ['ngSanitize', 'restangular', 'ui.router'])
+angular.module('angularEventJourney',
+ ['ngSanitize', 'restangular', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
