@@ -85,6 +85,7 @@ gulp.task('fonts', function () {
 gulp.task('misc', function () {
   return gulp.src('src/**/*.ico')
     .pipe(gulp.dest('dist'))
+
     .pipe($.size());
 });
 
@@ -92,4 +93,10 @@ gulp.task('clean', function (done) {
   $.del(['.tmp', 'dist'], done);
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'misc']);
+// https://github.com/thomasstreet/famous-angular-starter/issues/6
+gulp.task('copybower', function() {
+  return gulp.src('bower_components/**/*')
+    .pipe(gulp.dest('dist/bower_components'));
+});
+
+gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copybower']);

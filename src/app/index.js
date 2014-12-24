@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('angularEventJourney',
- ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'restangular', 'ui.router', 
+ ['ngAnimate', 'ngCookies', 'ngSanitize', 'restangular', 'ui.router', 
  'ui.bootstrap', 'pascalprecht.translate']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
