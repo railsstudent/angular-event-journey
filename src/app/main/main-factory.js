@@ -11,12 +11,17 @@ angular.module('angularEventJourney')
 // Service logic
 // ...
     // Create our Firebase reference
-    var ref = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
+    var refOrganization = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
+    var ref = new Firebase('https://blazing-fire-2680.firebaseio.com');
 
 // Public API here
     return {
       
       refOrganization : function _refOrganization() {
+      	return refOrganization;
+      }, 
+
+      ref : function _ref() {
       	return ref;
       }
     };

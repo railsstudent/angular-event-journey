@@ -20,7 +20,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         url: '/events/:organization/:desc',
         templateUrl: 'app/event/event.html',
         controller: 'EventCtrl'
+      })
+    .state('admin', {
+        url: '/admin',
+        templateUrl: 'app/admin/admin.html',
+        controller: 'AdminCtrl'
       });
+
     $urlRouterProvider.otherwise('/home');
   }]);
 
@@ -47,7 +53,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'TITLE' : 'Tech. Events',
     'LANGUAGE' : 'Language',
     'ENGLISH' : 'English',
-    'CHINESE' : 'Trad. Chinese'
+    'CHINESE' : 'Trad. Chinese',
+    'WEB_SITE' : 'Web site:  '
   };
 
   var hk_texts = {
@@ -71,7 +78,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'TITLE' : '科技活動',
     'LANGUAGE' : '語言',
     'ENGLISH' : '英文',
-    'CHINESE' : '中文'
+    'CHINESE' : '中文',
+    'WEB_SITE' : '網站：  '
   };
 
   // register translation table
