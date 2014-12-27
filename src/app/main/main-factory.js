@@ -7,7 +7,7 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('mainFactory', ['$firebase', function ($firebase) {
+  .factory('mainFactory', [ function () {
 // Service logic
 // ...
     // Create our Firebase reference

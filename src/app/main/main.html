@@ -14,14 +14,15 @@
 
   <span id="learn_more"></span>
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in awesomeThings | orderBy:'rank'">
+    <div class="col-sm-6 col-md-4" ng-repeat="organization in organizations | orderBy:'name'">
       <div class="thumbnail">
-        <img class="pull-right" ng-src="assets/images/{{awesomeThing.logo}}" alt="{{awesomeThing.title}}">
         <div class="caption">
-          <h3>{{awesomeThing.title}}</h3>
-          <p>{{awesomeThing.description}}</p>
-          <p><a ng-href="{{awesomeThing.url}}">{{awesomeThing.url}}</a></p>
-          <p><a ui-sref="events({organization: awesomeThing.title, desc : awesomeThing.description })">View Events</a></p>
+          <h3>{{organization.name}}</h3>
+          <p>Description: {{organization.description}}</p>
+          <p>Url: <a target="_blank" ng-href="{{organization.url}}">{{organization.url}}</a></p>
+          <a ng-href="{{organization.facebook}}" ng-show="organization.facebook" target="_blank" tooltip="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a> 
+          <a ng-href="{{organization.meetup}}" ng-show="organization.meetup" target="_blank" tooltip="Meetup"><i class="fa fa-cloud fa-2x"></i></a>
+          <p><a ui-sref="events({organization: organization.name, desc : organization.description })">View Events</a></p>
         </div>
       </div>
     </div>
