@@ -2,19 +2,14 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-     function ($scope, $location, $anchorScroll) {
+      'mainFactory', '$firebase',
+     function ($scope, $location, $anchorScroll, mainFactory, $firebase) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
 
-    // Create our Firebase reference
-    //var ref = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
-
-    // create an AngularFire reference to the data
-    //var sync = $firebase(ref);
-
-    // download the data into a local object
-    //$scope.organizations = sync.$asArray();
+    // download organizations from firebase
+    $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);

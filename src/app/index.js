@@ -1,8 +1,8 @@
 'use strict';
 
 var app = angular.module('angularEventJourney',
- ['ngAnimate', 'ngCookies', 'ngSanitize', 'restangular', 'ui.router', 
- 'ui.bootstrap', 'pascalprecht.translate']);
+ ['ngCookies', 'ngSanitize', 'restangular', 'ui.router', 
+ 'ui.bootstrap', 'pascalprecht.translate', 'firebase']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -40,10 +40,14 @@ app.config(['$translateProvider', function($translateProvider) {
     'ABOUT' : 'About',
     'ABOUT_ME' : 'About Me',
     'LEARN_MORE' : 'Learn More',
-    'PASSION_WEB_DEV' : 'Passionate about Software Development',
-    'LOVE_TO_CODE' : 'Love to code pet projects to learn JS web frameworks',
+    'PASSION_WEB_DEV' : 'Passionate about web development',
+    'LOVE_TO_CODE' : 'Love to code pet projects to learn JS Frameworks and J2EE',
     'HOBBY' : 'Always a pleasure to attend local technology community events and talk to peers with similar background',
-    'BACK_HOME' : 'Back home'
+    'BACK_HOME' : 'Back home',
+    'TITLE' : 'Tech. Events',
+    'LANGUAGE' : 'Language',
+    'ENGLISH' : 'English',
+    'CHINESE' : 'Trad. Chinese'
   };
 
   var hk_texts = {
@@ -60,11 +64,14 @@ app.config(['$translateProvider', function($translateProvider) {
     'ABOUT' : '關於',
     'ABOUT_ME' : '關於我',
     'LEARN_MORE' : '了解更多',
-    'PASSION_WEB_DEV' : '熱愛軟件開發',
-    'LOVE_TO_CODE' : '喜歡編寫代碼，學習JavaScript框架',
+    'PASSION_WEB_DEV' : '熱愛網站開發',
+    'LOVE_TO_CODE' : '喜歡編寫代碼，學習JavaScript框架及J2EE',
     'HOBBY' : '喜歡參加當地技術社區活動，跟類似背景的同行談話',
-    'BACK_HOME' : '返回首頁'
-
+    'BACK_HOME' : '返回首頁',
+    'TITLE' : '科技活動',
+    'LANGUAGE' : '語言',
+    'ENGLISH' : '英文',
+    'CHINESE' : '中文'
   };
 
   // register translation table

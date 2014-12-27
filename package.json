@@ -2,7 +2,7 @@
   "name": "angularEventJourney",
   "version": "0.0.1",
   "repository" : "railsstudent/angular-event-journey",
-  "description" : "List open source and meetup events I attend"
+  "description" : "List open source and meetup events I attend",
   "dependencies": { 
     "compression": "^1.2.2", 
     "express": "^4.10.6",

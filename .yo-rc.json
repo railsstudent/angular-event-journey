@@ -34,5 +34,12 @@
         "npm": {}
       }
     }
+  },
+  "generator-gulp-angular-subtask": {
+    "props": {
+      "language": "js",
+      "style": "css",
+      "html": "html"
+    }
   }
 }
