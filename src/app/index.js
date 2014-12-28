@@ -28,7 +28,18 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       });
 
     $urlRouterProvider.otherwise('/home');
-  }]);
+  }])
+    .run (['$rootScope', function($rootScope) {
+        // http://stackoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
+        $rootScope.$on('$stateChangeStart', 
+            function(event, toState, toParams, fromState, fromParams){
+            if ( toState.name === 'admin' && $rootScope.authData) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $rootScope.authData = null;
+    }]);
 
 app.config(['$translateProvider', function($translateProvider) {
 
@@ -54,7 +65,15 @@ app.config(['$translateProvider', function($translateProvider) {
     'LANGUAGE' : 'Language',
     'ENGLISH' : 'English',
     'CHINESE' : 'Trad. Chinese',
-    'WEB_SITE' : 'Web site:  '
+    'WEB_SITE' : 'Web site:  ',
+    'SHORT_NAME': 'Code:   ',
+    'YOUR_EMAIL_IS_REQUIRED' : 'Enter a valid email.',
+    'YOUR_PASSWORD_IS_REQUIRED' : 'Your password is required.',
+    'EMAIL' : 'Email',
+    'PASSWORD' : 'Password',
+    'EMAIL_PLACEHOLDER' : 'Email',
+    'PASSWORD_PLACEHOLDER' : 'Password',
+    'SIGN_IN' : 'Please Sign In'
   };
 
   var hk_texts = {
@@ -79,7 +98,13 @@ app.config(['$translateProvider', function($translateProvider) {
     'LANGUAGE' : '語言',
     'ENGLISH' : '英文',
     'CHINESE' : '中文',
-    'WEB_SITE' : '網站：  '
+    'WEB_SITE' : '網站：  ',
+    'SHORT_NAME' : '簡稱：  ',
+    'EMAIL' : '電子郵件：   ',
+    'PASSWORD' : '密碼：   ',
+    'EMAIL_PLACEHOLDER' : '電子郵件',
+    'PASSWORD_PLACEHOLDER' : '密碼',
+    'SIGN_IN' : '請登錄'
   };
 
   // register translation table
@@ -87,6 +112,8 @@ app.config(['$translateProvider', function($translateProvider) {
   $translateProvider.translations('zh-hk', hk_texts);
 
 
-  // which language to use?
-  $translateProvider.preferredLanguage('zh-hk');
+   // which language to use?
+   // fallback language
+  $translateProvider.preferredLanguage('zh-hk')
+    .fallbackLanguage('en');
 }]);

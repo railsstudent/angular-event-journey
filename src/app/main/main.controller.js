@@ -11,7 +11,6 @@ angular.module('angularEventJourney')
     // download organizations from firebase
     $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
 
-
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
       $anchorScroll();

@@ -3,13 +3,32 @@
   <div ng-include="'components/navbar/navbar.html'"></div>
 
   <div class="signin">
-	  <form novalidate class="form-signin">
-	    <h2 class="form-signin-heading">Please sign in</h2>
-	    <label for="inputEmail" class="sr-only">Email address</label>
-	    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-	    <label for="inputPassword" class="sr-only">Password</label>
-	    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-	    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	  	<div ng-show="errorObj.title && errorObj.message" class="alert alert-danger" role="alert">
+	  		<p>{{errorObj.title}}</p>
+	  		<p>{{errorObj.message}}</p>
+	  	</div>
+	  <form novalidate name="loginForm" ng-submit="submitForm(loginForm.$valid)" 
+	  	class="form-signin">
+	    <h2 class="form-signin-heading" translate>SIGN_IN</h2>
+
+		<!--To access the form: <form name>.<angular property> -->
+		<!-- To access an input: <form name>.<input name>.<angular property> -->
+	    <div class="form-group">
+		    <label for="inputEmail" class="sr-only" translate>EMAIL</label>
+		    <input type="email" ng-model="user.email" name="inputEmail"
+		    	id="inputEmail" class="form-control" placeholder="{{ 'EMAIL_PLACEHOLDER' | translate}}" required>
+		    <p ng-show="loginForm.inputEmail.$invalid && !loginForm.inputEmail.$pristine" translate class="help-block">YOUR_EMAIL_IS_REQUIRED</p>
+	    </div>
+
+	    <div class="form-group">
+		    <label for="inputPassword" class="sr-only" translate>PASSWORD</label>
+		    <input type="password" ng-model="user.password" name="inputPassword"
+		    	id="inputPassword" class="form-control" placeholder="{{ 'PASSWORD_PLACEHOLDER' |  translate}}" required>
+		    <p ng-show="loginForm.inputPassword.$invalid && loginForm.inputPassword.$pristine" translate class="help-block">YOUR_PASSWORD_IS_REQUIRED</p>
+	    </div>
+
+	    <button class="btn btn-lg btn-primary btn-block" type="submit"
+	    	ng-disabled="loginForm.$invalid">Sign in</button>
 	  </form>
 	</div>
 </div>
