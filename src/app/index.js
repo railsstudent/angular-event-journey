@@ -4,7 +4,8 @@ var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'restangular', 'ui.router', 
  'ui.bootstrap', 'pascalprecht.translate', 'firebase']);
 
-app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', 
+    function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
         url: '/home',
@@ -29,7 +30,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
     $urlRouterProvider.otherwise('/home');
   }])
-    .run (['$rootScope', function($rootScope) {
+    .run (['$rootScope', 'mainFactory', 'adminFactory', '$timeout',  
+        function($rootScope, mainFactory, adminFactory, $timeout) {
         // http://stackoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
@@ -38,7 +40,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 return false;
             }
         });
+
+        $rootScope.login = adminFactory.authWithPassword;
+
+        $rootScope.logout = adminFactory.logout;
+
+        mainFactory.ref().onAuth(function(authData) {
+            if (authData) {
+                console.log("Client is authenticated.", authData.uid);
+            } else {
+                $rootScope.authData = null;
+                console.log("Client is unauthenticated.");
+            }
+        });
+
         $rootScope.authData = null;
+
+
     }]);
 
 app.config(['$translateProvider', function($translateProvider) {
@@ -73,7 +91,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'PASSWORD' : 'Password',
     'EMAIL_PLACEHOLDER' : 'Email',
     'PASSWORD_PLACEHOLDER' : 'Password',
-    'SIGN_IN' : 'Please Sign In'
+    'SIGN_IN' : 'Please Sign In',
+    'DESCRIPTION' : 'Description:   '
   };
 
   var hk_texts = {
@@ -104,13 +123,13 @@ app.config(['$translateProvider', function($translateProvider) {
     'PASSWORD' : '密碼：   ',
     'EMAIL_PLACEHOLDER' : '電子郵件',
     'PASSWORD_PLACEHOLDER' : '密碼',
-    'SIGN_IN' : '請登錄'
+    'SIGN_IN' : '請登錄',
+    'DESCRIPTION' : '介紹：   '
   };
 
   // register translation table
   $translateProvider.translations('en', en_texts);
   $translateProvider.translations('zh-hk', hk_texts);
-
 
    // which language to use?
    // fallback language

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('AdminCtrl', ['$rootScope', '$scope', '$location', '$state', 'adminFactory',
-     function ($rootScope, $scope, $location, $state, adminFactory) {
+  .controller('AdminCtrl', ['$rootScope', '$scope', '$location', '$state',
+     function ($rootScope, $scope, $location, $state) {
 
      	// use firebase username/password authentication
      	$scope.scrollToElement = function _scrollToElement(elementId) {
@@ -15,7 +15,7 @@ angular.module('angularEventJourney')
         $scope.errorObj.message = '';
         $scope.errorObj.title = '';
         if (isValid) {
-          adminFactory.authWithPassword($scope.user).then(
+          $rootScope.login($scope.user).then(
             function onAuthSuccess(authData) {
               $rootScope.authData = authData;
               $state.transitionTo('home')

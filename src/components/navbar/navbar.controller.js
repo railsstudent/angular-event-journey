@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('NavbarCtrl', ['$scope', '$location', '$translate',  
-  	function ($scope, $location, $translate) {
+  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', 
+  	function ($rootScope, $scope, $location, $translate) {
        $scope.date = new Date();
 
        $scope.isActive = function(viewLocation) {
@@ -14,5 +14,9 @@ angular.module('angularEventJourney')
           console.log ('$translate.user() = ' + $translate.use());
           console.log ('langKey = ' + langKey);
           $translate.use(langKey);
+       }
+
+       $scope.logout = function _logout() {
+          $rootScope.logout();
        }
   }]);

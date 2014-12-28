@@ -16,4 +16,28 @@ angular.module('angularEventJourney')
       $anchorScroll();
     };
 
+    $scope.addOrganization = function _addOrganization(isValid) {
+      if (isValid) {
+        alert ("valid, yipeeee");
+        mainFactory.refOrganization()
+          .child($scope.organization.shortname)
+          .set({ code : $scope.organization.shortname,
+              description : $scope.organization.description,
+              url : $scope.organization.website, 
+              facebook : $scope.organization.facebook, 
+              meetup : $scope.organization.meetup,
+              name : $scope.organization.name 
+            });
+      }
+    }
+
+    $scope.organization = {
+      name : '',
+      shortname : '',
+      description : '',
+      website : '',
+      facebook : '',
+      meetup : ''
+    };
+
   }]);

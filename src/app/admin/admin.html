@@ -13,14 +13,14 @@
 
 		<!--To access the form: <form name>.<angular property> -->
 		<!-- To access an input: <form name>.<input name>.<angular property> -->
-	    <div class="form-group">
+	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputEmail.$invalid && !loginForm.inputEmail.$pristine }">
 		    <label for="inputEmail" class="sr-only" translate>EMAIL</label>
 		    <input type="email" ng-model="user.email" name="inputEmail"
 		    	id="inputEmail" class="form-control" placeholder="{{ 'EMAIL_PLACEHOLDER' | translate}}" required>
 		    <p ng-show="loginForm.inputEmail.$invalid && !loginForm.inputEmail.$pristine" translate class="help-block">YOUR_EMAIL_IS_REQUIRED</p>
 	    </div>
 
-	    <div class="form-group">
+	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputPassword.$invalid && !loginForm.inputPassword.$pristine }">
 		    <label for="inputPassword" class="sr-only" translate>PASSWORD</label>
 		    <input type="password" ng-model="user.password" name="inputPassword"
 		    	id="inputPassword" class="form-control" placeholder="{{ 'PASSWORD_PLACEHOLDER' |  translate}}" required>
