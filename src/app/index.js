@@ -54,9 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 console.log("Client is unauthenticated.");
             }
         });
-
-//        $rootScope.authData = null;
-    }]);
+   }]);
 
 app.config(['$translateProvider', function($translateProvider) {
 

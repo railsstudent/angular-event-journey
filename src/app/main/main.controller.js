@@ -2,8 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-      'mainFactory', '$firebase',
-     function ($scope, $location, $anchorScroll, mainFactory, $firebase) {
+      'mainFactory', '$firebase', '$q',
+     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -18,7 +18,29 @@ angular.module('angularEventJourney')
 
     $scope.addOrganization = function _addOrganization(isValid) {
       if (isValid) {
-        alert ("valid, yipeeee");
+        handleAddOrganization().then(function(val) {
+          $scope.organization.name = val;
+          $scope.organization.shortname = val;
+          $scope.organization.description = val;
+          $scope.organization.website = val;
+          $scope.organization.facebook = val;
+          $scope.organization.meetup = val;
+
+          $scope.organizationForm.$setPristine($scope.organizationForm.shortname);
+          $scope.organizationForm.$setPristine($scope.organizationForm.name);
+          $scope.organizationForm.$setPristine($scope.organizationForm.desc);
+          $scope.organizationForm.$setPristine($scope.organizationForm.website);
+          $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
+          $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
+        }, function(error) {
+          alert('Add organization failed: ' + error.message);
+        });
+      }
+    }
+
+    var handleAddOrganization = function _handleAddOrganization() {
+
+        var deferred = $q.defer();
         mainFactory.refOrganization()
           .child($scope.organization.shortname)
           .set({ code : $scope.organization.shortname,
@@ -29,17 +51,12 @@ angular.module('angularEventJourney')
               name : $scope.organization.name 
             }, function (error) {
                 if (error) {
-
+                  deferred.reject(error);
                 } else {
-                    $scope.organization.name = '';
-                    $scope.organization.shortname = '';
-                    $scope.organization.description = '';
-                    $scope.organization.website = '';
-                    $scope.organization.facebook = '';
-                    $scope.organization.meetup = '';
+                  deferred.resolve('');
                 }
             });
-      }
+        return deferred.promise;
     }
 
     $scope.organization = {
