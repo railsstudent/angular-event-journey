@@ -48,15 +48,14 @@ app.config(['$stateProvider', '$urlRouterProvider',
         mainFactory.ref().onAuth(function(authData) {
             if (authData) {
                 console.log("Client is authenticated.", authData.uid);
+                $rootScope.authData = authData;
             } else {
                 $rootScope.authData = null;
                 console.log("Client is unauthenticated.");
             }
         });
 
-        $rootScope.authData = null;
-
-
+//        $rootScope.authData = null;
     }]);
 
 app.config(['$translateProvider', function($translateProvider) {

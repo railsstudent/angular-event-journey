@@ -27,6 +27,17 @@ angular.module('angularEventJourney')
               facebook : $scope.organization.facebook, 
               meetup : $scope.organization.meetup,
               name : $scope.organization.name 
+            }, function (error) {
+                if (error) {
+
+                } else {
+                    $scope.organization.name = '';
+                    $scope.organization.shortname = '';
+                    $scope.organization.description = '';
+                    $scope.organization.website = '';
+                    $scope.organization.facebook = '';
+                    $scope.organization.meetup = '';
+                }
             });
       }
     }
