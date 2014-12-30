@@ -2,8 +2,13 @@
 
 	 <div ng-include="'components/navbar/navbar.html'"></div>
 
-	<div class="page-header">
+ 	
+	<div class="page-header" ng-init="showPage()">
 		<h1 translate>ABOUT_ME</h1>
+	
+<div ng-activity-indicator="SpinnerWhite"></div>
+	<div ng-show="!AILoading" class="name">SpinnerWhite</div>
+
 	</div>
 	
 	<div class="row">

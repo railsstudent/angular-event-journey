@@ -2,8 +2,9 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-      'mainFactory', '$firebase', '$q',
-     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q) {
+      'mainFactory', '$firebase', '$q', '$activityIndicator',
+     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q,
+      $activityIndicator) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
