@@ -13,6 +13,7 @@ angular.module('angularEventJourney')
     // Create our Firebase reference
     var refOrganization = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
     var ref = new Firebase('https://blazing-fire-2680.firebaseio.com');
+    var refSkill = new Firebase('https://blazing-fire-2680.firebaseio.com/skills');
 
 // Public API here
     return {
@@ -23,6 +24,10 @@ angular.module('angularEventJourney')
 
       ref : function _ref() {
       	return ref;
+      },
+
+      ref : function _refSkill() {
+        return refSkill;
       }
     };
   }]);
