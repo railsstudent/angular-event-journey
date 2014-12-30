@@ -26,7 +26,7 @@ angular.module('angularEventJourney')
       	return ref;
       },
 
-      ref : function _refSkill() {
+      refSkill : function _refSkill() {
         return refSkill;
       }
     };
