@@ -2,7 +2,16 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <div class="jumbotron text-center">
+  <div id="page-loader" ng-show="isLoading">
+    <div class="row">
+      <img id="spinner" src="assets/images/loader.gif" >
+    </div>
+    <div class="row">
+      <span translate>LOADING</span>
+    </div>
+  </div>
+
+  <div class="jumbotron text-center" ng-init="showPage()">
     <h1 translate>PASSION_WEB_DEV</h1>
     <h3 translate>LOVE_TO_CODE</h3>
     <p class="lead">
@@ -29,11 +38,12 @@
     </div>
   </div>
 
-  <form class="form-horizontal" name="organizationForm" novalidate
-    ng-submit="addOrganization(organizationForm.$valid)" ng-show="$root.authData">
+  <form class="form-horizontal" name="organizationForm" novalidate 
+    ng-submit="addOrganization(organizationForm.$valid)" ng-show="$root.authData"
+    style="background: #eee; padding-top: 20px; padding-bottom: 20px;">
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input type="text" class="form-control" id="shortname" name="shortname" required
           ng-model="organization.shortname">
         <p ng-show="organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine" class="help-block">Please enter short name</p>
@@ -41,7 +51,7 @@
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.name.$invalid && !organizationForm.name.$pristine }">
       <label for="shortname" class="col-sm-2 control-label" translate>NAME</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input type="text" class="form-control" id="name" name="name" required
           ng-model="organization.name">
         <p ng-show="organizationForm.name.$invalid && !organizationForm.name.$pristine" class="help-block">Please enter short name</p>
@@ -49,14 +59,14 @@
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.desc.$invalid && !organizationForm.desc.$pristine }">
       <label for="desc" class="col-sm-2 control-label" translate>DESCRIPTION</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <textarea ng-model="organization.description" required class="form-control" id="desc" name="desc">{{ 'DESC' | translate }}</textarea>
         <p ng-show="organizationForm.desc.$invalid && !organizationForm.desc.$pristine" class="help-block">Please enter description</p>
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.website.$invalid && !organizationForm.website.$pristine }">
       <label for="website" class="col-sm-2 control-label" translate>WEB_SITE</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input type="url" class="form-control" id="website" name="website" 
           ng-model="organization.website">
         <p ng-show="organizationForm.website.$invalid && !organizationForm.website.$pristine" class="help-block">Please enter valid url.</p>
@@ -64,7 +74,7 @@
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine }">
       <label for="facebook" class="col-sm-2 control-label">Facebook:</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input type="url" class="form-control" id="facebook" name="facebook"
           ng-model="organization.facebook">
         <p ng-show="organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine" class="help-block">Please enter valid url.</p>
@@ -72,14 +82,14 @@
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine }">
       <label for="meetup" class="col-sm-2 control-label">Meetup:</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input type="url" class="form-control" id="meetup" name="meetup"
           ng-model="organization.meetup">
         <p ng-show="organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine" class="help-block">Please enter valid url.</p>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="col-sm-offset-2 col-sm-7">
         <button type="submit" class="btn btn-default" 
           ng-disabled="organizationForm.$invalid">Add</button>
       </div>

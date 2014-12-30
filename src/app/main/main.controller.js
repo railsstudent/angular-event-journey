@@ -2,19 +2,33 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-      'mainFactory', '$firebase', '$q', '$activityIndicator',
-     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q,
-      $activityIndicator) {
+      'mainFactory', '$firebase', '$q',
+     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
 
     // download organizations from firebase
-    $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
+    $scope.organizations = []; 
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
       $anchorScroll();
+    };
+
+    $scope.isLoading = false;
+
+    $scope.showPage = function _showPage() {
+      $scope.isLoading = true;
+      $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
+      $scope.organizations.$loaded().then(
+        function() {
+          $scope.isLoading = false;
+        }, 
+        function() {
+          $scope.isLoading = false;
+        }
+      );
     };
 
     $scope.addOrganization = function _addOrganization(isValid) {

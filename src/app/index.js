@@ -2,7 +2,7 @@
 
 var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'restangular', 'ui.router', 
- 'ui.bootstrap', 'pascalprecht.translate', 'firebase', 'ngActivityIndicator']);
+ 'ui.bootstrap', 'pascalprecht.translate', 'firebase']);
 
 app.config(['$stateProvider', '$urlRouterProvider', 
     function ($stateProvider, $urlRouterProvider) {
@@ -89,7 +89,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : 'Email',
     'PASSWORD_PLACEHOLDER' : 'Password',
     'SIGN_IN' : 'Please Sign In',
-    'DESCRIPTION' : 'Description:   '
+    'DESCRIPTION' : 'Description:   ',
+    'LOADING' : 'Loading...'
   };
 
   var hk_texts = {
@@ -121,7 +122,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : '電子郵件',
     'PASSWORD_PLACEHOLDER' : '密碼',
     'SIGN_IN' : '請登錄',
-    'DESCRIPTION' : '介紹：   '
+    'DESCRIPTION' : '介紹：   ',
+    'LOADING' : '載入中...'
   };
 
   // register translation table
