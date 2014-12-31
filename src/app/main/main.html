@@ -31,6 +31,8 @@
           <a ng-href="{{organization.facebook}}" ng-show="organization.facebook" target="_blank" tooltip="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a> 
           <a ng-href="{{organization.meetup}}" ng-show="organization.meetup" target="_blank" tooltip="Meetup"><i class="fa fa-cloud fa-2x"></i></a>
           <p><a ui-sref="events({organization: organization.name, desc : organization.description })">View Events</a></p>
+          <p><button type="button" class="btn btn-md btn-default">Edit</button></p>
+                
         </div>
       </div>
     </div>
