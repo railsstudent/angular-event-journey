@@ -2,15 +2,6 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <div id="page-loader" ng-show="isLoading">
-    <div class="row">
-      <img id="spinner" src="assets/images/loader.gif" >
-    </div>
-    <div class="row">
-      <span translate>LOADING</span>
-    </div>
-  </div>
-
   <div class="jumbotron text-center" ng-init="showPage()">
     <h1 translate>PASSION_WEB_DEV</h1>
     <h3 translate>LOVE_TO_CODE</h3>
@@ -38,9 +29,18 @@
     </div>
   </div>
 
+ <div id="page-loader" ng-show="isLoading">
+    <div class="row">
+      <img id="spinner" src="assets/images/loader.gif" >
+    </div>
+    <div class="row">
+      <span translate>LOADING</span>
+    </div>
+ </div>
+
   <form class="form-horizontal" name="organizationForm" novalidate 
     ng-submit="addOrganization(organizationForm.$valid)" ng-show="$root.authData"
-    style="background: #eee; padding-top: 20px; padding-bottom: 20px;">
+    style="background: #eee; padding-top: 40px; padding-bottom: 20px;">
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
       <div class="col-sm-9">

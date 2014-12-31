@@ -101,4 +101,6 @@ div .signin {
   text-align: center;
   width: 100%;
   padding-top: 25px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);  
 }

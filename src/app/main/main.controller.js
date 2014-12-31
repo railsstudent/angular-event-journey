@@ -47,6 +47,8 @@ angular.module('angularEventJourney')
           $scope.organizationForm.$setPristine($scope.organizationForm.website);
           $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
           $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
+        
+          alert('Add organization is successful.');
         }, function(error) {
           alert('Add organization failed: ' + error.message);
         });

@@ -3,7 +3,7 @@
 angular.module('angularEventJourney')
   .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', 
   	function ($rootScope, $scope, $location, $translate) {
-       $scope.date = new Date();
+       //$scope.date = new Date();
 
        $scope.isActive = function(viewLocation) {
           return viewLocation === $location.path();

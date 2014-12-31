@@ -90,7 +90,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'PASSWORD_PLACEHOLDER' : 'Password',
     'SIGN_IN' : 'Please Sign In',
     'DESCRIPTION' : 'Description:   ',
-    'LOADING' : 'Loading...'
+    'LOADING' : 'Loading...',
+    'NAME' : 'Name: '
   };
 
   var hk_texts = {
@@ -123,7 +124,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'PASSWORD_PLACEHOLDER' : '密碼',
     'SIGN_IN' : '請登錄',
     'DESCRIPTION' : '介紹：   ',
-    'LOADING' : '載入中...'
+    'LOADING' : '載入中...',
+    'NAME' : '名稱：   '
   };
 
   // register translation table

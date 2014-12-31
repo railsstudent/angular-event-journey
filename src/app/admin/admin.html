@@ -7,6 +7,16 @@
 	  		<p>{{errorObj.title}}</p>
 	  		<p>{{errorObj.message}}</p>
 	  	</div>
+
+	 <div id="page-loader" ng-show="isLoading">
+	    <div class="row">
+	      <img id="spinner" src="assets/images/loader.gif" >
+	    </div>
+	    <div class="row">
+	      <span translate>LOADING</span>
+	    </div>
+	 </div>
+	  	
 	  <form novalidate name="loginForm" ng-submit="submitForm(loginForm.$valid)" 
 	  	class="form-signin">
 	    <h2 class="form-signin-heading" translate>SIGN_IN</h2>
