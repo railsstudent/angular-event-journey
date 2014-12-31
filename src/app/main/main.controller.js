@@ -38,12 +38,20 @@ angular.module('angularEventJourney')
           templateUrl: 'app/main/organizationModalContent.html',
           controller: function _modalController ($scope, $modalInstance, $q) { 
 
+              $scope.isLoading = false;
+
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
               };
 
               $scope.addOrganization = function _addOrganization(isValid) {
                 if (isValid) {
+                  $scope.isLoading = true;
+                  $scope.errObj = {
+                      code : '',
+                      message : ''
+                  };
+
                   handleAddOrganization().then(function(val) {
                     $scope.organization.name = val;
                     $scope.organization.shortname = val;
@@ -58,10 +66,13 @@ angular.module('angularEventJourney')
                     $scope.organizationForm.$setPristine($scope.organizationForm.website);
                     $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
                     $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
-                  
+
+                    $scope.isLoading = false;
                     $modalInstance.close('Add organization is successful.');
                   }, function(error) {
-                    $modalInstance.close(error.message);  
+                    $scope.isLoading = false;
+                    $scope.errObj.code = error.code;
+                    $scope.errObj.message = error.message;
                   });
                 }
               }

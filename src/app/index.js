@@ -93,7 +93,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'LOADING' : 'Loading...',
     'NAME' : 'Name: ',
     'ADD_ORGANIZATION' : 'Add Organization',
-    'ADD' : 'Add'
+    'ADD' : 'Add',
+    'CANCEL' : 'Cancel'
   };
 
   var hk_texts = {
@@ -129,7 +130,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'LOADING' : '載入中...',
     'NAME' : '名稱：   ',
     'ADD_ORGANIZATION' : '增加組織',
-    'ADD' : '增加'
+    'ADD' : '增加',
+    'CANCEL' : '取消'
   };
 
   // register translation table
