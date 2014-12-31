@@ -18,5 +18,6 @@ angular.module('angularEventJourney')
 
        $scope.logout = function _logout() {
           $rootScope.logout();
+          alert ("You are log out.");
        }
   }]);

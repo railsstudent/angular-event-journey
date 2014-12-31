@@ -2,8 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-      'mainFactory', '$firebase', '$q',
-     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q) {
+      'mainFactory', '$firebase', '$q', '$modal',
+     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q, $modal) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -31,58 +31,77 @@ angular.module('angularEventJourney')
       );
     };
 
-    $scope.addOrganization = function _addOrganization(isValid) {
-      if (isValid) {
-        handleAddOrganization().then(function(val) {
-          $scope.organization.name = val;
-          $scope.organization.shortname = val;
-          $scope.organization.description = val;
-          $scope.organization.website = val;
-          $scope.organization.facebook = val;
-          $scope.organization.meetup = val;
-
-          $scope.organizationForm.$setPristine($scope.organizationForm.shortname);
-          $scope.organizationForm.$setPristine($scope.organizationForm.name);
-          $scope.organizationForm.$setPristine($scope.organizationForm.desc);
-          $scope.organizationForm.$setPristine($scope.organizationForm.website);
-          $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
-          $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
+    $scope.showOrganizationForm = function _showOrganizationForm() {
         
-          alert('Add organization is successful.');
-        }, function(error) {
-          alert('Add organization failed: ' + error.message);
-        });
-      }
-    }
+        var modalInstance = $modal.open({
+          keyboard : false,
+          templateUrl: 'app/main/organizationModalContent.html',
+          controller: function _modalController ($scope, $modalInstance, $q) { 
 
-    var handleAddOrganization = function _handleAddOrganization() {
+              $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+              };
 
-        var deferred = $q.defer();
-        mainFactory.refOrganization()
-          .child($scope.organization.shortname)
-          .set({ code : $scope.organization.shortname,
-              description : $scope.organization.description,
-              url : $scope.organization.website, 
-              facebook : $scope.organization.facebook, 
-              meetup : $scope.organization.meetup,
-              name : $scope.organization.name 
-            }, function (error) {
-                if (error) {
-                  deferred.reject(error);
-                } else {
-                  deferred.resolve('');
+              $scope.addOrganization = function _addOrganization(isValid) {
+                if (isValid) {
+                  handleAddOrganization().then(function(val) {
+                    $scope.organization.name = val;
+                    $scope.organization.shortname = val;
+                    $scope.organization.description = val;
+                    $scope.organization.website = val;
+                    $scope.organization.facebook = val;
+                    $scope.organization.meetup = val;
+
+                    $scope.organizationForm.$setPristine($scope.organizationForm.shortname);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.name);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.desc);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.website);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
+                  
+                    $modalInstance.close('Add organization is successful.');
+                  }, function(error) {
+                    $modalInstance.close(error.message);  
+                  });
                 }
-            });
-        return deferred.promise;
-    }
+              }
 
-    $scope.organization = {
-      name : '',
-      shortname : '',
-      description : '',
-      website : '',
-      facebook : '',
-      meetup : ''
+              var handleAddOrganization = function _handleAddOrganization() {
+
+                  var deferred = $q.defer();
+                  mainFactory.refOrganization()
+                    .child($scope.organization.shortname)
+                    .set({ code : $scope.organization.shortname,
+                        description : $scope.organization.description,
+                        url : $scope.organization.website, 
+                        facebook : $scope.organization.facebook, 
+                        meetup : $scope.organization.meetup,
+                        name : $scope.organization.name 
+                      }, function (error) {
+                          if (error) {
+                            deferred.reject(error);
+                          } else {
+                            deferred.resolve('');
+                          }
+                      });
+                  return deferred.promise;
+              };
+
+              $scope.organization = {
+                name : '',
+                shortname : '',
+                description : '',
+                website : '',
+                facebook : '',
+                meetup : ''
+              };
+          },
+          size: 'lg',
+        });
+
+        modalInstance.result.then(function (strMessage) {
+          alert(strMessage);
+        });
     };
 
   }]);
