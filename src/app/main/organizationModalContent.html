@@ -16,9 +16,7 @@
         </div>
      </div>
 
-      <div ng-show="msgObj.message" class="alert {{msgObj.cssClassName}}" role="alert">
-        <p>{{msgObj.message}}</p>
-      </div>
+      <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message}}</alert>
 
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>

@@ -10,7 +10,28 @@ app.config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/home',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve : {
+            organizationSync : ['$firebase', 'mainFactory', 
+                function($firebase, mainFactory) {
+                    return $firebase(mainFactory.refOrganization());
+                }]
+        }
+      })
+      .state('home_edit', {
+        url: '/home/:id',
+        templateUrl: 'app/main/main.edit.html',
+        controller: 'MainEditCtrl',
+        resolve : { 
+            organizationArrayPromise : ['$firebase', 'mainFactory',
+                function($firebase, mainFactory) {
+                    return $firebase(mainFactory.refOrganization()).$asArray();
+                }],
+            organizationSync : ['$firebase', 'mainFactory', 
+                function($firebase, mainFactory) {
+                    return $firebase(mainFactory.refOrganization());
+                }]       
+        }
       })
 	  .state('about_me', {
         url: '/about_me',

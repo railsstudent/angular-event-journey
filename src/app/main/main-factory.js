@@ -30,23 +30,4 @@ angular.module('angularEventJourney')
         return refSkill;
       }
     };
-  }])
-  .service('mainService', function() {
-      this.editMap = {};
-
-      this.getEditMap = function _getEditMap() {
-        return this.editMap;
-      };
-
-      this.setEditMap = function _setEditMap(m) {
-        this.editMap = m;
-      }
-
-      this.setEditObjState = function _setEditObjState(key, val) {
-        this.editMap[key] = val;
-      }
-
-      this.getEditObjState = function _getEditObjState(key) {
-        return this.editMap[key];
-      }
-  });
+  }]);

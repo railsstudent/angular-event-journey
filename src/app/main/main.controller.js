@@ -2,15 +2,16 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-       '$firebase', '$q', '$modal', '$timeout', 'mainFactory', 'mainService',
-     function ($scope, $location, $anchorScroll, $firebase, $q, $modal, $timeout,
-        mainFactory, mainService) {
+       '$q', '$modal', '$timeout',  'organizationSync',
+     function ($scope, $location, $anchorScroll, $q, $modal, $timeout, organizationSync) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
 
     // download organizations from firebase
     $scope.organizations = []; 
+
+    $scope.organizationSync = organizationSync;
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
@@ -19,13 +20,10 @@ angular.module('angularEventJourney')
 
     $scope.showPage = function _showPage() {
       $scope.state.isLoading = true;
-      $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
+      $scope.organizations = $scope.organizationSync.$asArray();
       $scope.organizations.$loaded().then(
         function() {
           $scope.state.isLoading = false;
-          _.each($scope.organizations, function(o) {
-            mainService.setEditObjState(o.$id, false);
-          });
         }, 
         function() {
           $scope.state.isLoading = false;
@@ -33,54 +31,26 @@ angular.module('angularEventJourney')
       );
     };
 
-    $scope.isEditState = function _isEditState(key) {
-      return mainService.getEditObjState(key);
-    }
-
-    $scope.edit = function _edit(key) {
-      mainService.setEditObjState(key, true);
-    }
-
-    $scope.save = function _save(key, isValid) {
-      if (isValid) {
-        mainService.setEditObjState(key, false);
-        $scope.state.editObj.name = '';
-        $scope.state.editObj.shortname = '';
-        $scope.state.editObj.description = '';
-        $scope.state.editObj.website = '';
-        $scope.state.editObj.facebook = '';
-        $scope.state.editObj.meetup = '';
-      }
-    }
-
-    $scope.cancel = function _cancel(key) {
-      mainService.setEditObjState(key, false);
-    }
-
     $scope.state = {
-      isEditing : [],
       isLoading : false,
-      editObj : {
-        name : '',
-        shortname : '',
-        description : '',
-        website : '',
-        facebook : '',
-        meetup : ''
-      }
     };
-
-
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
         
-        var modalInstance = $modal.open({
-          keyboard : false,
-          templateUrl: 'app/main/organizationModalContent.html',
-          controller: ['$scope', '$modalInstance', '$q', 
-              function _modalController ($scope, $modalInstance, $q) { 
+      var modalInstance = $modal.open({
+        keyboard : false,
+        templateUrl: 'app/main/organizationModalContent.html',
+        resolve : {
+          organizationSync : ['$firebase', 'mainFactory', 
+            function($firebase, mainFactory) {
+              return $firebase(mainFactory.refOrganization());
+          }]
+        },
+        controller: ['$scope', '$modalInstance', '$q', 'organizationSync',
+              function _modalController ($scope, $modalInstance, $q, organizationSync) { 
 
               $scope.isLoading = false;
+              $scope.organizationSync = organizationSync;
 
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -111,7 +81,7 @@ angular.module('angularEventJourney')
 
                     $scope.isLoading = false;
                     $scope.msgObj.message = 'Congratuation!!! Add organization is successful.';
-                    $scope.msgObj.cssClassName = 'alert-success';
+                    $scope.msgObj.cssClassName = 'success';
 
                     $timeout(function() {
                       $modalInstance.close();
@@ -119,7 +89,7 @@ angular.module('angularEventJourney')
                   }, function(error) {
                     $scope.isLoading = false;
                     $scope.msgObj.message = 'Fail to add new organization.';
-                    $scope.msgObj.cssClassName = 'alert-danger';
+                    $scope.msgObj.cssClassName = 'danger';
                   });
                 }
               }
@@ -127,7 +97,7 @@ angular.module('angularEventJourney')
               var handleAddOrganization = function _handleAddOrganization() {
 
                   var deferred = $q.defer();
-                  $firebase(mainFactory.refOrganization()).$asArray()
+                  $scope.organizationSync.$asArray()
                     .$add({ code : $scope.organization.shortname,
                         description : $scope.organization.description,
                         url : $scope.organization.website, 
@@ -154,7 +124,61 @@ angular.module('angularEventJourney')
               };
           }],
           size: 'lg',
-        });
+      });
     };
+  }])
+  .controller('MainEditCtrl', ['$scope', 'organizationArrayPromise',
+      'organizationSync', '$state',  '$stateParams',
+      function ($scope, organizationArrayPromise, organizationSync, $state, $stateParams) {
+
+      $scope.isLoading = true;
+
+      $scope.msgObj = {
+        message : '',
+        cssClassName : ''
+      };
+
+      $scope.editObj = null;
+
+      organizationArrayPromise.$loaded().then(
+        function(data) {
+          $scope.editObj = data.$getRecord($stateParams.id);
+          $scope.isLoading = false;
+        }, function(error) {
+          $scope.isLoading = false;
+        }
+      );
+
+      $scope.organizationSync = organizationSync;
+      
+      $scope.save = function _save(isValid) {
+        if (isValid) {
+          $scope.isLoading = true;
+
+          $scope.organizationSync
+            .$set($scope.editObj.$id, 
+              {
+                name : $scope.editObj.name,
+                code : $scope.editObj.code,
+                description : $scope.editObj.description,
+                url : $scope.editObj.url,
+                facebook : $scope.editObj.facebook,
+                meetup : $scope.editObj.meetup,
+              })
+            .then(function(ref) {
+                $scope.isLoading = false;
+                $state.go('home');
+              }, 
+              function(error) {
+                $scope.isLoading = false;
+                $scope.msgObj.message = 'Error!!! Organization is not saved.';
+                $scope.msgObj.cssClassName = 'danger';
+            });
+        }
+      };
+
+      $scope.cancel = function _cancel() {
+        $state.go('home');
+      }
 
   }]);
