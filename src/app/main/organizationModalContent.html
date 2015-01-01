@@ -16,9 +16,8 @@
         </div>
      </div>
 
-      <div ng-show="errObj.code && errObj.message" class="alert alert-danger" role="alert">
-        <p>{{errObj.code}}</p>
-        <p>{{errObj.message}}</p>
+      <div ng-show="msgObj.message" class="alert {{msgObj.cssClassName}}" role="alert">
+        <p>{{msgObj.message}}</p>
       </div>
 
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">

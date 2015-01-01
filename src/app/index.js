@@ -89,12 +89,14 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : 'Email',
     'PASSWORD_PLACEHOLDER' : 'Password',
     'SIGN_IN' : 'Please Sign In',
-    'DESCRIPTION' : 'Description:   ',
+    'DESCRIPTION' : 'Description:',
     'LOADING' : 'Loading...',
     'NAME' : 'Name: ',
     'ADD_ORGANIZATION' : 'Add Organization',
     'ADD' : 'Add',
-    'CANCEL' : 'Cancel'
+    'CANCEL' : 'Cancel',
+    'EDIT' : 'Edit',
+    'SAVE' : 'Save'
   };
 
   var hk_texts = {
@@ -126,12 +128,14 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : '電子郵件',
     'PASSWORD_PLACEHOLDER' : '密碼',
     'SIGN_IN' : '請登錄',
-    'DESCRIPTION' : '介紹：   ',
+    'DESCRIPTION' : '介紹：',
     'LOADING' : '載入中...',
     'NAME' : '名稱：   ',
     'ADD_ORGANIZATION' : '增加組織',
     'ADD' : '增加',
-    'CANCEL' : '取消'
+    'CANCEL' : '取消',
+    'EDIT' : '修改',
+    'SAVE' : '另存'
   };
 
   // register translation table

@@ -2,8 +2,9 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-      'mainFactory', '$firebase', '$q', '$modal',
-     function ($scope, $location, $anchorScroll, mainFactory, $firebase, $q, $modal) {
+       '$firebase', '$q', '$modal', '$timeout', 'mainFactory', 'mainService',
+     function ($scope, $location, $anchorScroll, $firebase, $q, $modal, $timeout,
+        mainFactory, mainService) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -16,27 +17,68 @@ angular.module('angularEventJourney')
       $anchorScroll();
     };
 
-    $scope.isLoading = false;
-
     $scope.showPage = function _showPage() {
-      $scope.isLoading = true;
+      $scope.state.isLoading = true;
       $scope.organizations = $firebase(mainFactory.refOrganization()).$asArray();
       $scope.organizations.$loaded().then(
         function() {
-          $scope.isLoading = false;
+          $scope.state.isLoading = false;
+          _.each($scope.organizations, function(o) {
+            mainService.setEditObjState(o.$id, false);
+          });
         }, 
         function() {
-          $scope.isLoading = false;
+          $scope.state.isLoading = false;
         }
       );
     };
+
+    $scope.isEditState = function _isEditState(key) {
+      return mainService.getEditObjState(key);
+    }
+
+    $scope.edit = function _edit(key) {
+      mainService.setEditObjState(key, true);
+    }
+
+    $scope.save = function _save(key, isValid) {
+      if (isValid) {
+        mainService.setEditObjState(key, false);
+        $scope.state.editObj.name = '';
+        $scope.state.editObj.shortname = '';
+        $scope.state.editObj.description = '';
+        $scope.state.editObj.website = '';
+        $scope.state.editObj.facebook = '';
+        $scope.state.editObj.meetup = '';
+      }
+    }
+
+    $scope.cancel = function _cancel(key) {
+      mainService.setEditObjState(key, false);
+    }
+
+    $scope.state = {
+      isEditing : [],
+      isLoading : false,
+      editObj : {
+        name : '',
+        shortname : '',
+        description : '',
+        website : '',
+        facebook : '',
+        meetup : ''
+      }
+    };
+
+
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
         
         var modalInstance = $modal.open({
           keyboard : false,
           templateUrl: 'app/main/organizationModalContent.html',
-          controller: function _modalController ($scope, $modalInstance, $q) { 
+          controller: ['$scope', '$modalInstance', '$q', 
+              function _modalController ($scope, $modalInstance, $q) { 
 
               $scope.isLoading = false;
 
@@ -47,18 +89,18 @@ angular.module('angularEventJourney')
               $scope.addOrganization = function _addOrganization(isValid) {
                 if (isValid) {
                   $scope.isLoading = true;
-                  $scope.errObj = {
-                      code : '',
-                      message : ''
+                  $scope.msgObj = {
+                      message : '',
+                      cssClassName : ''
                   };
 
-                  handleAddOrganization().then(function(val) {
-                    $scope.organization.name = val;
-                    $scope.organization.shortname = val;
-                    $scope.organization.description = val;
-                    $scope.organization.website = val;
-                    $scope.organization.facebook = val;
-                    $scope.organization.meetup = val;
+                  handleAddOrganization().then(function(id) {
+                    $scope.organization.name = '';
+                    $scope.organization.shortname = '';
+                    $scope.organization.description = '';
+                    $scope.organization.website = '';
+                    $scope.organization.facebook = '';
+                    $scope.organization.meetup = '';
 
                     $scope.organizationForm.$setPristine($scope.organizationForm.shortname);
                     $scope.organizationForm.$setPristine($scope.organizationForm.name);
@@ -68,11 +110,16 @@ angular.module('angularEventJourney')
                     $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
 
                     $scope.isLoading = false;
-                    $modalInstance.close('Add organization is successful.');
+                    $scope.msgObj.message = 'Congratuation!!! Add organization is successful.';
+                    $scope.msgObj.cssClassName = 'alert-success';
+
+                    $timeout(function() {
+                      $modalInstance.close();
+                    }, 1500);
                   }, function(error) {
                     $scope.isLoading = false;
-                    $scope.errObj.code = error.code;
-                    $scope.errObj.message = error.message;
+                    $scope.msgObj.message = 'Fail to add new organization.';
+                    $scope.msgObj.cssClassName = 'alert-danger';
                   });
                 }
               }
@@ -80,19 +127,18 @@ angular.module('angularEventJourney')
               var handleAddOrganization = function _handleAddOrganization() {
 
                   var deferred = $q.defer();
-                  mainFactory.refOrganization()
-                    .child($scope.organization.shortname)
-                    .set({ code : $scope.organization.shortname,
+                  $firebase(mainFactory.refOrganization()).$asArray()
+                    .$add({ code : $scope.organization.shortname,
                         description : $scope.organization.description,
                         url : $scope.organization.website, 
                         facebook : $scope.organization.facebook, 
                         meetup : $scope.organization.meetup,
                         name : $scope.organization.name 
-                      }, function (error) {
-                          if (error) {
-                            deferred.reject(error);
+                      }).then(function (ref) {
+                          if (ref) {
+                            deferred.resolve(ref.key());
                           } else {
-                            deferred.resolve('');
+                            deferred.reject('');
                           }
                       });
                   return deferred.promise;
@@ -106,12 +152,8 @@ angular.module('angularEventJourney')
                 facebook : '',
                 meetup : ''
               };
-          },
+          }],
           size: 'lg',
-        });
-
-        modalInstance.result.then(function (strMessage) {
-          alert(strMessage);
         });
     };
 

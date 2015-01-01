@@ -2,10 +2,18 @@
 
 angular.module('angularEventJourney')
 	.filter('addEllipsis', function () {
-    return function (input, scope) {
+    return function (input, limit, scope) {
         if (input) {
+        	var inputLen = input.length;
+        	if (inputLen > limit) {
+        		inputLen = limit;
+        	}
             // Replace this with the real implementation
-            return input.substring(0, input.length / 2) + '...';  
+            if (input.length > limit) {
+	            return input.substring(0, inputLen) + '...';  
+	        } else {
+	        	return input;
+	        }
         }
     }
 });
