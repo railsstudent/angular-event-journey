@@ -1,72 +1,80 @@
-<form class="form-horizontal" id="form1" name="form1" ng-submit="save(form1.$valid)">
+<div class="contaner">
+    <div ng-include="'components/navbar/navbar.html'"></div>
 
-    <div class="page-loader" ng-show="isLoading">
-      <div class="row">
-        <img id="spinner" src="assets/images/loader.gif" >
-      </div>
-      <div class="row">
-        <span translate>LOADING</span>
-      </div>
-    </div>
+  <form class="form-horizontal" id="form1" name="form1" ng-submit="save(form1.$valid)">
 
-    <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message}}</alert>
-
-    <div class="form-group">
-      <h3 class="col-sm-offset-2 col-md-offset-2 col-lg-offset-2" translate>ADD_ORGANIZATION</h3>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : form1.name.$invalid && !form1.name.$pristine }">
-	    <label for="name" translate class="col-sm-2 col-md-2 col-lg-2 control-label">NAME</label>
-	    <div class="col-sm-9 col-md-9 col-lg-9">
-	        <input name="name" type="text" class="form-control" ng-model="editObj.name" required></input>
-	        <p class="help-block" ng-show="form1.name.$invalid && !form1.name.$pristine">Please enter name</p>  
-	    </div>
-    </div>
- 
-    <div class="form-group" ng-class="{ 'has-error' : form1.code.$invalid && !form1.code.$pristine }">
-        <label for="code" translate class="col-sm-2 col-md-2 col-lg-2 control-label">SHORT_NAME</label>
-        <div class="col-sm-9 col-md-9 col-lg-9">
-            <input name="code" type="text" class="form-control" ng-model="editObj.code" required></input>
-            <p class="help-block" ng-show="form1.code.$invalid && !form1.code.$pristine">Please enter short name</p>
+      <div class="page-loader" ng-show="isLoading">
+        <div class="row">
+          <img id="spinner" src="assets/images/loader.gif" >
         </div>
-    </div>
- 
-    <div class="form-group" ng-class="{ 'has-error' : form1.desc.$invalid && !form1.desc.$pristine }">
-        <label for="desc" translate class="col-sm-2 col-md-2 col-lg-2 control-label">DESCRIPTION</label>
-        <div class="col-sm-9 col-md-9 col-lg-9">
-            <textarea required name="desc" id="desc" class="form-control" ng-model="editObj.description">
-            </textarea>
-        	<p class="help-block" ng-show="form1.desc.$invalid && !form1.desc.$pristine">Please enter description</p>
+        <div class="row">
+          <span translate>LOADING</span>
         </div>
-    </div>
-            
-    <div class="form-group" ng-class="{ 'has-error' : form1.website.$invalid && !form1.website.$pristine }">
-      <label translate for="website" class="col-sm-2 col-md-2 col-lg-2 control-label">WEB_SITE</label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
-        <input type="url" name="website" id="website" class="form-control" ng-model="editObj.url"></input>
-        <p class="help-block" ng-show="form1.website.$invalid && !form1.website.$pristine">Please enter valid url</p>
       </div>
-    </div>
 
-    <div class="form-group" ng-class="{ 'has-error' : form1.facebook.$invalid && !form1.facebook.$pristine }">
-      <label for="facebook" class="col-sm-2 col-md-2 col-lg-2 control-label">Facebook:</label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
-        <input type="url" name="facebook" id="facebook" class="form-control" ng-model="editObj.facebook"></input>
-        <p class="help-block" ng-show="form1.facebook.$invalid && !form1.facebook.$pristine">Please enter valid url</p>
-      </div>
-    </div>
+      <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message}}</alert>
 
-    <div class="form-group" ng-class="{ 'has-error' : form1.meetup.$invalid && !form1.meetup.$pristine }">
-      <label for="meetup" class="col-sm-2 col-md-2 col-lg-2 control-label">Meetup:</label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
-        <input type="url" name="meetup" id="meetup" class="form-control" ng-model="editObj.meetup"></input>
-        <p class="help-block" ng-show="form1.meetup.$invalid && !form1.meetup.$pristine">Please enter valid url</p>
+      <div class="form-group">
+        <h3 class="col-sm-offset-2 col-md-offset-2 col-lg-offset-2" translate>ADD_ORGANIZATION</h3>
       </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : form1.name.$invalid && !form1.name.$pristine }">
+  	    <label for="name" translate class="col-sm-2 col-md-2 col-lg-2 control-label">NAME</label>
+  	    <div class="col-sm-9 col-md-9 col-lg-9">
+  	        <input name="name" type="text" class="form-control" ng-model="editObj.name" required></input>
+  	        <p class="help-block" ng-show="form1.name.$invalid && !form1.name.$pristine">Please enter name</p>  
+  	    </div>
+      </div>
+   
+      <div class="form-group" ng-class="{ 'has-error' : form1.code.$invalid && !form1.code.$pristine }">
+          <label for="code" translate class="col-sm-2 col-md-2 col-lg-2 control-label">SHORT_NAME</label>
+          <div class="col-sm-9 col-md-9 col-lg-9">
+              <input name="code" type="text" class="form-control" ng-model="editObj.code" required></input>
+              <p class="help-block" ng-show="form1.code.$invalid && !form1.code.$pristine">Please enter short name</p>
+          </div>
+      </div>
+   
+      <div class="form-group" ng-class="{ 'has-error' : form1.desc.$invalid && !form1.desc.$pristine }">
+          <label for="desc" translate class="col-sm-2 col-md-2 col-lg-2 control-label">DESCRIPTION</label>
+          <div class="col-sm-9 col-md-9 col-lg-9">
+              <textarea required name="desc" id="desc" class="form-control" ng-model="editObj.description">
+              </textarea>
+          	<p class="help-block" ng-show="form1.desc.$invalid && !form1.desc.$pristine">Please enter description</p>
+          </div>
+      </div>
+              
+      <div class="form-group" ng-class="{ 'has-error' : form1.website.$invalid && !form1.website.$pristine }">
+        <label translate for="website" class="col-sm-2 col-md-2 col-lg-2 control-label">WEB_SITE</label>
+        <div class="col-sm-9 col-md-9 col-lg-9">
+          <input type="url" name="website" id="website" class="form-control" ng-model="editObj.url"></input>
+          <p class="help-block" ng-show="form1.website.$invalid && !form1.website.$pristine">Please enter valid url</p>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : form1.facebook.$invalid && !form1.facebook.$pristine }">
+        <label for="facebook" class="col-sm-2 col-md-2 col-lg-2 control-label">Facebook:</label>
+        <div class="col-sm-9 col-md-9 col-lg-9">
+          <input type="url" name="facebook" id="facebook" class="form-control" ng-model="editObj.facebook"></input>
+          <p class="help-block" ng-show="form1.facebook.$invalid && !form1.facebook.$pristine">Please enter valid url</p>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : form1.meetup.$invalid && !form1.meetup.$pristine }">
+        <label for="meetup" class="col-sm-2 col-md-2 col-lg-2 control-label">Meetup:</label>
+        <div class="col-sm-9 col-md-9 col-lg-9">
+          <input type="url" name="meetup" id="meetup" class="form-control" ng-model="editObj.meetup"></input>
+          <p class="help-block" ng-show="form1.meetup.$invalid && !form1.meetup.$pristine">Please enter valid url</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-offset-9 col-sm-offset-9 col-lg-offset-9">
+            <p><button type="submit" class="btn btn-md btn-default" ng-disabled="form1.$invalid"
+                      translate>SAVE</button>
+              <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>
+            </p>      
+          </div>           
+        </div>           
     </div>
-    <div class="form-group modal-footer">
-      <p><button type="submit" class="btn btn-md btn-default" ng-disabled="form1.$invalid"
-                translate>SAVE</button>
-        <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>
-      </p>                            
-  </div>
-</form>
+  </form>
+</div>
