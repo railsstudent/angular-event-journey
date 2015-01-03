@@ -111,7 +111,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'ADD_ORG_ERROR_CODE' :  'Fail to add new organization.',
     'SAVE_ORG_ERROR_CODE' : 'Error!!! Organization is not saved.',
     'NUM_ORG' : 'Number of Organizations: {{value}}',
-    'TECH' : 'Technology'
+    'TECH' : 'Technology',
+    'MOBILE' : 'Mobile Platform'
   };
 
   var hk_texts = {
@@ -152,7 +153,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'EDIT' : '修改',
     'SAVE' : '另存',
     'NUM_ORG' : '機構數目：{{value}}',
-    'TECH' : '科技'
+    'TECH' : '科技',
+    'MOBILE' : '移動平台'
   };
 
   // register translation table

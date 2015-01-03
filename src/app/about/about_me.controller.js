@@ -2,20 +2,14 @@
 
 angular.module('angularEventJourney')
   .controller('AboutCtrl', ['$scope', '$q', '$firebase',
-      'mainFactory', '$timeout',
-      function ($scope, $q, $firebase, mainFactory, $timeout) {
+      'mainFactory', 
+      function ($scope, $q, $firebase, mainFactory) {
 
-      var fn_identity = function(x) { return x; };
+      var fnIdentity = function(x) { return x; };
 
-      $scope.me = {
-        description : '',
-        machines : {},
-        skills : {},
-        frameworks : { list: [], icons : [] },
-        databases : [],
-        servers : [],
-        socialMedia : []
-      };
+      var isObject = function(s) { return s != null && s != undefined; }
+
+      $scope.me = {};
 
       $scope.isLoading = false;
 
@@ -23,14 +17,32 @@ angular.module('angularEventJourney')
             $scope.isLoading = true;
              showPageWithPromise().then(function(meObject) {
                 $scope.me.description = meObject.description;
-                $scope.me.servers =  _.sortBy(meObject.servers, fn_identity);
-                $scope.me.databases =  _.sortBy(meObject.databases, fn_identity);
+                // remove null or undefined object
+                meObject.servers = _.remove(meObject.servers, isObject);
+                $scope.me.servers =  _.sortBy(meObject.servers, fnIdentity);
+
+                meObject.databases =_.remove(meObject.databases, isObject);
+                $scope.me.databases =  _.sortBy(meObject.databases, fnIdentity);
+                
                 $scope.me.frameworks = meObject.frameworks;
-                $scope.me.frameworks.list = _.sortBy($scope.me.frameworks.list, fn_identity);
+                $scope.me.frameworks.icons = _.remove($scope.me.frameworks.icons, isObject);
+                $scope.me.frameworks.list = _.remove($scope.me.frameworks.list, isObject);
+                $scope.me.frameworks.list = _.sortBy($scope.me.frameworks.list, fnIdentity);
+
                 $scope.me.skills = meObject.skills;
-                $scope.me.skills.list = _.sortBy($scope.me.skills.list, fn_identity);
+                $scope.me.skills.icons = _.remove($scope.me.skills.icons, isObject); 
+                $scope.me.skills.list = _.remove($scope.me.skills.list, isObject);
+                $scope.me.skills.list = _.sortBy($scope.me.skills.list, fnIdentity);
+
                 $scope.me.machines = meObject.machines;
-                $scope.me.socialMedia = meObject.socialMedia;
+                $scope.me.machines.icons = _.remove($scope.me.machines.icons, isObject); 
+                $scope.me.socialMedia =_.remove(meObject.socialMedia, isObject);
+
+                $scope.me.mobile = meObject.mobile;
+                $scope.me.mobile.icons =_.remove($scope.me.mobile.icons, isObject);
+                $scope.me.mobile.list =_.remove($scope.me.mobile.list, isObject);
+                $scope.me.mobile.list =_.sortBy($scope.me.mobile.list, fnIdentity);
+
                 $scope.isLoading = false;
              }, function(error) {
                 $scope.isLoading = false;
@@ -47,5 +59,5 @@ angular.module('angularEventJourney')
               deferred.reject(error);
           });
           return deferred.promise;  
-      }
+      };
   }]);
