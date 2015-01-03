@@ -25,19 +25,24 @@ app.config(['$stateProvider', '$urlRouterProvider',
     .state('events', {
         url: '/events/:organization/:desc',
         templateUrl: 'app/event/event.html',
-        controller: 'EventCtrl'
+        controller : 'EventCtrl'
       })
     .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl'
+      })
+    .state('technology', {
+        url: '/techlogy',
+        templateUrl: 'app/technology/technology.html',
+        controller: 'technologyCtrl'
       });
 
     $urlRouterProvider.otherwise('/home');
   }])
     .run (['$rootScope', 'mainFactory', 'adminFactory', '$timeout',  
         function($rootScope, mainFactory, adminFactory, $timeout) {
-        // http://stackoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
+    // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
             if ( toState.name === 'admin' && $rootScope.authData) {
@@ -105,7 +110,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'ADD_ORG_SUCCESS_CODE' : 'Congratuation!!! Add organization is successful.',
     'ADD_ORG_ERROR_CODE' :  'Fail to add new organization.',
     'SAVE_ORG_ERROR_CODE' : 'Error!!! Organization is not saved.',
-    'NUM_ORG' : 'Number of Organizations: {{value}}'
+    'NUM_ORG' : 'Number of Organizations: {{value}}',
+    'TECH' : 'Technology'
   };
 
   var hk_texts = {
@@ -145,7 +151,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'CANCEL' : '取消',
     'EDIT' : '修改',
     'SAVE' : '另存',
-    'NUM_ORG' : '機構數目：{{value}}'
+    'NUM_ORG' : '機構數目：{{value}}',
+    'TECH' : '科技'
   };
 
   // register translation table

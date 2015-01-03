@@ -11,7 +11,7 @@ angular.module('angularEventJourney')
     // download organizations from firebase
     $scope.organizations = []; 
     $scope.numOrganization = 0;
-    $scope.currentPage = 1;
+    $scope.currentPage = 0;
     $scope.maxSize = 5;
     $scope.itemPerPage = 2;
 
@@ -36,6 +36,7 @@ angular.module('angularEventJourney')
       $scope.organizations.$loaded().then(
         function() {
           $scope.state.isLoading = false;
+          $scope.currentPage = 1;
         }, 
         function() {
           $scope.state.isLoading = false;

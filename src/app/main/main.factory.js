@@ -54,13 +54,21 @@ angular.module('angularEventJourney')
       },
 
       getNextPage : function _getNextPage(startAtId, limit) {
-         refRecords1.orderByChild("code").limitToFirst(limit); 
+    //     refRecords1.orderByChild("code").limitToFirst(limit); 
         //return $firebase(refRecords1).$asArray();        
       },
 
       getPrevPage : function _getPrevPage(endAtId, limit) {
-         refRecords1.orderByChild("code").limitToLast(limit); 
+  //       refRecords1.orderByChild("code").limitToLast(limit); 
         //return $firebase(refRecords1).$asArray();        
+      },
+
+      getFirstPage : function _getFirstPage(startAtId, limit) {
+//         refRecords1.orderByChild("code").limitToFirst(limit); 
+        //return $firebase(refRecords1).$asArray();        
+      },
+
+      getLastPage : function _getLastPage(startAtId, limit) {
       }
     };
   }]);
