@@ -10,28 +10,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/home',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl',
-        resolve : {
-            organizationSync : ['$firebase', 'mainFactory', 
-                function($firebase, mainFactory) {
-                    return $firebase(mainFactory.refOrganization());
-                }]
-        }
+        controller: 'MainCtrl'
       })
       .state('home_edit', {
         url: '/home/:id',
         templateUrl: 'app/main/main.edit.html',
-        controller: 'MainEditCtrl',
-        resolve : { 
-            organizationArrayPromise : ['$firebase', 'mainFactory',
-                function($firebase, mainFactory) {
-                    return $firebase(mainFactory.refOrganization()).$asArray();
-                }],
-            organizationSync : ['$firebase', 'mainFactory', 
-                function($firebase, mainFactory) {
-                    return $firebase(mainFactory.refOrganization());
-                }]       
-        }
+        controller: 'MainEditCtrl'
       })
 	  .state('about_me', {
         url: '/about_me',
@@ -117,7 +101,11 @@ app.config(['$translateProvider', function($translateProvider) {
     'ADD' : 'Add',
     'CANCEL' : 'Cancel',
     'EDIT' : 'Edit',
-    'SAVE' : 'Save'
+    'SAVE' : 'Save',
+    'ADD_ORG_SUCCESS_CODE' : 'Congratuation!!! Add organization is successful.',
+    'ADD_ORG_ERROR_CODE' :  'Fail to add new organization.',
+    'SAVE_ORG_ERROR_CODE' : 'Error!!! Organization is not saved.',
+    'NUM_ORG' : 'Number of Organizations: {{value}}'
   };
 
   var hk_texts = {
@@ -156,7 +144,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'ADD' : '增加',
     'CANCEL' : '取消',
     'EDIT' : '修改',
-    'SAVE' : '另存'
+    'SAVE' : '另存',
+    'NUM_ORG' : '機構數目：{{value}}'
   };
 
   // register translation table

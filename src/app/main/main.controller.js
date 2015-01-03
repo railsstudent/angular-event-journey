@@ -2,25 +2,30 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-       '$q', '$modal', '$timeout',  'organizationSync',
-     function ($scope, $location, $anchorScroll, $q, $modal, $timeout, organizationSync) {
+       '$q', '$modal', '$timeout',  'mainFactory',
+     function ($scope, $location, $anchorScroll, $q, $modal, $timeout, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
 
     // download organizations from firebase
     $scope.organizations = []; 
-
-    $scope.organizationSync = organizationSync;
+    $scope.numOrganization = 0;
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
       $anchorScroll();
     };
 
+    var refCounter = mainFactory.refCounter();
+
+    refCounter.on('value', function(dataSnapShot) {
+      $scope.numOrganization = dataSnapShot.val();
+    });
+
     $scope.showPage = function _showPage() {
       $scope.state.isLoading = true;
-      $scope.organizations = $scope.organizationSync.$asArray();
+      $scope.organizations = mainFactory.retrieveOrganizations();
       $scope.organizations.$loaded().then(
         function() {
           $scope.state.isLoading = false;
@@ -40,21 +45,16 @@ angular.module('angularEventJourney')
       var modalInstance = $modal.open({
         keyboard : false,
         templateUrl: 'app/main/organizationModalContent.html',
-        resolve : {
-          organizationSync : ['$firebase', 'mainFactory', 
-            function($firebase, mainFactory) {
-              return $firebase(mainFactory.refOrganization());
-          }]
-        },
-        controller: ['$scope', '$modalInstance', '$q', 'organizationSync',
-              function _modalController ($scope, $modalInstance, $q, organizationSync) { 
+        controller: ['$scope', '$modalInstance', '$q', 'mainFactory',
+              function _modalController ($scope, $modalInstance, $q, mainFactory) { 
 
               $scope.isLoading = false;
-              $scope.organizationSync = organizationSync;
-
+        
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
               };
+
+              $scope.refRecords = mainFactory.refRecords();
 
               $scope.addOrganization = function _addOrganization(isValid) {
                 if (isValid) {
@@ -79,8 +79,13 @@ angular.module('angularEventJourney')
                     $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
                     $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
 
+                    // update counter
+                    refCounter.transaction(function(current_value) {
+                      return (current_value || 0) + 1;
+                    });
+
                     $scope.isLoading = false;
-                    $scope.msgObj.message = 'Congratuation!!! Add organization is successful.';
+                    $scope.msgObj.message = 'ADD_ORG_SUCCESS_CODE'; // 'Congratuation!!! Add organization is successful.';
                     $scope.msgObj.cssClassName = 'success';
 
                     $timeout(function() {
@@ -88,7 +93,7 @@ angular.module('angularEventJourney')
                     }, 1500);
                   }, function(error) {
                     $scope.isLoading = false;
-                    $scope.msgObj.message = 'Fail to add new organization.';
+                    $scope.msgObj.message = 'ADD_ORG_ERROR_CODE'; // 'Fail to add new organization.';
                     $scope.msgObj.cssClassName = 'danger';
                   });
                 }
@@ -97,14 +102,16 @@ angular.module('angularEventJourney')
               var handleAddOrganization = function _handleAddOrganization() {
 
                   var deferred = $q.defer();
-                  $scope.organizationSync.$asArray()
-                    .$add({ code : $scope.organization.shortname,
+                  var newObj = { code : $scope.organization.shortname,
                         description : $scope.organization.description,
                         url : $scope.organization.website, 
                         facebook : $scope.organization.facebook, 
                         meetup : $scope.organization.meetup,
                         name : $scope.organization.name 
-                      }).then(function (ref) {
+                      };
+
+                  mainFactory.addOrganization(newObj)
+                      .then(function (ref) {
                           if (ref) {
                             deferred.resolve(ref.key());
                           } else {
@@ -127,9 +134,8 @@ angular.module('angularEventJourney')
       });
     };
   }])
-  .controller('MainEditCtrl', ['$scope', 'organizationArrayPromise',
-      'organizationSync', '$state',  '$stateParams',
-      function ($scope, organizationArrayPromise, organizationSync, $state, $stateParams) {
+  .controller('MainEditCtrl', ['$scope', '$state',  '$stateParams', 'mainFactory',
+      function ($scope, $state, $stateParams, mainFactory) {
 
       $scope.isLoading = true;
 
@@ -138,40 +144,38 @@ angular.module('angularEventJourney')
         cssClassName : ''
       };
 
-      $scope.editObj = null;
-
-      organizationArrayPromise.$loaded().then(
+      var arrOrganization = mainFactory.retrieveOrganizations();
+      arrOrganization.$loaded().then(
         function(data) {
           $scope.editObj = data.$getRecord($stateParams.id);
           $scope.isLoading = false;
         }, function(error) {
+          $scope.editObj = null;
           $scope.isLoading = false;
         }
       );
-
-      $scope.organizationSync = organizationSync;
       
       $scope.save = function _save(isValid) {
         if (isValid) {
           $scope.isLoading = true;
 
-          $scope.organizationSync
-            .$set($scope.editObj.$id, 
-              {
+          var editObj = {
                 name : $scope.editObj.name,
                 code : $scope.editObj.code,
                 description : $scope.editObj.description,
                 url : $scope.editObj.url,
                 facebook : $scope.editObj.facebook,
                 meetup : $scope.editObj.meetup,
-              })
+              };
+
+          mainFactory.saveOrganization($scope.editObj.$id, editObj)
             .then(function(ref) {
                 $scope.isLoading = false;
                 $state.go('home');
               }, 
               function(error) {
                 $scope.isLoading = false;
-                $scope.msgObj.message = 'Error!!! Organization is not saved.';
+                $scope.msgObj.message = 'SAVE_ORG_ERROR_CODE';
                 $scope.msgObj.cssClassName = 'danger';
             });
         }
