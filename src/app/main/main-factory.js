@@ -51,6 +51,16 @@ angular.module('angularEventJourney')
 
       saveOrganization : function _save(keyId, oldOrganization) {
         return $firebase(refRecords1).$set(keyId, oldOrganization);        
+      },
+
+      getNextPage : function _getNextPage(startAtId, limit) {
+         refRecords1.orderByChild("code").limitToFirst(limit); 
+        //return $firebase(refRecords1).$asArray();        
+      },
+
+      getPrevPage : function _getPrevPage(endAtId, limit) {
+         refRecords1.orderByChild("code").limitToLast(limit); 
+        //return $firebase(refRecords1).$asArray();        
       }
     };
   }]);

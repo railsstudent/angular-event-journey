@@ -11,6 +11,13 @@ angular.module('angularEventJourney')
     // download organizations from firebase
     $scope.organizations = []; 
     $scope.numOrganization = 0;
+    $scope.currentPage = 1;
+    $scope.maxSize = 5;
+    $scope.itemPerPage = 2;
+
+    $scope.pageChanged = function _pageChanged() {
+      alert($scope.currentPage);
+    };
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
@@ -97,7 +104,7 @@ angular.module('angularEventJourney')
                     $scope.msgObj.cssClassName = 'danger';
                   });
                 }
-              }
+              };
 
               var handleAddOrganization = function _handleAddOrganization() {
 
@@ -183,6 +190,6 @@ angular.module('angularEventJourney')
 
       $scope.cancel = function _cancel() {
         $state.go('home');
-      }
+      };
 
   }]);

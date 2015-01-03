@@ -54,5 +54,5 @@
       <span translate>LOADING</span>
     </div>
  </div>
-  <pagination total-items="10" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+  <pagination total-items="numOrganization" items-per-page="itemPerPage" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" boundary-links="true"></pagination>
 </div>
