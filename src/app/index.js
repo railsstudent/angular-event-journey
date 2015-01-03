@@ -40,8 +40,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.otherwise('/home');
   }])
-    .run (['$rootScope', 'mainFactory', 'adminFactory', '$timeout',  
-        function($rootScope, mainFactory, adminFactory, $timeout) {
+    .run (['$rootScope', 'mainFactory', 'adminFactory',   
+        function($rootScope, mainFactory, adminFactory) {
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
@@ -57,18 +57,18 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
         mainFactory.ref().onAuth(function(authData) {
             if (authData) {
-                console.log("Client is authenticated.", authData.uid);
+                console.log('Client is authenticated.', authData.uid);
                 $rootScope.authData = authData;
             } else {
                 $rootScope.authData = null;
-                console.log("Client is unauthenticated.");
+                console.log('Client is unauthenticated.');
             }
         });
    }]);
 
 app.config(['$translateProvider', function($translateProvider) {
 
-  var en_texts = {
+  var enTexts = {
     'SKILL': 'Skills',
     'FRAMEWORK': 'Frameworks',
     'DATABASE' : 'Databases',
@@ -115,7 +115,7 @@ app.config(['$translateProvider', function($translateProvider) {
     'MOBILE' : 'Mobile Platform'
   };
 
-  var hk_texts = {
+  var hkTexts = {
     'SKILL': '技能',
     'FRAMEWORK': '框架',
     'DATABASE' : '數據庫',
@@ -158,8 +158,8 @@ app.config(['$translateProvider', function($translateProvider) {
   };
 
   // register translation table
-  $translateProvider.translations('en', en_texts);
-  $translateProvider.translations('zh-hk', hk_texts);
+  $translateProvider.translations('en', enTexts);
+  $translateProvider.translations('zh-hk', hkTexts);
 
    // which language to use?
    // fallback language

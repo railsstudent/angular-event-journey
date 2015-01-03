@@ -15,5 +15,5 @@ angular.module('angularEventJourney')
 	        	return input;
 	        }
         }
-    }
+    };
 });
