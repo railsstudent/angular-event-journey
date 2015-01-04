@@ -2,11 +2,33 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-	<p>This is the events view.</p>
+	<h1 ng-init="loadPage()">{{organizationName}}</h1>
+	<h3 translate>EVENTS</h3>
+	<div class="row">
+		<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm()">Add Event</label>
+	</div>
+	<accordion close-others="true">	
+		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
+	        <accordion-heading>
+	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
+	        </accordion-heading>
+	    	<p>Venue: {{event.venue}}</p>
+	        <p>Date: {{event.date}}</p>
+	    	<p>Time: {{event.timeFrom}} - {{event.timeTo}}</p>
+	    </accordion-group>
+  	</accordion>
+  	<div class="row">
+  		<div class="col-md-12 col-sm-12 col-lg-12">
+			<a ui-sref="home" translate>BACK_HOME</a>
+		</div>
+	</div>
 
-	<p>Organization Name: {{data.organization}}</p>
-
-	<p>Description: {{data.desc}}</p>
-
-	<a ui-sref="home" translate>BACK_HOME</a>
+	<div class="page-loader" ng-show="isLoading">
+	    <div class="row">
+	      <img id="spinner" src="assets/images/loader.gif" >
+	    </div>
+	    <div class="row">
+	      <span translate>LOADING</span>
+	    </div>
+	 </div>
 </div>

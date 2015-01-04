@@ -23,7 +23,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         controller: 'AboutCtrl'
       })
     .state('events', {
-        url: '/events/:organization/:desc',
+        url: 'organization/:organizationId/events',
         templateUrl: 'app/event/event.html',
         controller : 'EventCtrl'
       })
@@ -113,7 +113,9 @@ app.config(['$translateProvider', function($translateProvider) {
     'SAVE_ORG_ERROR_CODE' : 'Error!!! Organization is not saved.',
     'NUM_ORG' : 'Number of Organizations: {{value}}',
     'TECH' : 'Technology',
-    'MOBILE' : 'Mobile Platform'
+    'MOBILE' : 'Mobile Platform',
+    'VIEW_EVENT' : 'View Event',
+    'EVENTS' : 'Events'
   };
 
   var hkTexts = {
@@ -156,7 +158,9 @@ app.config(['$translateProvider', function($translateProvider) {
     'SAVE' : '另存',
     'NUM_ORG' : '機構數目：{{value}}',
     'TECH' : '科技',
-    'MOBILE' : '移動平台'
+    'MOBILE' : '移動平台',
+    'VIEW_EVENT' : '查看活動',
+    'EVENTS' : '活動'
   };
 
   // register translation table
