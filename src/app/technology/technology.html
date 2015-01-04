@@ -2,4 +2,77 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
+  <div class="row" ng-init="loadPage()">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+    	<h1>Front-end</h1>
+		<accordion close-others="true">	
+			<accordion-group is-open="status.open" ng-repeat="item in frontend track by $index">
+		        <accordion-heading>
+		            {{item.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
+		        </accordion-heading>
+		        <p>
+		        	<a href="{{item.url}}" target="_blank">{{item.name}}</a>
+		    	</p>
+		    	<p>
+		        	{{item.description}}
+		    	</p>
+		    	<p ng-show="item.github">
+		    		Github: <a href="{{item.github}}" target="_blank">{{item.github}}</a>
+		    	</p>
+		    </accordion-group>
+  		</accordion>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+    	<h1>Back-end</h1>
+    	<accordion close-others="true">	
+			<accordion-group is-open="status.open" ng-repeat="item in backend track by $index">
+		        <accordion-heading>
+		            {{item.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
+		        </accordion-heading>
+		        <p>
+		        	<a href="{{item.url}}" target="_blank">{{item.name}}</a>
+		    	</p>
+		    	<p>
+		        	{{item.description}}
+		    	</p>
+		    	<p ng-show="item.github">
+		    		Github: <a href="{{item.github}}" target="_blank">{{item.github}}</a>
+		    	</p>
+		    </accordion-group>
+  		</accordion>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+    	<h1>Tools</h1>
+    	<accordion close-others="true">	
+			<accordion-group is-open="status.open" ng-repeat="item in tool track by $index">
+		        <accordion-heading>
+		            {{item.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
+		        </accordion-heading>
+		        <p>
+		        	<a href="{{item.url}}" target="_blank">{{item.name}}</a>
+		    	</p>
+		    	<p>
+		        	{{item.description}}
+		    	</p>
+		    	<p ng-show="item.github">
+		    		Github: <a href="{{item.github}}" target="_blank">{{item.github}}</a>
+		    	</p>
+		    </accordion-group>
+  		</accordion>
+    </div>
+  </div>
+
+  <div class="page-loader" ng-show="isLoading">
+    <div class="row">
+      <img id="spinner" src="assets/images/loader.gif" >
+    </div>
+    <div class="row">
+      <span translate>LOADING</span>
+    </div>
+ </div>
+
+
+
 </div>

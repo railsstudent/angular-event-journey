@@ -7,14 +7,39 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('technologyFactory', function () {
+  .factory('technologyFactory', [ '$firebase', function ($firebase) {
 // Service logic
 // ...
-    var meaningOfLife = 42;
+    // Create our Firebase reference
+    var refFrontend1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/front-end');    
+    var refBackend1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/back-end');
+    var refTool1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/tools');
+
 // Public API here
     return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+      
+      refFrontend : function _refFrontend() {
+      	return refFrontend1;
+      },
+
+      refBackend : function _refBackend() {
+        return refBackend1;
+      },
+
+      refTool : function _refTool() {
+        return refTool1;
+      },
+
+      retrieveFrontend : function _retrieveFrontend() {
+        return $firebase(refFrontend1).$asArray();
+      },
+
+     retrieveBackend : function _retrieveFrontend() {
+        return $firebase(refBackend1).$asArray();
+      },
+
+     retrieveTool : function _retrieveFrontend() {
+        return $firebase(refTool1).$asArray();
+      } 
     };
-  });
+  }]);

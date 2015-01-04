@@ -33,7 +33,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         controller: 'AdminCtrl'
       })
     .state('technology', {
-        url: '/techlogy',
+        url: '/technology',
         templateUrl: 'app/technology/technology.html',
         controller: 'technologyCtrl'
       });
