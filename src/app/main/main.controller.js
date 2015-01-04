@@ -228,10 +228,10 @@ angular.module('angularEventJourney')
         cssClassName : ''
       };
 
-      var arrOrganization = mainFactory.retrieveOrganizations();
-      arrOrganization.$loaded().then(
+     var organization = mainFactory.retrieveOrganization($stateParams.id);
+      organization.$loaded().then(
         function(data) {
-          $scope.editObj = data.$getRecord($stateParams.id);
+          $scope.editObj = data;
           $scope.isLoading = false;
         }, function(error) {
           $scope.editObj = null;
