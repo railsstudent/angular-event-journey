@@ -55,7 +55,6 @@ angular.module('angularEventJourney')
       },
 
       addOrganization : function _add(newOrganization) {
-//        return $firebase(refRecords1).$asArray().$add(newOrganization);
         return $firebase(refRecords1).$push(newOrganization);
       },
 
