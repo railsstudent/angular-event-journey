@@ -2,22 +2,17 @@
 
 angular.module('angularEventJourney')
   .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-       '$q', '$modal', '$timeout',  'mainFactory',
+       '$q', '$modal', '$timeout',  'mainFactory', 
      function ($scope, $location, $anchorScroll, $q, $modal, $timeout, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
 
     // download organizations from firebase
-    $scope.organizations = []; 
+    $scope.organizations = undefined;
     $scope.numOrganization = 0;
     $scope.currentPage = 0;
-    $scope.maxSize = 5;
-    $scope.itemPerPage = 2;
-
-    $scope.pageChanged = function _pageChanged() {
-      alert($scope.currentPage);
-    };
+    $scope.itemPerPage = 0;
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
@@ -25,24 +20,105 @@ angular.module('angularEventJourney')
     };
 
     var refCounter = mainFactory.refCounter();
-
     refCounter.on('value', function(dataSnapShot) {
       $scope.numOrganization = dataSnapShot.val();
     });
 
+    var prevPage = 0;
+    $scope.pageChanged = function _pageChanged() {
+      console.log('current page = ' + $scope.currentPage);
+      if (prevPage !== $scope.currentPage) { 
+        if ($scope.currentPage === 1) {
+          console.log ('Load first page....');
+          prevPage = $scope.currentPage;
+          loadNextPage(undefined);
+        } else if (prevPage < $scope.currentPage) {
+          console.log('Load next page');
+          // get the key of the last organization
+          var keys = _.keys($scope.organizations);
+          var lastKey = keys[keys.length - 1];
+          var startAtId = lastKey ? lastKey: undefined;
+          prevPage = $scope.currentPage;
+          loadNextPage(startAtId);
+        } else if (prevPage > $scope.currentPage) {
+          console.log('Load previous page');
+          // get the key of the first organization
+          var keys = _.keys($scope.organizations);
+          var firstKey = keys[0];
+          var endAtId = firstKey ? firstKey : undefined;
+          prevPage = $scope.currentPage;
+          loadPrevPage(endAtId);
+        } 
+      }
+    };
+
+    var loadNextPage = function _loadNextPage(startAtId) {
+      if ($scope.state.isLoading === false) {
+        $scope.state.isLoading = true;
+      }
+
+      var itemPerPage = $scope.itemPerPage;
+      itemPerPage = itemPerPage + (startAtId ? 1 : 0);
+
+      mainFactory.getNextPage(startAtId, itemPerPage)
+        .once('value', function(dataSnapshot) {
+            var vals = dataSnapshot.val()||{};
+            if (startAtId) { 
+              delete vals[startAtId]; // delete the extraneous record
+            }
+            // store $id in organization object; otherwise edit organiztion function breaks
+            _.forEach(vals, function(v, k) {
+              v['$id'] = k;
+            });
+
+            if (!startAtId) {
+              $scope.currentPage = 1;
+              prevPage = 1;
+            }
+            $scope.state.isLoading = false; 
+            $timeout(function() {
+              $scope.organizations = vals;
+            }, 100);
+        });
+    };
+
+    var loadPrevPage = function _loadPrevPage(endAtId) {
+      if ($scope.state.isLoading === false) {
+        $scope.state.isLoading = true;
+      }
+
+      var itemPerPage = $scope.itemPerPage;
+      itemPerPage = itemPerPage + (endAtId ? 1 : 0);
+      
+      mainFactory.getPrevPage(endAtId, itemPerPage)
+        .once('value', function(dataSnapshot) {
+            var vals = dataSnapshot.val()||{};
+            if (endAtId) { 
+              delete vals[endAtId]; // delete the extraneous record
+            }
+            // store $id in organization object; otherwise edit organiztion function breaks
+            _.forEach(vals, function(v, k) {
+              v['$id'] = k;
+            });
+
+            $scope.state.isLoading = false; 
+            $timeout(function() {
+              $scope.organizations = vals;
+            }, 100);
+        });
+    }; 
+
     $scope.showPage = function _showPage() {
       $scope.state.isLoading = true;
-      $scope.organizations = mainFactory.retrieveOrganizations();
-      $scope.organizations.$loaded().then(
-        function() {
-          $scope.state.isLoading = false;
-          $scope.currentPage = 1;
-        }, 
-        function() {
-          $scope.state.isLoading = false;
-        }
-      );
-    };
+      
+      var itemPerPageSync = mainFactory.getChildRef('/itemPerPage');
+      if (itemPerPageSync) {
+        itemPerPageSync.once('value', function(snapshot) {
+          $scope.itemPerPage = snapshot.val();
+          loadNextPage(undefined);
+        });
+      }
+    }
 
     $scope.state = {
       isLoading : false,
@@ -50,7 +126,7 @@ angular.module('angularEventJourney')
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
         
-      var modalInstance = $modal.open({
+      $modal.open({
         keyboard : false,
         templateUrl: 'app/main/organizationModalContent.html',
         controller: ['$scope', '$modalInstance', '$q', 'mainFactory',
@@ -88,8 +164,8 @@ angular.module('angularEventJourney')
                     $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
 
                     // update counter
-                    refCounter.transaction(function(current_value) {
-                      return (current_value || 0) + 1;
+                    refCounter.transaction(function(currentValue) {
+                      return (currentValue || 0) + 1;
                     });
 
                     $scope.isLoading = false;
@@ -115,7 +191,7 @@ angular.module('angularEventJourney')
                         url : $scope.organization.website, 
                         facebook : $scope.organization.facebook, 
                         meetup : $scope.organization.meetup,
-                        name : $scope.organization.name 
+                        name : $scope.organization.name
                       };
 
                   mainFactory.addOrganization(newObj)
@@ -173,14 +249,14 @@ angular.module('angularEventJourney')
                 description : $scope.editObj.description,
                 url : $scope.editObj.url,
                 facebook : $scope.editObj.facebook,
-                meetup : $scope.editObj.meetup,
+                meetup : $scope.editObj.meetup
               };
 
           mainFactory.saveOrganization($scope.editObj.$id, editObj)
             .then(function(ref) {
-                $scope.isLoading = false;
-                $state.go('home');
-              }, 
+                  $scope.isLoading = false;
+                  $state.go('home');
+                },
               function(error) {
                 $scope.isLoading = false;
                 $scope.msgObj.message = 'SAVE_ORG_ERROR_CODE';

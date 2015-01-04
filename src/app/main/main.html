@@ -16,15 +16,13 @@
           class="btn btn-lg btn-info" ng-click="showOrganizationForm()" translate>ADD_ORGANIZATION</button>
     </p>
   </div>
-
-  <span id="learn_more"></span>
-  <div class="row">
+  <div id="learn_more" class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <h3 translate="NUM_ORG" translate-values="{ value: '{{numOrganization}}'}"></h3>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="organization in organizations | orderBy:'name'">
+    <div class="col-sm-4 col-md-4 col-lg-4" ng-repeat="organization in organizations">
       <div class="thumbnail">
         <div class="caption">
           <div>
@@ -54,5 +52,5 @@
       <span translate>LOADING</span>
     </div>
  </div>
-  <pagination total-items="numOrganization" items-per-page="itemPerPage" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" boundary-links="true"></pagination>
+  <pager total-items="numOrganization" items-per-page="itemPerPage" ng-model="currentPage" ng-change="pageChanged()"></pager>
 </div>

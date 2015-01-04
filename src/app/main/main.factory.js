@@ -21,10 +21,6 @@ angular.module('angularEventJourney')
 // Public API here
     return {
       
-      refOrganization : function _refOrganization() {
-      	return refOrganization1;
-      }, 
-
       ref : function _ref() {
       	return ref1;
       },
@@ -50,25 +46,35 @@ angular.module('angularEventJourney')
       },
 
       saveOrganization : function _save(keyId, oldOrganization) {
-        return $firebase(refRecords1).$set(keyId, oldOrganization);        
+          return $firebase(refRecords1).$set(keyId, oldOrganization);        
       },
 
       getNextPage : function _getNextPage(startAtId, limit) {
-    //     refRecords1.orderByChild("code").limitToFirst(limit); 
-        //return $firebase(refRecords1).$asArray();        
+        // http://jsfiddle.net/katowulf/yumaB/
+        var priority = startAtId ? null : undefined;
+ /*       return refRecords1.orderByChild('code')
+                .startAt(priority, startAtId)
+                .limitToFirst(limit);  */
+        return refRecords1.startAt(priority, startAtId)
+                .limitToFirst(limit);  
       },
 
       getPrevPage : function _getPrevPage(endAtId, limit) {
-  //       refRecords1.orderByChild("code").limitToLast(limit); 
-        //return $firebase(refRecords1).$asArray();        
+/*        return refRecords1.orderByChild('code')
+                .endAt(null, endAtId)
+                .limitToLast(limit);  */
+          return refRecords1.endAt(null, endAtId)
+                .limitToLast(limit);       
       },
 
-      getFirstPage : function _getFirstPage(startAtId, limit) {
-//         refRecords1.orderByChild("code").limitToFirst(limit); 
-        //return $firebase(refRecords1).$asArray();        
-      },
-
-      getLastPage : function _getLastPage(startAtId, limit) {
+      getChildRef : function _getChildRef(relativePath) {
+        if (relativePath) {
+          if (relativePath.substring(0, 1) !== '/') {
+            relativePath = '/' + relativePath;
+          }
+          return new Firebase(refOrganization1 + relativePath);   
+        }
+        return null;
       }
     };
   }]);
