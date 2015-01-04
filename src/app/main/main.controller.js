@@ -68,7 +68,7 @@ angular.module('angularEventJourney')
             }
             // store $id in organization object; otherwise edit organiztion function breaks
             _.forEach(vals, function(v, k) {
-              v['$id'] = k;
+              v.$id = k;
             });
 
             if (!startAtId) {
@@ -98,7 +98,7 @@ angular.module('angularEventJourney')
             }
             // store $id in organization object; otherwise edit organiztion function breaks
             _.forEach(vals, function(v, k) {
-              v['$id'] = k;
+              v.$id = k;
             });
 
             $scope.state.isLoading = false; 

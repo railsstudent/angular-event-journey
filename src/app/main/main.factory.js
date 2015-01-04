@@ -11,7 +11,7 @@ angular.module('angularEventJourney')
 // Service logic
 // ...
     // Create our Firebase reference
-    var refOrganization1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
+//    var refOrganization1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations');
     var ref1 = new Firebase('https://blazing-fire-2680.firebaseio.com');
     var refSkill1 = new Firebase('https://blazing-fire-2680.firebaseio.com/skills');
 
@@ -55,7 +55,8 @@ angular.module('angularEventJourney')
       },
 
       addOrganization : function _add(newOrganization) {
-        return $firebase(refRecords1).$asArray().$add(newOrganization);
+//        return $firebase(refRecords1).$asArray().$add(newOrganization);
+        return $firebase(refRecords1).$push(newOrganization);
       },
 
       saveOrganization : function _save(keyId, oldOrganization) {
