@@ -57,11 +57,6 @@ angular.module('angularEventJourney')
         controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
               function _modalController ($scope, $modalInstance, $q, eventFactory) { 
 
- $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
               $scope.state = {
                   isLoading : false,
                   minStep : 5,
