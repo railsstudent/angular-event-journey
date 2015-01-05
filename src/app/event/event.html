@@ -5,7 +5,7 @@
 	<h1 ng-init="loadPage()">{{organizationName}}</h1>
 	<h3 translate>EVENTS</h3>
 	<div class="row">
-		<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm()">Add Event</label>
+		<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)">Add Event</label>
 	</div>
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">

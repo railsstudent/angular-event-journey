@@ -25,7 +25,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
     .state('events', {
         url: 'organization/:organizationId/events',
         templateUrl: 'app/event/event.html',
-        controller : 'EventCtrl'
+        controller : 'EventCtrl as ev'
       })
     .state('admin', {
         url: '/admin',

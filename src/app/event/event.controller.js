@@ -5,7 +5,7 @@ angular.module('angularEventJourney')
   		'$modal', '$timeout',
   	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $timeout) {
   		
-	$scope.events = [];
+	  $scope.events = [];
     $scope.isLoading = true;
     $scope.organizationName = undefined;
   	
@@ -49,73 +49,83 @@ angular.module('angularEventJourney')
   			});
   	};
 
-  	$scope.showEventForm = function _showEventForm() {
+  	$scope.showEventForm = function _showEventForm(organizationId) {
         
       $modal.open({
         keyboard : false,
-        templateUrl: 'app/main/event.add.html',
+        templateUrl: 'app/event/event.add.html',
         controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
               function _modalController ($scope, $modalInstance, $q, eventFactory) { 
 
-              $scope.isLoading = false;
-        
+ $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+              $scope.state = {
+                  isLoading : false,
+                  minStep : 5,
+                  isMerdian : false,
+                  format : 'yyyy-MM-dd'
+                };
+
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
               };
 
               $scope.addEvent = function _addEvent(isValid) {
                 if (isValid) {
-                  $scope.isLoading = true;
+                  $scope.state.isLoading = true;
                   $scope.msgObj = {
                       message : '',
                       cssClassName : ''
                   };
 
-                  handleAddEvent().then(function(id) {
-                    $scope.event.name = '';
-                    $scope.event.venue = '';
-                    $scope.event.date = undefined;
-                    $scope.event.timeFrom = undefined;
-                    $scope.event.timeTo = undefined;
+                  handleAddEvent(organizationId).then(function(id) {
+                    $scope.new_event.name = '';
+                    $scope.new_event.venue = '';
+                    $scope.new_event.event_date = undefined;
+                    $scope.new_event.timeFrom = undefined;
+                    $scope.new_event.timeTo = undefined;
                     
-                    $scope.eventFrom.$setPristine($scope.eventFrom.name);
-                    $scope.eventFrom.$setPristine($scope.eventFrom.venue);
-                    $scope.eventFrom.$setPristine($scope.eventFrom.date);
-                    $scope.eventFrom.$setPristine($scope.eventFrom.timeFrom);
-                    $scope.eventFrom.$setPristine($scope.eventFrom.timeTo);
+                    $scope.eventFrom.$setPristine($scope.eventForm.name);
+                    $scope.eventFrom.$setPristine($scope.eventForm.venue);
+                    $scope.eventFrom.$setPristine($scope.eventForm.event_date);
+                    $scope.eventFrom.$setPristine($scope.eventForm.timeFrom);
+                    $scope.eventFrom.$setPristine($scope.eventForm.timeTo);
                     
                     // update counter
                     refCounter.transaction(function(currentValue) {
                       return (currentValue || 0) + 1;
                     });
 
-                    $scope.isLoading = false;
-                    $scope.msgObj.message = 'ADD_ORG_SUCCESS_CODE'; // 'Congratuation!!! Add organization is successful.';
+                    $scope.state.isLoading = false;
+                    $scope.msgObj.message = 'ADD_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
                     $scope.msgObj.cssClassName = 'success';
 
                     $timeout(function() {
                       $modalInstance.close();
                     }, 1500);
                   }, function(error) {
-                    $scope.isLoading = false;
-                    $scope.msgObj.message = 'ADD_ORG_ERROR_CODE'; // 'Fail to add new organization.';
+                    $scope.state.isLoading = false;
+                    $scope.msgObj.message = 'ADD_EVENT_ERROR_CODE'; // 'Fail to add new event.';
                     $scope.msgObj.cssClassName = 'danger';
                   });
                 }
               };
 
-              var handleAddEvent = function _handleAddEvent() {
+              var handleAddEvent = function _handleAddEvent(organizationId) {
 
                   var deferred = $q.defer();
-                  var newObj = { code : $scope.organization.shortname,
-                        description : $scope.organization.description,
-                        url : $scope.organization.website, 
-                        facebook : $scope.organization.facebook, 
-                        meetup : $scope.organization.meetup,
-                        name : $scope.organization.name
-                      };
+                  var newObj = { name : $scope.new_event.name,
+                        venue : $scope.new_event.venue,
+                        event_date : $scope.new_event.event_date, 
+                        timeFrom : $scope.new_event.timeFrom, 
+                        timeTo : $scope.new_event.timeTo,
+                        $priority : $scope.new_event.event_date
+                       };
 
-                  mainFactory.addOrganization(newObj)
+                  eventFactory.addEvent(organizationId, newObj)
                       .then(function (ref) {
                           if (ref) {
                             deferred.resolve(ref.key());
@@ -126,10 +136,17 @@ angular.module('angularEventJourney')
                   return deferred.promise;
               };
 
-              $scope.event = {
+              $scope.openDatepicker = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+
+                $scope.opened = true;
+              };
+
+              $scope.new_event = {
                 name : '',
                 venue : '',
-                date: undefined,
+                event_date: new Date(),
                 timeFrom: undefined,
                 timeTo : undefined
               };

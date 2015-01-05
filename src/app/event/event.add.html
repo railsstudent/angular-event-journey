@@ -1,11 +1,11 @@
-  <form class="form-horizontal" name="eventFrom" novalidate 
+  <form class="form-horizontal" name="eventForm" novalidate 
     ng-submit="addEvent(eventFrom.$valid)"
     style="background: #eee;">
       <div class="modal-header">
-            <h3 class="modal-title" translate>ADD_ORGANIZATION</h3>
+            <h3 class="modal-title" translate>ADD_EVENT</h3>
       </div>
      
-      <div class="page-loader" ng-show="isLoading">
+      <div class="page-loader" ng-show="state.isLoading">
         <div class="row">
           <img id="spinner" src="assets/images/loader.gif" >
         </div>
@@ -16,57 +16,52 @@
 
       <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message | translate }}</alert>
 
-     <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">
-      <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
+     <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
+      <label for="name" class="col-sm-2 control-label" translate>NAME</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="shortname" name="shortname" required
-          ng-model="organization.shortname">
-        <p ng-show="organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine" class="help-block">Please enter short name</p>
+        <input type="text" class="form-control" id="name" name="name" ng-required="true" ng-model="new_event.name">
+        <p ng-show="eventForm.name.$invalid && !eventForm.name.$pristine" class="help-block">Please enter event name</p>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.name.$invalid && !organizationForm.name.$pristine }">
-      <label for="shortname" class="col-sm-2 control-label" translate>NAME</label>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.venue.$invalid && !eventForm.venue.$pristine }">
+      <label for="venue" class="col-sm-2 control-label" translate>VENUE</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="name" name="name" required
-          ng-model="organization.name">
-        <p ng-show="organizationForm.name.$invalid && !organizationForm.name.$pristine" class="help-block">Please enter short name</p>
+        <input type="text" class="form-control" id="venue" name="venue" ng-required="true" ng-model="new_event.venue">
+        <p ng-show="eventForm.venue.$invalid && !eventForm.venue.$pristine" class="help-block">Please enter venue</p>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.desc.$invalid && !organizationForm.desc.$pristine }">
-      <label for="desc" class="col-sm-2 control-label" translate>DESCRIPTION</label>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine }">
+      <label for="eventDate" class="col-sm-2 control-label" translate>EVENT_DATE</label>
       <div class="col-sm-9">
-        <textarea ng-model="organization.description" required class="form-control" id="desc" name="desc">{{ 'DESC' | translate }}</textarea>
-        <p ng-show="organizationForm.desc.$invalid && !organizationForm.desc.$pristine" class="help-block">Please enter description</p>
+        <p class="input-group">
+          <input type="text" class="form-control" ng-model="new_event.event_date" is-open="opened" ng-required="true" name="eventDate" id="eventDate"  datepicker-popup="{{format}}"  />
+          <span class="input-group-btn">
+            <label type="button" class="btn btn-default" ng-click="openDatepicker($event)"><i class="fa fa-calendar"></i></label>
+          </span>
+        </p>
+        <p ng-show="eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine" class="help-block">Please enter event date</p>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.website.$invalid && !organizationForm.website.$pristine }">
-      <label for="website" class="col-sm-2 control-label" translate>WEB_SITE</label>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
+      <label for="timeFrom" class="col-sm-2 control-label" translate>TIME_FROM</label>
       <div class="col-sm-9">
-        <input type="url" class="form-control" id="website" name="website" 
-          ng-model="organization.website">
-        <p ng-show="organizationForm.website.$invalid && !organizationForm.website.$pristine" class="help-block">Please enter valid url.</p>
+        <timepicker ng-model="new_event.timeFrom" ng-required="true"  
+          minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
+        <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine }">
-      <label for="facebook" class="col-sm-2 control-label">Facebook:</label>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
+      <label for="timeTo" class="col-sm-2 control-label" translate>TIME_TO</label>
       <div class="col-sm-9">
-        <input type="url" class="form-control" id="facebook" name="facebook"
-          ng-model="organization.facebook">
-        <p ng-show="organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine" class="help-block">Please enter valid url.</p>
-      </div>
-    </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine }">
-      <label for="meetup" class="col-sm-2 control-label">Meetup:</label>
-      <div class="col-sm-9">
-        <input type="url" class="form-control" id="meetup" name="meetup"
-          ng-model="organization.meetup">
-        <p ng-show="organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine" class="help-block">Please enter valid url.</p>
+        <timepicker ng-model="new_event.timeTo" ng-required="true"  
+          minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
+        <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
       </div>
     </div>
     <!-- div-->
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" 
-          ng-disabled="organizationForm.$invalid" translate>ADD</button>
+          ng-disabled="eventForm.$invalid" translate>ADD</button>
          <button class="btn btn-warning" ng-click="cancel()" translate>CANCEL</button>
     </div>
   </form>
