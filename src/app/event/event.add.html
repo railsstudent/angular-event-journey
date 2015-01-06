@@ -1,5 +1,5 @@
   <form class="form-horizontal" name="eventForm" novalidate 
-    ng-submit="addEvent(eventFrom.$valid)"
+    ng-submit="addEvent(eventForm.$valid)"
     style="background: #eee;">
       <div class="modal-header">
             <h3 class="modal-title" translate>ADD_EVENT</h3>
@@ -45,7 +45,7 @@
     <div class="form-group" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
       <label for="timeFrom" class="col-sm-2 control-label" translate>TIME_FROM</label>
       <div class="col-sm-9">
-        <timepicker ng-model="new_event.timeFrom" ng-required="true"  
+        <timepicker ng-model="new_event.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
           minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
         <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
       </div>
@@ -53,8 +53,8 @@
     <div class="form-group" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
       <label for="timeTo" class="col-sm-2 control-label" translate>TIME_TO</label>
       <div class="col-sm-9">
-        <timepicker ng-model="new_event.timeTo" ng-required="true"  
-          minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
+        <timepicker ng-model="new_event.timeTo" ng-required="true" name="timeTo" 
+        id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
         <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
       </div>
     </div>

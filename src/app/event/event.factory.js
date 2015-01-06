@@ -28,7 +28,7 @@ angular.module('angularEventJourney')
 
       addEvent : function _addEvent(organizationId, newEvent) {
         var eventUrl = organizationUrl + organizationId + '/events';
-        return $firebase(new Firebase(eventUrl)).$push(newEvent);
+          return $firebase(new Firebase(eventUrl)).$asArray().$add(newEvent);
       },
 
       saveEvent : function _saveEvent(organizationId, eventId, existEvent) {

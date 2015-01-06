@@ -9,7 +9,7 @@ angular.module('angularEventJourney')
     $scope.isLoading = true;
     $scope.organizationName = undefined;
   	
-  	var organizationId = $stateParams.organizationId;
+  	$scope.organizationId = $stateParams.organizationId;
     var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
   	var isEventDataLoaded = false;
@@ -20,10 +20,10 @@ angular.module('angularEventJourney')
     };
 
   	$scope.loadPage = function _loadPage() {
-  		eventFactory.retrieveAllEvents(organizationId).$loaded() 
+  		eventFactory.retrieveAllEvents($scope.organizationId).$loaded() 
   			.then(function(data) {
   				$scope.events = _.remove(data, isObject);
-				isEventDataLoaded = true; 
+				  isEventDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
   				}
@@ -34,10 +34,10 @@ angular.module('angularEventJourney')
   				}
   			});
 
-  		mainFactory.retrieveOrganization(organizationId).$loaded() 
+  		mainFactory.retrieveOrganization($scope.organizationId).$loaded() 
   			.then(function(data) {
   				$scope.organizationName = data.name;
-				isNameDataLoaded = true; 
+				  isNameDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
   				}
@@ -83,16 +83,16 @@ angular.module('angularEventJourney')
                     $scope.new_event.timeFrom = undefined;
                     $scope.new_event.timeTo = undefined;
                     
-                    $scope.eventFrom.$setPristine($scope.eventForm.name);
-                    $scope.eventFrom.$setPristine($scope.eventForm.venue);
-                    $scope.eventFrom.$setPristine($scope.eventForm.event_date);
-                    $scope.eventFrom.$setPristine($scope.eventForm.timeFrom);
-                    $scope.eventFrom.$setPristine($scope.eventForm.timeTo);
+                    $scope.eventForm.$setPristine($scope.eventForm.name);
+                    $scope.eventForm.$setPristine($scope.eventForm.venue);
+                    $scope.eventForm.$setPristine($scope.eventForm.event_date);
+                    $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
+                    $scope.eventForm.$setPristine($scope.eventForm.timeTo);
                     
                     // update counter
-                    refCounter.transaction(function(currentValue) {
-                      return (currentValue || 0) + 1;
-                    });
+                    // refCounter.transaction(function(currentValue) {
+                    //   return (currentValue || 0) + 1;
+                    // });
 
                     $scope.state.isLoading = false;
                     $scope.msgObj.message = 'ADD_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
@@ -112,12 +112,29 @@ angular.module('angularEventJourney')
               var handleAddEvent = function _handleAddEvent(organizationId) {
 
                   var deferred = $q.defer();
+
+                  var parsedDate = Date.parse($scope.new_event.event_date);
+                  var parsedDateTime = Date.parse($scope.new_event.event_date);
+                  var dt = new Date(parsedDateTime);
+                  var event_date = dt.getFullYear() + '-' 
+                    + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth()) + '-' + dt.getDate();
+
+                  parsedDateTime = Date.parse($scope.new_event.timeFrom);
+                  dt = new Date(parsedDateTime);
+                  var minutes = dt.getMinutes();
+                  var timeFrom = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
+
+                  parsedDateTime = Date.parse($scope.new_event.timeTo);
+                  dt = new Date(parsedDateTime);
+                  minutes = dt.getMinutes();
+                  var timeTo = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
+
                   var newObj = { name : $scope.new_event.name,
                         venue : $scope.new_event.venue,
-                        event_date : $scope.new_event.event_date, 
-                        timeFrom : $scope.new_event.timeFrom, 
-                        timeTo : $scope.new_event.timeTo,
-                        $priority : $scope.new_event.event_date
+                        event_date : event_date, 
+                        timeFrom : timeFrom, 
+                        timeTo : timeTo,
+                        $priority : parsedDate
                        };
 
                   eventFactory.addEvent(organizationId, newObj)
@@ -138,12 +155,14 @@ angular.module('angularEventJourney')
                 $scope.opened = true;
               };
 
+              var today = new Date();
+              $scope.timezoneOffset = today.getTimezoneOffset();
               $scope.new_event = {
                 name : '',
                 venue : '',
-                event_date: new Date(),
-                timeFrom: undefined,
-                timeTo : undefined
+                event_date: today,
+                timeFrom: today,
+                timeTo : today
               };
           }],
           size: 'lg',

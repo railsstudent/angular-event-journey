@@ -5,15 +5,18 @@
 	<h1 ng-init="loadPage()">{{organizationName}}</h1>
 	<h3 translate>EVENTS</h3>
 	<div class="row">
-		<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)">Add Event</label>
+		<div class="col-md-12 col-sm-12 col-lg-12">
+			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)">Add Event</label>
+		</div>
 	</div>
+	<hr/>
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
 	        <accordion-heading>
 	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
 	    	<p>Venue: {{event.venue}}</p>
-	        <p>Date: {{event.date}}</p>
+	        <p>Date: {{event.event_date}}</p>
 	    	<p>Time: {{event.timeFrom}} - {{event.timeTo}}</p>
 	    </accordion-group>
   	</accordion>
