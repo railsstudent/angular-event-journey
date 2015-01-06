@@ -17,13 +17,13 @@ angular.module('angularEventJourney')
     return {
 
       retrieveAllEvents : function _retrieveAllEvents(organizationId) {
-		var eventUrl = organizationUrl + organizationId + '/events'
-		return $firebase(new Firebase(eventUrl)).$asArray();
+		    var eventUrl = organizationUrl + organizationId + '/events'
+		    return $firebase(new Firebase(eventUrl)).$asArray();
       },
       
       retrieveEvent : function _retrieveEvent(organizationId, eventId) {
-		var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
-		return $firebase(new Firebase(eventUrl)).$asObject();
+    		var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
+    		return $firebase(new Firebase(eventUrl)).$asObject();
       },
 
       addEvent : function _addEvent(organizationId, newEvent) {

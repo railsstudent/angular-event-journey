@@ -22,7 +22,8 @@ angular.module('angularEventJourney')
   	$scope.loadPage = function _loadPage() {
   		eventFactory.retrieveAllEvents($scope.organizationId).$loaded() 
   			.then(function(data) {
-  				$scope.events = _.remove(data, isObject);
+          $scope.events = data;
+
 				  isEventDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
@@ -167,5 +168,10 @@ angular.module('angularEventJourney')
           }],
           size: 'lg',
       });
+    };
+
+    $scope.deleteEvent = function _deleteEvent(organizationId, eventId) {
+      // TODO: show confirmation dialog
+      eventFactory.deleteEvent(organizationId, eventId);
     };
 }]);

@@ -15,9 +15,12 @@
 	        <accordion-heading>
 	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
+	        <p>Id: {{ event.$id }}</p>
 	    	<p>Venue: {{event.venue}}</p>
 	        <p>Date: {{event.event_date}}</p>
 	    	<p>Time: {{event.timeFrom}} - {{event.timeTo}}</p>
+	   		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">Delete</label> &nbsp;&nbsp;
+	   		<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">Edit</label>
 	    </accordion-group>
   	</accordion>
   	<div class="row">
