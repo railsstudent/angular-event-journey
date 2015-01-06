@@ -6,7 +6,7 @@
 	<h3 translate>EVENTS</h3>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-lg-12">
-			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)">Add Event</label>
+			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData">Add Event</label>
 		</div>
 	</div>
 	<hr/>
@@ -15,12 +15,13 @@
 	        <accordion-heading>
 	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
-	        <p>Id: {{ event.$id }}</p>
 	    	<p>Venue: {{event.venue}}</p>
 	        <p>Date: {{event.event_date}}</p>
 	    	<p>Time: {{event.timeFrom}} - {{event.timeTo}}</p>
-	   		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">Delete</label> &nbsp;&nbsp;
-	   		<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">Edit</label>
+	    	<div ng-show="$root.authData">
+	   			<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">Delete</label> &nbsp;&nbsp;
+	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">Edit</label>
+	   		</div>
 	    </accordion-group>
   	</accordion>
   	<div class="row">

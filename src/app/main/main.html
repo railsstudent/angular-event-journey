@@ -37,10 +37,10 @@
             <p><span translate="WEB_SITE"></span><a target="_blank" ng-href="{{organization.url}}">{{organization.url}}</a></p>
             <a ng-href="{{organization.facebook}}" ng-show="organization.facebook" target="_blank" tooltip="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a> 
             <a ng-href="{{organization.meetup}}" ng-show="organization.meetup" target="_blank" tooltip="Meetup"><i class="fa fa-cloud fa-2x"></i></a>
-            <p><a ui-sref="events({organizationId: organization.$id })" translate>VIEW_EVENT</a></p>
-            <p><a ui-sref="home_edit({ id : organization.$id })" ng-show="$root.authData">
-                <button type="button" class="btn btn-md btn-default" ng-show="$root.authData" translate>EDIT</button>
-                </a>
+            <a class="pull-right" ui-sref="home_edit({ id : organization.$id })" ng-show="$root.authData">
+              <button type="button" class="btn btn-md btn-default" ng-show="$root.authData" translate>EDIT</button>
+            </a>
+            <p><a ui-sref="events({organizationId: organization.$id })" translate>VIEW_EVENT</a>
             </p>                            
           </div>
         </div>
