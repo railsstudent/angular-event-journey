@@ -115,7 +115,16 @@ app.config(['$translateProvider', function($translateProvider) {
     'TECH' : 'Technology',
     'MOBILE' : 'Mobile Platform',
     'VIEW_EVENT' : 'View Event',
-    'EVENTS' : 'Events'
+    'EVENTS' : 'Events',
+    'CONFIRM' : 'Ok',
+    'DELETE' : 'Delete',
+    'ADD_EVENT' : 'Add Event',
+    'VENUE' : 'Venue:   ',
+    'EVENT_DATE' : 'Event Date:   ',
+    'TIME_FROM' : 'Time From:   ',
+    'TIME_TO' : 'Time To:   ',
+    'ADD_EVENT_SUCCESS_CODE' : 'Add event is successful.',
+    'ADD_EVENT_ERROR_CODE' : 'Add event failed.'
   };
 
   var hkTexts = {
@@ -160,7 +169,14 @@ app.config(['$translateProvider', function($translateProvider) {
     'TECH' : '科技',
     'MOBILE' : '移動平台',
     'VIEW_EVENT' : '查看活動',
-    'EVENTS' : '活動'
+    'EVENTS' : '活動',
+    'CONFIRM' : '確定',
+    'DELETE' : '刪除',
+    'ADD_EVENT' : '增加活動',
+    'VENUE' : '地點：   ',
+    'EVENT_DATE' : '活動日期：   ',
+    'TIME_FROM' : '時間由：   ',   
+    'TIME_TO' : '時間到：   '
   };
 
   // register translation table

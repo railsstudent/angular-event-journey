@@ -172,12 +172,31 @@ angular.module('angularEventJourney')
 
     $scope.deleteEvent = function _deleteEvent(organizationId, eventId) {
       // TODO: show confirmation dialog
-      eventFactory.deleteEvent(organizationId, eventId);
+      var modalInstance = $modal.open({
+        templateUrl: 'app/event/event.delete.html',
+        controller: function($scope, $modalInstance) { 
+
+          $scope.ok = function _ok() {
+             $modalInstance.close('confirmed'); 
+          };
+
+          $scope.cancel = function _cancel() {
+            $modalInstance.dismiss('cancel');
+          };
+        },
+        size: 'sm'
+      });
+
+      modalInstance.result.then(function (value) {
+        if (_.isEqual(value, 'confirmed')) {
+          eventFactory.deleteEvent(organizationId, eventId);
+        }
+      });
     };
 
     $scope.showEditEventForm = function _showEditEventForm (organizationId, eventId) {
     
-      $modal.open({
+    /*  $modal.open({
         keyboard : false,
         templateUrl: 'app/event/event.edit.html',
         controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
@@ -194,7 +213,7 @@ angular.module('angularEventJourney')
                 $modalInstance.dismiss('cancel');
               };
 
-              $scope.savaeEvent = function _saveEvent(isValid) {
+              $scope.saveEvent = function _saveEvent(isValid) {
                 if (isValid) {
                   $scope.state.isLoading = true;
                   $scope.msgObj = {
@@ -202,12 +221,12 @@ angular.module('angularEventJourney')
                       cssClassName : ''
                   };
 
-                  handleAddEvent(organizationId).then(function(id) {
-                    $scope.new_event.name = '';
-                    $scope.new_event.venue = '';
-                    $scope.new_event.event_date = undefined;
-                    $scope.new_event.timeFrom = undefined;
-                    $scope.new_event.timeTo = undefined;
+                  handleSaveEvent(organizationId).then(function(ref) {
+                    $scope.save_event.name = '';
+                    $scope.save_event.venue = '';
+                    $scope.save_event.event_date = undefined;
+                    $scope.save_event.timeFrom = undefined;
+                    $scope.save_event.timeTo = undefined;
                     
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
@@ -215,13 +234,8 @@ angular.module('angularEventJourney')
                     $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
                     $scope.eventForm.$setPristine($scope.eventForm.timeTo);
                     
-                    // update counter
-                    // refCounter.transaction(function(currentValue) {
-                    //   return (currentValue || 0) + 1;
-                    // });
-
                     $scope.state.isLoading = false;
-                    $scope.msgObj.message = 'ADD_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
+                    $scope.msgObj.message = 'EDIT_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
                     $scope.msgObj.cssClassName = 'success';
 
                     $timeout(function() {
@@ -229,13 +243,13 @@ angular.module('angularEventJourney')
                     }, 1500);
                   }, function(error) {
                     $scope.state.isLoading = false;
-                    $scope.msgObj.message = 'ADD_EVENT_ERROR_CODE'; // 'Fail to add new event.';
+                    $scope.msgObj.message = 'EDIT_EVENT_ERROR_CODE'; // 'Fail to add new event.';
                     $scope.msgObj.cssClassName = 'danger';
                   });
                 }
               };
 
-              var handleAddEvent = function _handleAddEvent(organizationId) {
+              var handleSaveEvent = function _handleSaveEvent(organizationId, eventId) {
 
                   var deferred = $q.defer();
 
@@ -263,7 +277,7 @@ angular.module('angularEventJourney')
                         $priority : parsedDate
                        };
 
-                  eventFactory.addEvent(organizationId, newObj)
+                  eventFactory.saveEvent(organizationId, eventId, editObj, priorityId)
                       .then(function (ref) {
                           if (ref) {
                             deferred.resolve(ref.key());
@@ -292,6 +306,6 @@ angular.module('angularEventJourney')
               };
           }],
           size: 'lg',
-      });
+      });*/
     };
 }]);
