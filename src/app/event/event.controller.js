@@ -113,29 +113,17 @@ angular.module('angularEventJourney')
               var handleAddEvent = function _handleAddEvent(organizationId) {
 
                   var deferred = $q.defer();
-
-                  var parsedDate = Date.parse($scope.new_event.event_date);
-                  var parsedDateTime = Date.parse($scope.new_event.event_date);
-                  var dt = new Date(parsedDateTime);
-                  var event_date = dt.getFullYear() + '-' 
-                    + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth()) + '-' + dt.getDate();
-
-                  parsedDateTime = Date.parse($scope.new_event.timeFrom);
-                  dt = new Date(parsedDateTime);
-                  var minutes = dt.getMinutes();
-                  var timeFrom = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
-
-                  parsedDateTime = Date.parse($scope.new_event.timeTo);
-                  dt = new Date(parsedDateTime);
-                  minutes = dt.getMinutes();
-                  var timeTo = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
+                  var oEvent = eventFactory.convertToMilliseconds(
+                      $scope.new_event.event_date,
+                      $scope.new_event.timeFrom, 
+                      $scope.new_event.timeTo);
 
                   var newObj = { name : $scope.new_event.name,
                         venue : $scope.new_event.venue,
-                        event_date : event_date, 
-                        timeFrom : timeFrom, 
-                        timeTo : timeTo,
-                        $priority : parsedDate
+                        event_date : oEvent.event_date, 
+                        timeFrom : oEvent.event_time_from, 
+                        timeTo : oEvent.event_time_to,
+                        $priority : oEvent.event_time_to
                        };
 
                   eventFactory.addEvent(organizationId, newObj)
@@ -198,8 +186,8 @@ angular.module('angularEventJourney')
       $modal.open({
         keyboard : false,
         templateUrl: 'app/event/event.edit.html',
-        controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
-              function _modalController ($scope, $modalInstance, $q, eventFactory) { 
+        controller: ['$scope', '$modalInstance', '$q', 'eventFactory', '$filter',
+              function _modalController ($scope, $modalInstance, $q, eventFactory, $filter) { 
 
               $scope.state = {
                   isLoading : false,
@@ -215,11 +203,10 @@ angular.module('angularEventJourney')
                     $scope.edit_event = data;
                     // need to construct string date and time back to timestamp value 
                     // in long int format
-                    var strDate = data.event_date;
+                    var dateFilter =$filter('date');
+//                    var strDate = dateFilter(data.event_date, '');
                     var strTimeFrom = data.timeFrom;
                     var strTimeTo = data.timeTo;
-
-                    //new Date()
 
                     $scope.state.isLoading = false;
                   }, function(error) {

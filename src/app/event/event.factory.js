@@ -41,6 +41,24 @@ angular.module('angularEventJourney')
         return $firebase(new Firebase(eventUrl)).$remove();
       },
 
+      convertToMilliseconds : function _convertToMilliseconds(strEventDate, 
+                                strTimeFrom, strTimeTo) {
+        
+        var dt = new Date(strEventDate);
+        var dtFrom = new Date(strTimeFrom);
+        var dtTo = new Date(strTimeTo);
+
+        var dtDate = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0, 0);
+        var dtFromTime = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 
+                      dtFrom.getHours(), dtFrom.getMinutes(), dtFrom.getSeconds(), 0);
+        var dtToTime = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 
+                      dtTo.getHours(), dtTo.getMinutes(), dtTo.getSeconds(), 0);
+        return {
+          'event_date' :dtDate.getTime(),
+          'event_time_from' : dtFromTime.getTime(),
+          'event_time_to' : dtToTime.getTime()     
+        };
+      }
 
 /*      getNextPage : function _getNextPage(startAtId, limit) {
         // http://jsfiddle.net/katowulf/yumaB/

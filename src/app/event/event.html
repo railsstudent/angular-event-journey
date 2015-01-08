@@ -16,8 +16,8 @@
 	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
 	    	<p>Venue: {{event.venue}}</p>
-	        <p>Date: {{event.event_date}}</p>
-	    	<p>Time: {{event.timeFrom}} - {{event.timeTo}}</p>
+	        <p>Date: {{event.event_date | date:'yyyy-MM-dd'}}</p>
+	    	<p>Time: {{event.timeFrom | date:'HH:mm:ss'}} - {{event.timeTo | date:'HH:mm:ss'}}</p>
 	    	<div ng-show="$root.authData">
 	   			<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>
