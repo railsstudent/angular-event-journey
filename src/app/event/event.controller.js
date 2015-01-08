@@ -201,16 +201,8 @@ angular.module('angularEventJourney')
                 existingEvent.$loaded().then(
                   function(data) {
                     $scope.edit_event = data;
-                    // need to construct string date and time back to timestamp value 
-                    // in long int format
-//                    var dateFilter =$filter('date');
-//                    var strDate = dateFilter(data.event_date, '');
-//                    var strTimeFrom = data.timeFrom;
-//                    var strTimeTo = data.timeTo;
-
-                     $scope.edit_event.event_date = new Date(data.event_date).toDateString()
-
-
+                    $scope.edit_event.event_date = 
+                        new Date(data.event_date).toDateString();
                     $scope.state.isLoading = false;
                   }, function(error) {
                     $scope.edit_event = undefined;

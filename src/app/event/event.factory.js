@@ -33,25 +33,11 @@ angular.module('angularEventJourney')
 
       saveEvent : function _saveEvent(organizationId, eventId, existEvent, priority) {
         var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
-////        var sync = $firebase(new Firebase(eventUrl));
-
         var deferred = $q.defer();
         var ref = new Firebase(eventUrl);
         ref.setWithPriority(existEvent, priority);
         deferred.resolve(ref);
-
-//        sync.$set(existEvent)
-//          .then(function(ref) {
-//            var sync1 = $firebase(ref);
-//            var obj = sync.$asObject();
-//            obj.$priority = priority;
-//            return  deferred(obj.$save()); 
-//          }, function (error) {
-//            console.log("Error:", error); 
-//            return deferred.reject(sync);            
-//          });
-      //  return $firebase(new Firebase(eventUrl)).$set(existEvent);
-          return deferred.promise;
+        return deferred.promise;
       },
 
       deleteEvent : function _deleteEvent(organizationId, eventId) {

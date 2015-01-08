@@ -43,11 +43,6 @@
         <p ng-show="eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine" class="help-block">Please enter event date</p>
       </div>
     </div>
-    {{eventForm.name.$valid}},
-    {{eventForm.venue.$valid}},
-    {{eventForm.eventDate.$valid}},     {{eventForm.eventDate}}
-    {{eventForm.timeFrom.$valid}},
-    {{eventForm.timeTo.$valid}}
     <div class="form-group" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
       <label for="timeFrom" class="col-sm-2 control-label" translate>TIME_FROM</label>
       <div class="col-sm-9">
