@@ -1,6 +1,7 @@
   <form class="form-horizontal" name="eventForm" novalidate 
-    ng-submit="addEvent(eventForm.$valid)"
+    ng-submit="saveEvent(eventForm.$valid)"
     style="background: #eee;">
+      debug value : {{eventForm.$invalid}}
       <div class="modal-header">
             <h3 class="modal-title" translate>EDIT_EVENT</h3>
       </div>
@@ -19,14 +20,14 @@
      <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
       <label for="name" class="col-sm-2 control-label" translate>NAME</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="name" name="name" ng-required="true" ng-model="new_event.name">
+        <input type="text" class="form-control" id="name" name="name" ng-required="true" ng-model="edit_event.name">
         <p ng-show="eventForm.name.$invalid && !eventForm.name.$pristine" class="help-block">Please enter event name</p>
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : eventForm.venue.$invalid && !eventForm.venue.$pristine }">
       <label for="venue" class="col-sm-2 control-label" translate>VENUE</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="venue" name="venue" ng-required="true" ng-model="new_event.venue">
+        <input type="text" class="form-control" id="venue" name="venue" ng-required="true" ng-model="edit_event.venue">
         <p ng-show="eventForm.venue.$invalid && !eventForm.venue.$pristine" class="help-block">Please enter venue</p>
       </div>
     </div>
@@ -34,7 +35,7 @@
       <label for="eventDate" class="col-sm-2 control-label" translate>EVENT_DATE</label>
       <div class="col-sm-9">
         <p class="input-group">
-          <input type="text" class="form-control" ng-model="new_event.event_date" is-open="opened" ng-required="true" name="eventDate" id="eventDate"  datepicker-popup="{{format}}"  />
+          <input type="text" class="form-control" ng-model="edit_event.event_date" is-open="opened" ng-required="true" name="eventDate" id="eventDate"  datepicker-popup="{{format}}"  />
           <span class="input-group-btn">
             <label type="button" class="btn btn-default" ng-click="openDatepicker($event)"><i class="fa fa-calendar"></i></label>
           </span>
@@ -45,7 +46,7 @@
     <div class="form-group" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
       <label for="timeFrom" class="col-sm-2 control-label" translate>TIME_FROM</label>
       <div class="col-sm-9">
-        <timepicker ng-model="new_event.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
+        <timepicker ng-model="edit_event.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
           minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
         <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
       </div>
@@ -53,7 +54,7 @@
     <div class="form-group" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
       <label for="timeTo" class="col-sm-2 control-label" translate>TIME_TO</label>
       <div class="col-sm-9">
-        <timepicker ng-model="new_event.timeTo" ng-required="true" name="timeTo" 
+        <timepicker ng-model="edit_event.timeTo" ng-required="true" name="timeTo" 
         id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
         <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
       </div>

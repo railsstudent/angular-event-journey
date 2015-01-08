@@ -124,7 +124,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'TIME_FROM' : 'Time From:   ',
     'TIME_TO' : 'Time To:   ',
     'ADD_EVENT_SUCCESS_CODE' : 'Add event is successful.',
-    'ADD_EVENT_ERROR_CODE' : 'Add event failed.'
+    'ADD_EVENT_ERROR_CODE' : 'Add event failed.',
+    'EDIT_EVENT' : 'Edit Event'
   };
 
   var hkTexts = {
@@ -176,7 +177,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'VENUE' : '地點：   ',
     'EVENT_DATE' : '活動日期：   ',
     'TIME_FROM' : '時間由：   ',   
-    'TIME_TO' : '時間到：   '
+    'TIME_TO' : '時間到：   ',
+    'EDIT_EVENT' : '修改活動'
   };
 
   // register translation table

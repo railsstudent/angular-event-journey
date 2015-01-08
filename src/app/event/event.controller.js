@@ -157,7 +157,6 @@ angular.module('angularEventJourney')
               };
 
               var today = new Date();
-              $scope.timezoneOffset = today.getTimezoneOffset();
               $scope.new_event = {
                 name : '',
                 venue : '',
@@ -195,8 +194,8 @@ angular.module('angularEventJourney')
     };
 
     $scope.showEditEventForm = function _showEditEventForm (organizationId, eventId) {
-    
-    /*  $modal.open({
+
+      $modal.open({
         keyboard : false,
         templateUrl: 'app/event/event.edit.html',
         controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
@@ -208,6 +207,26 @@ angular.module('angularEventJourney')
                   isMerdian : false,
                   format : 'yyyy-MM-dd'
                 };
+
+              $scope.state.isLoading = true;
+               var existingEvent = eventFactory.retrieveEvent(organizationId, eventId);
+                existingEvent.$loaded().then(
+                  function(data) {
+                    $scope.edit_event = data;
+                    // need to construct string date and time back to timestamp value 
+                    // in long int format
+                    var strDate = data.event_date;
+                    var strTimeFrom = data.timeFrom;
+                    var strTimeTo = data.timeTo;
+
+                    //new Date()
+
+                    $scope.state.isLoading = false;
+                  }, function(error) {
+                    $scope.edit_event = undefined;
+                    $scope.state.isLoading = false;
+                  }
+                );
 
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -221,7 +240,7 @@ angular.module('angularEventJourney')
                       cssClassName : ''
                   };
 
-                  handleSaveEvent(organizationId).then(function(ref) {
+                handleSaveEvent(organizationId).then(function(ref) {
                     $scope.save_event.name = '';
                     $scope.save_event.venue = '';
                     $scope.save_event.event_date = undefined;
@@ -294,18 +313,8 @@ angular.module('angularEventJourney')
 
                 $scope.opened = true;
               };
-
-              var today = new Date();
-              $scope.timezoneOffset = today.getTimezoneOffset();
-              $scope.new_event = {
-                name : '',
-                venue : '',
-                event_date: today,
-                timeFrom: today,
-                timeTo : today
-              };
           }],
           size: 'lg',
-      });*/
+      });
     };
 }]);
