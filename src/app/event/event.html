@@ -19,6 +19,7 @@
 	        <p>Date: {{event.event_date | date:'yyyy-MM-dd'}}</p>
 	    	<p>Time: {{event.timeFrom | date:'HH:mm:ss'}} - {{event.timeTo | date:'HH:mm:ss'}}</p>
 	    	<div ng-show="$root.authData">
+	    		{{event.$id}}
 	   			<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>
 	   		</div>

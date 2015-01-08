@@ -203,10 +203,13 @@ angular.module('angularEventJourney')
                     $scope.edit_event = data;
                     // need to construct string date and time back to timestamp value 
                     // in long int format
-                    var dateFilter =$filter('date');
+//                    var dateFilter =$filter('date');
 //                    var strDate = dateFilter(data.event_date, '');
-                    var strTimeFrom = data.timeFrom;
-                    var strTimeTo = data.timeTo;
+//                    var strTimeFrom = data.timeFrom;
+//                    var strTimeTo = data.timeTo;
+
+                     $scope.edit_event.event_date = new Date(data.event_date).toDateString()
+
 
                     $scope.state.isLoading = false;
                   }, function(error) {
@@ -227,12 +230,12 @@ angular.module('angularEventJourney')
                       cssClassName : ''
                   };
 
-                handleSaveEvent(organizationId).then(function(ref) {
-                    $scope.save_event.name = '';
-                    $scope.save_event.venue = '';
-                    $scope.save_event.event_date = undefined;
-                    $scope.save_event.timeFrom = undefined;
-                    $scope.save_event.timeTo = undefined;
+                handleSaveEvent(organizationId, eventId).then(function(ref) {
+                    $scope.edit_event.name = '';
+                    $scope.edit_event.venue = '';
+                    $scope.edit_event.event_date = undefined;
+                    $scope.edit_event.timeFrom = undefined;
+                    $scope.edit_event.timeTo = undefined;
                     
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
@@ -259,31 +262,20 @@ angular.module('angularEventJourney')
 
                   var deferred = $q.defer();
 
-                  var parsedDate = Date.parse($scope.new_event.event_date);
-                  var parsedDateTime = Date.parse($scope.new_event.event_date);
-                  var dt = new Date(parsedDateTime);
-                  var event_date = dt.getFullYear() + '-' 
-                    + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth()) + '-' + dt.getDate();
+                  var oEvent = eventFactory.convertToMilliseconds(
+                      $scope.edit_event.event_date,
+                      $scope.edit_event.timeFrom, 
+                      $scope.edit_event.timeTo);
 
-                  parsedDateTime = Date.parse($scope.new_event.timeFrom);
-                  dt = new Date(parsedDateTime);
-                  var minutes = dt.getMinutes();
-                  var timeFrom = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
-
-                  parsedDateTime = Date.parse($scope.new_event.timeTo);
-                  dt = new Date(parsedDateTime);
-                  minutes = dt.getMinutes();
-                  var timeTo = dt.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
-
-                  var newObj = { name : $scope.new_event.name,
-                        venue : $scope.new_event.venue,
-                        event_date : event_date, 
-                        timeFrom : timeFrom, 
-                        timeTo : timeTo,
-                        $priority : parsedDate
+                  var editObj = { name : $scope.edit_event.name,
+                        venue : $scope.edit_event.venue,
+                        event_date : oEvent.event_date, 
+                        timeFrom : oEvent.event_time_from, 
+                        timeTo : oEvent.event_time_to
                        };
+                  var priority = oEvent.event_time_to;
 
-                  eventFactory.saveEvent(organizationId, eventId, editObj, priorityId)
+                  eventFactory.saveEvent(organizationId, eventId, editObj, priority)
                       .then(function (ref) {
                           if (ref) {
                             deferred.resolve(ref.key());

@@ -7,7 +7,7 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('eventFactory', [ '$firebase', function ($firebase) {
+  .factory('eventFactory', [ '$firebase', '$q', function ($firebase, $q) {
 // Service logic
 // ...
   // Create our Firebase reference    
@@ -31,16 +31,33 @@ angular.module('angularEventJourney')
           return $firebase(new Firebase(eventUrl)).$asArray().$add(newEvent);
       },
 
-      saveEvent : function _saveEvent(organizationId, eventId, existEvent) {
+      saveEvent : function _saveEvent(organizationId, eventId, existEvent, priority) {
         var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
-        return $firebase(new Firebase(eventUrl)).$set(existEvent);
+////        var sync = $firebase(new Firebase(eventUrl));
+
+        var deferred = $q.defer();
+        var ref = new Firebase(eventUrl);
+        ref.setWithPriority(existEvent, priority);
+        deferred.resolve(ref);
+
+//        sync.$set(existEvent)
+//          .then(function(ref) {
+//            var sync1 = $firebase(ref);
+//            var obj = sync.$asObject();
+//            obj.$priority = priority;
+//            return  deferred(obj.$save()); 
+//          }, function (error) {
+//            console.log("Error:", error); 
+//            return deferred.reject(sync);            
+//          });
+      //  return $firebase(new Firebase(eventUrl)).$set(existEvent);
+          return deferred.promise;
       },
 
       deleteEvent : function _deleteEvent(organizationId, eventId) {
         var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
         return $firebase(new Firebase(eventUrl)).$remove();
       },
-
       convertToMilliseconds : function _convertToMilliseconds(strEventDate, 
                                 strTimeFrom, strTimeTo) {
         
