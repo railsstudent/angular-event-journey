@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('angularEventJourney')
 	.directive('datepickerPopup', function (){
 	  return {
@@ -7,5 +9,5 @@ angular.module('angularEventJourney')
 	      //remove the default formatter from the input directive to prevent conflict
 	      controller.$formatters.shift();
 	    }
-	  }
+	  };
 	});

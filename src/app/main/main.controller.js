@@ -35,16 +35,16 @@ angular.module('angularEventJourney')
         } else if (prevPage < $scope.currentPage) {
           console.log('Load next page');
           // get the key of the last organization
-          var keys = _.keys($scope.organizations);
-          var lastKey = keys[keys.length - 1];
+          var keys1 = _.keys($scope.organizations);
+          var lastKey = keys1[keys1.length - 1];
           var startAtId = lastKey ? lastKey: undefined;
           prevPage = $scope.currentPage;
           loadNextPage(startAtId);
         } else if (prevPage > $scope.currentPage) {
           console.log('Load previous page');
           // get the key of the first organization
-          var keys = _.keys($scope.organizations);
-          var firstKey = keys[0];
+          var keys2 = _.keys($scope.organizations);
+          var firstKey = keys2[0];
           var endAtId = firstKey ? firstKey : undefined;
           prevPage = $scope.currentPage;
           loadPrevPage(endAtId);
@@ -118,7 +118,7 @@ angular.module('angularEventJourney')
           loadNextPage(undefined);
         });
       }
-    }
+    };
 
     $scope.state = {
       isLoading : false,

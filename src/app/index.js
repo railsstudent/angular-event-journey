@@ -115,7 +115,7 @@ app.config(['$translateProvider', function($translateProvider) {
     'TECH' : 'Technology',
     'MOBILE' : 'Mobile Platform',
     'VIEW_EVENT' : 'View Event',
-    'EVENTS' : 'Events',
+    'EVENTS' : 'Events ({{value}})',
     'CONFIRM' : 'Ok',
     'DELETE' : 'Delete',
     'ADD_EVENT' : 'Add Event',
@@ -125,7 +125,9 @@ app.config(['$translateProvider', function($translateProvider) {
     'TIME_TO' : 'Time To:   ',
     'ADD_EVENT_SUCCESS_CODE' : 'Add event is successful.',
     'ADD_EVENT_ERROR_CODE' : 'Add event failed.',
-    'EDIT_EVENT' : 'Edit Event'
+    'EDIT_EVENT' : 'Edit Event',
+    'EDIT_EVENT_SUCCESS_CODE' : 'Edit event is successful.',
+    'EDIT_EVENT_ERROR_CODE' : 'Edit event failed.'
   };
 
   var hkTexts = {
@@ -170,7 +172,7 @@ app.config(['$translateProvider', function($translateProvider) {
     'TECH' : '科技',
     'MOBILE' : '移動平台',
     'VIEW_EVENT' : '查看活動',
-    'EVENTS' : '活動',
+    'EVENTS' : '活動 ({{value}})',
     'CONFIRM' : '確定',
     'DELETE' : '刪除',
     'ADD_EVENT' : '增加活動',
@@ -178,7 +180,11 @@ app.config(['$translateProvider', function($translateProvider) {
     'EVENT_DATE' : '活動日期：   ',
     'TIME_FROM' : '時間由：   ',   
     'TIME_TO' : '時間到：   ',
-    'EDIT_EVENT' : '修改活動'
+    'ADD_EVENT_SUCCESS_CODE' : '增加活動成功。',
+    'ADD_EVENT_ERROR_CODE' : '增加活動失敗。',
+    'EDIT_EVENT' : '修改活動',
+    'EDIT_EVENT_SUCCESS_CODE' : '修改活動成功。',
+    'EDIT_EVENT_ERROR_CODE' : '修改活動失敗。'
   };
 
   // register translation table

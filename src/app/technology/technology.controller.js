@@ -20,8 +20,7 @@ angular.module('angularEventJourney')
   	var isToolDataLoaded = false;  	
 
     var isAllDataLoaded = function _isAllDataLoaded() {
-    	return isFrontEndDataLoaded && isBackEndDataLoaded 
-    		&& isToolDataLoaded;
+    	return isFrontEndDataLoaded && isBackEndDataLoaded && isToolDataLoaded;
     };
 
     var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };

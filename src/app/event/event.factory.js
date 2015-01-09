@@ -16,8 +16,13 @@ angular.module('angularEventJourney')
 // Public API here
     return {
 
+      refCounter : function _refCounter(organizationId) {
+        var eventUrl = organizationUrl + organizationId + '/event_counter';
+        return new Firebase(eventUrl);        
+      },
+
       retrieveAllEvents : function _retrieveAllEvents(organizationId) {
-		    var eventUrl = organizationUrl + organizationId + '/events'
+		    var eventUrl = organizationUrl + organizationId + '/events';
 		    return $firebase(new Firebase(eventUrl)).$asArray();
       },
       
@@ -57,9 +62,9 @@ angular.module('angularEventJourney')
         var dtToTime = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 
                       dtTo.getHours(), dtTo.getMinutes(), dtTo.getSeconds(), 0);
         return {
-          'event_date' :dtDate.getTime(),
-          'event_time_from' : dtFromTime.getTime(),
-          'event_time_to' : dtToTime.getTime()     
+          'eventDate' :dtDate.getTime(),
+          'timeFrom' : dtFromTime.getTime(),
+          'timeTo' : dtToTime.getTime()     
         };
       }
 

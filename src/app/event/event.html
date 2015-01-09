@@ -1,12 +1,11 @@
 <div class="container">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
-
 	<h1 ng-init="loadPage()">{{organizationName}}</h1>
-	<h3 translate>EVENTS</h3>
+	<h3 translate="EVENTS" translate-values="{ value : '{{numEvents}}'}">EVENTS</h3>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-lg-12">
-			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData" translate>ADD_EVENT</label>
+			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData" translate="ADD_EVENT" ></label>
 		</div>
 	</div>
 	<hr/>
@@ -16,8 +15,8 @@
 	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
 	    	<p>Venue: {{event.venue}}</p>
-	        <p>Date: {{event.event_date | date:'yyyy-MM-dd'}}</p>
-	    	<p>Time: {{event.timeFrom | date:'HH:mm:ss'}} - {{event.timeTo | date:'HH:mm:ss'}}</p>
+	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}}</p>
+	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
 	    	<div ng-show="$root.authData">
 	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>
