@@ -7,6 +7,9 @@
     "compression": "^1.2.2",
     "express": "^4.10.6",
     "logfmt": "^1.1.2"
+  },  "repository": {
+    "type": "git",
+    "url": "https://github.com/railsstudent/angular-event-journey.git"
   },
   "devDependencies": {
     "browser-sync": "^1.3.6",
