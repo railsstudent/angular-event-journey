@@ -71,7 +71,6 @@
     "wiredep": "^1.8.5"
   }, 
   "scripts": {
-    "preinstall" : "npm -g install npm@next",
     "postinstall": "bower install && gulp build"
   },
   "engines": {
