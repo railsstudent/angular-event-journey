@@ -75,6 +75,7 @@
     "postinstall": "bower install && gulp build"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.0",
+    "npm" : "2.1.x"
   }
 }
