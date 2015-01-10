@@ -47,6 +47,9 @@
     "uglify-save-license": "^0.4.1",
     "wiredep": "^1.8.5"
   },
+  "scripts" : {
+    "postinstall" : "bower install && gulp build"
+  }
   "engines": {
     "node": ">=0.10.0"
   }
