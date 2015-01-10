@@ -25,13 +25,13 @@ router.use(function(req, res, next) {
 
 // home page route (http://localhost:5000)
 router.get('/', function(req, res) {
-	res.sendfile('./src/index.html');
+	res.sendfile('index.html');
 });
 
 // http://stackoverflow.com/questions/23860275/javascript-angular-not-loading-when-using-express
 //add this so the browser can GET the bower files
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
-app.use(express.static(__dirname + '/src'));
+//app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use(express.static(__dirname + '/dist'));
 
 // apply the routes to our application
 app.use('/', router);
