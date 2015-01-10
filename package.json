@@ -71,11 +71,7 @@
     "protractor": "^1.1.1",
     "uglify-save-license": "^0.4.1",
     "wiredep": "^1.8.5"
-  },
-  "scripts" : {
-    "before_install" : "npm cache clean && npm install -g npm@next",
-    "postinstall" : "gulp build"
-  },
+  }, 
   "engines": {
     "node": ">=0.10.0"
   }
