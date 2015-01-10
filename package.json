@@ -73,7 +73,7 @@
     "wiredep": "^1.8.5"
   },
   "scripts" : {
-    "before_install" : "npm install -g npm@next && npm cache clean",
+    "before_install" : "npm cache clean && npm install -g npm@next",
     "postinstall" : "gulp build"
   },
   "engines": {
