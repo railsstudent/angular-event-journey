@@ -7,7 +7,7 @@ angular.module('angularEventJourney')
 
       var fnIdentity = function(x) { return x; };
 
-      var isObject = function(s) { return s != null && s != undefined; };
+      var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
       $scope.me = {};
 

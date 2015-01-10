@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 
 // http://ericlbarnes.com/setting-gulp-bower-bootstrap-sass-fontawesome/ 
-var bower = require('gulp-bower');
+/*var bower = require('gulp-bower');
  
 var config = {
     sassPath: './resources/sass',
@@ -13,10 +13,10 @@ var config = {
 gulp.task('bower', function() {
     return bower()
         .pipe(gulp.dest(config.bowerDir))
-});
+});*/
 
 // inject bower components
-gulp.task('wiredep', ['bower'], function () {
+gulp.task('wiredep', function () {
   var wiredep = require('wiredep').stream;
 
   gulp.src('src/{app,components}/*.scss')
