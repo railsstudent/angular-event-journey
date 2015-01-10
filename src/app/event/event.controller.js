@@ -66,8 +66,7 @@ angular.module('angularEventJourney')
               $scope.state = {
                   isLoading : false,
                   minStep : 5,
-                  isMerdian : false,
-                  format : 'yyyy-MM-dd'
+                  isMerdian : false
                 };
 
               $scope.cancel = function () {
@@ -79,7 +78,8 @@ angular.module('angularEventJourney')
                   $scope.state.isLoading = true;
                   $scope.msgObj = {
                       message : '',
-                      cssClassName : ''
+                      cssClassName : '',
+                      additionalMessage : ''                    
                   };
 
                   handleAddEvent(organizationId).then(function(id) {
@@ -110,7 +110,10 @@ angular.module('angularEventJourney')
                   }, function(error) {
                     $scope.state.isLoading = false;
                     $scope.msgObj.message = 'ADD_EVENT_ERROR_CODE'; // 'Fail to add new event.';
-                    $scope.msgObj.cssClassName = 'danger';
+                    $scope.msgObj.cssClassName = 'danger';                  
+                    if (error && !_.isEmpty(error)) {
+                      $scope.msgObj.additionalMessage = error;
+                    }
                   });
                 }
               };
@@ -123,22 +126,27 @@ angular.module('angularEventJourney')
                       $scope.newEvent.timeFrom, 
                       $scope.newEvent.timeTo);
 
-                  var newObj = { name : $scope.newEvent.name,
-                        venue : $scope.newEvent.venue,
-                        eventDate : oEvent.eventDate, 
-                        timeFrom : oEvent.timeFrom, 
-                        timeTo : oEvent.timeTo,
-                        $priority : oEvent.timeTo
-                       };
+                 if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
+                    deferred.reject('Event Time To cannot be earlier than Event Time From.');
+                  } else {
 
-                  eventFactory.addEvent(organizationId, newObj)
-                      .then(function (ref) {
-                          if (ref) {
-                            deferred.resolve(ref.key());
-                          } else {
-                            deferred.reject('');
-                          }
-                      });
+                    var newObj = { name : $scope.newEvent.name,
+                          venue : $scope.newEvent.venue,
+                          eventDate : oEvent.eventDate, 
+                          timeFrom : oEvent.timeFrom, 
+                          timeTo : oEvent.timeTo,
+                          $priority : oEvent.timeTo
+                         };
+
+                    eventFactory.addEvent(organizationId, newObj)
+                        .then(function (ref) {
+                            if (ref) {
+                              deferred.resolve(ref.key());
+                            } else {
+                              deferred.reject('');
+                            }
+                        });
+                  }
                   return deferred.promise;
               };
 
@@ -201,8 +209,7 @@ angular.module('angularEventJourney')
               $scope.state = {
                   isLoading : false,
                   minStep : 5,
-                  isMerdian : false,
-                  format : 'yyyy-MM-dd'
+                  isMerdian : false
                 };
 
               $scope.state.isLoading = true;
@@ -212,7 +219,7 @@ angular.module('angularEventJourney')
                     $scope.editEvent = data;
                     var dt = new Date(data.eventDate);
                     var dateFilter = $filter('date');
-                    var strEventDate = dateFilter(dt, $scope.state.format);
+                    var strEventDate = dateFilter(dt, 'yyyy-MM-dd');
                     $scope.editEvent.eventDate = strEventDate;
                     $scope.state.isLoading = false;
                   }, function(error) {
@@ -230,7 +237,8 @@ angular.module('angularEventJourney')
                   $scope.state.isLoading = true;
                   $scope.msgObj = {
                       message : '',
-                      cssClassName : ''
+                      cssClassName : '',
+                      additionalMessage : ''
                   };
 
                 handleSaveEvent(organizationId, eventId).then(function(ref) {
@@ -257,6 +265,10 @@ angular.module('angularEventJourney')
                     $scope.state.isLoading = false;
                     $scope.msgObj.message = 'EDIT_EVENT_ERROR_CODE'; // 'Fail to add new event.';
                     $scope.msgObj.cssClassName = 'danger';
+                    
+                    if (error && !_.isEmpty(error)) {
+                      $scope.msgObj.additionalMessage = error;
+                    }
                   });
                 }
               };
@@ -270,22 +282,26 @@ angular.module('angularEventJourney')
                       $scope.editEvent.timeFrom, 
                       $scope.editEvent.timeTo);
 
-                  var editObj = { name : $scope.editEvent.name,
-                        venue : $scope.editEvent.venue,
-                        eventDate : oEvent.eventDate, 
-                        timeFrom : oEvent.timeFrom, 
-                        timeTo : oEvent.timeTo
-                       };
-                  var priority = oEvent.timeTo;
+                 if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
+                    deferred.reject('Event Time To cannot be earlier than Event Time From.');
+                 } else {
 
-                  eventFactory.saveEvent(organizationId, eventId, editObj, priority)
-                      .then(function (ref) {
-                          if (ref) {
-                            deferred.resolve(ref.key());
-                          } else {
-                            deferred.reject('');
-                          }
-                      });
+                    var editObj = { name : $scope.editEvent.name,
+                          venue : $scope.editEvent.venue,
+                          eventDate : oEvent.eventDate, 
+                          timeFrom : oEvent.timeFrom, 
+                          timeTo : oEvent.timeTo
+                         };
+                    var priority = oEvent.timeTo;
+                    eventFactory.saveEvent(organizationId, eventId, editObj, priority)
+                        .then(function (ref) {
+                            if (ref) {
+                              deferred.resolve(ref.key());
+                            } else {
+                              deferred.reject('');
+                            }
+                        });
+                  }
                   return deferred.promise;
               };
 

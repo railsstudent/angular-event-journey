@@ -66,6 +66,9 @@ angular.module('angularEventJourney')
           'timeFrom' : dtFromTime.getTime(),
           'timeTo' : dtToTime.getTime()     
         };
+      },
+      isEarlierThan : function _isEarlierThan(milliSeconds1, milliSeconds2) {
+        return milliSeconds1 < milliSeconds2;
       }
 
 /*      getNextPage : function _getNextPage(startAtId, limit) {

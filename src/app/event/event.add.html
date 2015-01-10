@@ -14,7 +14,10 @@
         </div>
      </div>
 
-      <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message | translate }}</alert>
+      <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">
+        <p>{{msgObj.message | translate}}</p>
+        <p>{{msgObj.additionalMessage}}</p>
+      </alert>
 
      <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
       <label for="name" class="col-sm-2 control-label" translate>NAME</label>
