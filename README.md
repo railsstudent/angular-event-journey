@@ -6,11 +6,11 @@ List IT events of local open source groups and meetup groups that I will attend 
 Functions
 --------------
 
-*Authentication*
+**Authentication**
 
 - Login into the website to perform CRUD on website
 
-*Organizations*
+**Organizations**
 
 - Create new organization
 - Edit existing organization
