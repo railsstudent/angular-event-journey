@@ -45,20 +45,30 @@
         <p ng-show="eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine" class="help-block">Please enter event date</p>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
-      <label for="timeFrom" class="col-sm-2 control-label" translate>TIME_FROM</label>
-      <div class="col-sm-9">
-        <timepicker ng-model="editEvent.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
-          minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
-        <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
+    <div class="form-group">
+      <div class="col-md-6 col-lg-6 col-sm-6" ng-class="{ 'has-error' : eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine }">
+        <label for="timeFrom" class="col-sm-4 col-md-4 col-lg-4 control-label" translate>TIME_FROM</label>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <timepicker ng-model="editEvent.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
+            minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
+          <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-6" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
+        <label for="timeTo" class="col-sm-4 col-md-4 col-lg-4 control-label" translate>TIME_TO</label>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <timepicker ng-model="editEvent.timeTo" ng-required="true" name="timeTo" 
+          id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
+          <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
-      <label for="timeTo" class="col-sm-2 control-label" translate>TIME_TO</label>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.hashtag.$invalid && !eventForm.hashtag.$pristine }">
+      <label for="hashtag" class="col-sm-2 control-label" translate>HASH_TAG</label>
       <div class="col-sm-9">
-        <timepicker ng-model="editEvent.timeTo" ng-required="true" name="timeTo" 
-        id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
-        <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
+        <input type="text" ng-model="editEvent.hashtag" name="hashtag" id="hashtag" required size="50"></input>
+        <p>Please enter hashtag, separated by comma</p>
+        <p ng-show="eventForm.hashtag.$invalid && !eventForm.hashtag.$pristine" class="help-block">Please enter at least one hashtag, separated by comma</p>
       </div>
     </div>
     <!-- div-->

@@ -17,6 +17,7 @@
 	    	<p>Venue: {{event.venue}}</p>
 	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}}</p>
 	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
+	    	<p>Hashtag: {{event.hashtag}}</p>
 	    	<div ng-show="$root.authData">
 	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>

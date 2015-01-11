@@ -135,6 +135,7 @@ angular.module('angularEventJourney')
                           eventDate : oEvent.eventDate, 
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
+                          hashtag : $scope.newEvent.hashtag,
                           $priority : oEvent.timeTo
                          };
 
@@ -163,7 +164,8 @@ angular.module('angularEventJourney')
                 venue : '',
                 eventDate: today,
                 timeFrom: today,
-                timeTo : today
+                timeTo : today,
+                hashtag : ''
               };
           }],
           size: 'lg',
@@ -247,7 +249,8 @@ angular.module('angularEventJourney')
                     $scope.editEvent.eventDate = undefined;
                     $scope.editEvent.timeFrom = undefined;
                     $scope.editEvent.timeTo = undefined;
-                    
+                    $scope.editEvent.hashtag = undefined;
+
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
                     $scope.eventForm.$setPristine($scope.eventForm.eventDate);
@@ -290,7 +293,8 @@ angular.module('angularEventJourney')
                           venue : $scope.editEvent.venue,
                           eventDate : oEvent.eventDate, 
                           timeFrom : oEvent.timeFrom, 
-                          timeTo : oEvent.timeTo
+                          timeTo : oEvent.timeTo,
+                          hashtag : $scope.editEvent.hashtag
                          };
                     var priority = oEvent.timeTo;
                     eventFactory.saveEvent(organizationId, eventId, editObj, priority)
