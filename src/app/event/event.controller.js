@@ -214,6 +214,13 @@ angular.module('angularEventJourney')
                   isMerdian : false
                 };
 
+                $scope.max = 10;
+                
+                $scope.hoveringOver = function _hoveringOver(value) {
+                  $scope.overStar = value;
+                  $scope.percent = 100 * (value / $scope.max);
+                };
+  
               $scope.state.isLoading = true;
               var existingEvent = eventFactory.retrieveEvent(organizationId, eventId);
               existingEvent.$loaded().then(
@@ -250,12 +257,14 @@ angular.module('angularEventJourney')
                     $scope.editEvent.timeFrom = undefined;
                     $scope.editEvent.timeTo = undefined;
                     $scope.editEvent.hashtag = undefined;
+                    $scope.editEvent.rate = undefined;
 
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
                     $scope.eventForm.$setPristine($scope.eventForm.eventDate);
                     $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
                     $scope.eventForm.$setPristine($scope.eventForm.timeTo);
+                    $scope.eventForm.$setPristine($scope.eventForm.rate);
                     
                     $scope.state.isLoading = false;
                     $scope.msgObj.message = 'EDIT_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
@@ -294,7 +303,8 @@ angular.module('angularEventJourney')
                           eventDate : oEvent.eventDate, 
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
-                          hashtag : $scope.editEvent.hashtag
+                          hashtag : $scope.editEvent.hashtag,
+                          rate : $scope.editEvent.rate
                          };
                     var priority = oEvent.timeTo;
                     eventFactory.saveEvent(organizationId, eventId, editObj, priority)
