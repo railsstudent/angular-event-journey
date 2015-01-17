@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 'mainFactory', 
-  		'$modal', '$timeout',
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $timeout) {
+  .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
+      'mainFactory', '$modal', '$timeout', 'RATE',
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $timeout, RATE) {
   		
 	  $scope.events = [];
     $scope.isLoading = true;
@@ -28,11 +28,6 @@ angular.module('angularEventJourney')
   		eventFactory.retrieveAllEvents($scope.organizationId).$loaded() 
   			.then(function(data) {
           $scope.events = data;
-
-          _.forEach($scope.events, function(ev) {
-            ev.percent = 100 * (ev.rate / 10);
-          });
-
 				  isEventDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
@@ -47,7 +42,7 @@ angular.module('angularEventJourney')
   		mainFactory.retrieveOrganization($scope.organizationId).$loaded() 
   			.then(function(data) {
   				$scope.organizationName = data.name;
-				  isNameDataLoaded = true; 
+          isNameDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
   				}
@@ -92,7 +87,7 @@ angular.module('angularEventJourney')
                     $scope.newEvent.eventDate = undefined;
                     $scope.newEvent.timeFrom = undefined;
                     $scope.newEvent.timeTo = undefined;
-                    
+
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
                     $scope.eventForm.$setPristine($scope.eventForm.eventDate);
@@ -140,7 +135,8 @@ angular.module('angularEventJourney')
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
                           hashtag : $scope.newEvent.hashtag,
-
+                          rate : 0,
+                          percent : 0,
                           $priority : oEvent.timeTo
                          };
 
@@ -218,12 +214,10 @@ angular.module('angularEventJourney')
                   minStep : 5,
                   isMerdian : false
                 };
-
-                $scope.max = 10;
                 
                 $scope.hoveringOver = function _hoveringOver(value) {
                   $scope.overStar = value;
-                  $scope.percent = 100 * (value / $scope.max);
+                  $scope.percent = RATE.hundred * (value / RATE.base);
                 };
   
               $scope.state.isLoading = true;
@@ -256,13 +250,7 @@ angular.module('angularEventJourney')
                   };
 
                 handleSaveEvent(organizationId, eventId).then(function(ref) {
-                    $scope.editEvent.name = '';
-                    $scope.editEvent.venue = '';
-                    $scope.editEvent.eventDate = undefined;
-                    $scope.editEvent.timeFrom = undefined;
-                    $scope.editEvent.timeTo = undefined;
-                    $scope.editEvent.hashtag = undefined;
-                    $scope.editEvent.rate = undefined;
+                    $scope.editEvent = undefined;
 
                     $scope.eventForm.$setPristine($scope.eventForm.name);
                     $scope.eventForm.$setPristine($scope.eventForm.venue);
@@ -303,13 +291,16 @@ angular.module('angularEventJourney')
                     deferred.reject('Event Time To cannot be earlier than Event Time From.');
                  } else {
 
+                    var rate = $scope.editEvent.rate || 0;
+                    var percent = RATE.hundred * (($scope.editEvent.rate || 0) / RATE.base);
                     var editObj = { name : $scope.editEvent.name,
                           venue : $scope.editEvent.venue,
                           eventDate : oEvent.eventDate, 
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
                           hashtag : $scope.editEvent.hashtag,
-                          rate : $scope.editEvent.rate || 0
+                          rate : rate,
+                          percent: percent
                          };
                     var priority = oEvent.timeTo;
                     eventFactory.saveEvent(organizationId, eventId, editObj, priority)
