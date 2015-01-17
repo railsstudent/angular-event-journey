@@ -174,7 +174,6 @@ angular.module('angularEventJourney')
     };
 
     $scope.deleteEvent = function _deleteEvent(organizationId, eventId) {
-      // TODO: show confirmation dialog
       var modalInstance = $modal.open({
         templateUrl: 'app/event/event.delete.html',
         controller: function($scope, $modalInstance) { 
