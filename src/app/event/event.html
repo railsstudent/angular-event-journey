@@ -18,7 +18,9 @@
 	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}}</p>
 	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
 	    	<p>Hashtag: {{event.hashtag}}</p>
-	    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></rating></p>
+	    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></rating>
+	    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
+	    	</p>
 	    	<div ng-show="$root.authData">
 	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>

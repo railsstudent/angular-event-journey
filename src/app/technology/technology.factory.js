@@ -14,6 +14,7 @@ angular.module('angularEventJourney')
     var refFrontend1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/front-end');    
     var refBackend1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/back-end');
     var refTool1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/tools');
+    var refHosting1 = new Firebase('https://blazing-fire-2680.firebaseio.com/technology/hosting');
 
 // Public API here
     return {
@@ -30,6 +31,10 @@ angular.module('angularEventJourney')
         return refTool1;
       },
 
+     refHosting : function _refHosting() {
+        return refHosting1;
+      },
+
       retrieveFrontend : function _retrieveFrontend() {
         return $firebase(refFrontend1).$asArray();
       },
@@ -40,6 +45,10 @@ angular.module('angularEventJourney')
 
      retrieveTool : function _retrieveFrontend() {
         return $firebase(refTool1).$asArray();
-      } 
+      },
+
+      retrieveHosting : function _retrieveHosting() {
+        return $firebase(refHosting1).$asArray();
+      }  
     };
   }]);

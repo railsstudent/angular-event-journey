@@ -29,6 +29,10 @@ angular.module('angularEventJourney')
   			.then(function(data) {
           $scope.events = data;
 
+          _.forEach($scope.events, function(ev) {
+            ev.percent = 100 * (ev.rate / 10);
+          });
+
 				  isEventDataLoaded = true; 
   				if (isAllDataLoaded()) {
   					$scope.isLoading = false;
@@ -136,6 +140,7 @@ angular.module('angularEventJourney')
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
                           hashtag : $scope.newEvent.hashtag,
+
                           $priority : oEvent.timeTo
                          };
 
@@ -165,7 +170,7 @@ angular.module('angularEventJourney')
                 eventDate: today,
                 timeFrom: today,
                 timeTo : today,
-                hashtag : ''
+                hashtag : 'TBD'
               };
           }],
           size: 'lg',
@@ -304,7 +309,7 @@ angular.module('angularEventJourney')
                           timeFrom : oEvent.timeFrom, 
                           timeTo : oEvent.timeTo,
                           hashtag : $scope.editEvent.hashtag,
-                          rate : $scope.editEvent.rate
+                          rate : $scope.editEvent.rate || 0
                          };
                     var priority = oEvent.timeTo;
                     eventFactory.saveEvent(organizationId, eventId, editObj, priority)
