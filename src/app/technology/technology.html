@@ -4,7 +4,7 @@
 
   <div class="row" ng-init="loadPage()">
     <div class="col-sm-4 col-md-4 col-lg-4">
-    	<h1>Front-end</h1>
+    	<h1 translate="FRONT_END"></h1>
 		<accordion close-others="true">	
 			<accordion-group is-open="status.open" ng-repeat="item in techModel.frontend track by $index">
 		        <accordion-heading>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="col-sm-4 col-md-4 col-lg-4">
-    	<h1>Back-end</h1>
+    	<h1 translate="BACK_END"></h1>
     	<accordion close-others="true">	
 			<accordion-group is-open="status.open" ng-repeat="item in techModel.backend track by $index">
 		        <accordion-heading>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="col-sm-4 col-md-4 col-lg-4">
-    	<h1>Tools</h1>
+    	<h1 translate="TOOLS"></h1>
     	<accordion close-others="true">	
 			<accordion-group is-open="status.open" ng-repeat="item in techModel.tool track by $index">
 		        <accordion-heading>
@@ -65,7 +65,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4">
-    	<h1>Hosting</h1>
+    	<h1 translate="HOSTING"></h1>
     	<accordion close-others="true">	
 			<accordion-group is-open="status.open" ng-repeat="item in techModel.hosting track by $index">
 		        <accordion-heading>

@@ -129,7 +129,11 @@ app.config(['$translateProvider', function($translateProvider) {
     'EDIT_EVENT_SUCCESS_CODE' : 'Edit event is successful.',
     'EDIT_EVENT_ERROR_CODE' : 'Edit event failed.',
     'HASH_TAG' : 'Hashtag: ',
-    'RATING' : 'Rating: '
+    'RATING' : 'Rating: ',
+    'FRONT_END' : 'Front-end',
+    'BACK_END' : 'Back-end',
+    'TOOLS' : 'Tools',
+    'HOSTING' : 'Hosting'
   };
 
   var hkTexts = {
@@ -188,7 +192,11 @@ app.config(['$translateProvider', function($translateProvider) {
     'EDIT_EVENT_SUCCESS_CODE' : '修改活動成功。',
     'EDIT_EVENT_ERROR_CODE' : '修改活動失敗。',
     'HASH_TAG' : '井號：',
-    'RATING' : '評分：'
+    'RATING' : '評分：',
+    'FRONT_END' : '前端框架',
+    'BACK_END' : '後端框架',
+    'TOOLS' : '工具',
+    'HOSTING' : '託管服務'
   };
 
   // register translation table
