@@ -9,6 +9,23 @@
 		</div>
 	</div>
 	<hr/>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-12">
+			<span translate="HASH_TAG"></span>
+		</div>
+	</div>
+	<table>
+		<tr>
+			<td>
+				<span ng-repeat="(key, value) in hashtagSummary">
+					<span class="label" ng-class= "{'label-info' : true }">
+						{{key}} ({{value}})
+					</span>&nbsp;&nbsp;
+				</span>
+			</td>
+		</tr>
+	</table>
+	<hr/>
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
 	        <accordion-heading>

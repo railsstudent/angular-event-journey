@@ -21,6 +21,11 @@ angular.module('angularEventJourney')
         return new Firebase(eventUrl);        
       },
 
+      refEvent : function _refEvent(organizationId) {
+        var eventUrl = organizationUrl + organizationId + '/events';
+        return new Firebase(eventUrl);        
+      },
+
       retrieveAllEvents : function _retrieveAllEvents(organizationId) {
 		    var eventUrl = organizationUrl + organizationId + '/events';
 		    return $firebase(new Firebase(eventUrl)).$asArray();
@@ -49,6 +54,7 @@ angular.module('angularEventJourney')
         var eventUrl = organizationUrl + organizationId + '/events/' + eventId;
         return $firebase(new Firebase(eventUrl)).$remove();
       },
+
       convertToMilliseconds : function _convertToMilliseconds(strEventDate, 
                                 strTimeFrom, strTimeTo) {
         
@@ -67,6 +73,7 @@ angular.module('angularEventJourney')
           'timeTo' : dtToTime.getTime()     
         };
       },
+      
       isEarlierThan : function _isEarlierThan(milliSeconds1, milliSeconds2) {
         return milliSeconds1 < milliSeconds2;
       }

@@ -9,14 +9,67 @@ angular.module('angularEventJourney')
     $scope.isLoading = true;
     $scope.organizationName = undefined;
     $scope.numEvents = 0;
+    // array of hashmap of [ { id : eventId, tags: [hash tags] } ]
+    $scope.hashtags = [];
 
     var refCounter = eventFactory.refCounter($stateParams.organizationId);
     refCounter.on('value', function(dataSnapShot) {
       $scope.numEvents = (dataSnapShot.val() || 0);
     });
-  	
+
+    var refEvent = eventFactory.refEvent($stateParams.organizationId);
+    refEvent.on('child_added', function(dataSnapShot) {
+        var addedTags = dataSnapShot.val().hashtag;
+        var newEventId = dataSnapShot.key();
+        var tagArray = _.map(addedTags.split(','), function(t) {
+                              return _.trim(t).toLowerCase();
+                        });
+        $scope.hashtags.push ({ id : newEventId,  
+                                tags : tagArray });
+        $scope.hashtagSummary = $scope.computeHashtagSummary();
+    });
+
+    refEvent.on('child_removed', function(dataSnapShot) {
+        var removedEventId = dataSnapShot.key();
+
+        _.remove($scope.hashtags, function(o) {
+          return _.isEqual(o.id, removedEventId);
+        });
+        $scope.hashtagSummary = $scope.computeHashtagSummary();
+    });
+
+    refEvent.on('child_changed', function(dataSnapShot) {
+        var changedTags = dataSnapShot.val().hashtag;
+        var changedEventId = dataSnapShot.key();
+
+        var tagArray = _.map(changedTags.split(','), function(t) {
+                              return _.trim(t).toLowerCase();
+                        });
+
+        var matched = _.find($scope.hashtags, function (o) {
+                          return _.isEqual(o.id, changedEventId);
+                        });
+        matched.tags = tagArray;
+        $scope.hashtagSummary = $scope.computeHashtagSummary();
+    });
+
   	$scope.organizationId = $stateParams.organizationId;
 
+    $scope.computeHashtagSummary = function _hashtagSummary() {
+      var aggregatedHashtags = {};
+      _.forEach($scope.hashtags, function(o) {
+        var allTags = o.tags;
+        _.forEach(o.tags, function (t) {
+          if (aggregatedHashtags[t]) {
+            aggregatedHashtags[t] = aggregatedHashtags[t] + 1;
+          } else {
+            aggregatedHashtags[t] = 1;
+          }
+        });
+      });
+      return aggregatedHashtags;
+    };
+    
   	var isEventDataLoaded = false;
   	var isNameDataLoaded = false;
 
