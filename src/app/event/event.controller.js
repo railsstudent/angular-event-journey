@@ -217,7 +217,7 @@ angular.module('angularEventJourney')
               var today = new Date();
               $scope.newEvent = {
                 name : '',
-                venue : '',
+                venue : 'TBD',
                 eventDate: today,
                 timeFrom: today,
                 timeTo : today,

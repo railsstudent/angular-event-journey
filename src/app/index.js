@@ -2,7 +2,7 @@
 
 var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate', 
- 'firebase']);
+ 'firebase', 'cgBusy']);
 
 app.config(['$stateProvider', '$urlRouterProvider', 
     function ($stateProvider, $urlRouterProvider) {

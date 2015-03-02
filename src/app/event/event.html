@@ -14,6 +14,7 @@
 			<span translate="HASH_TAG"></span>
 		</div>
 	</div>
+	<!--
 	<table>
 		<tr>
 			<td>
@@ -25,6 +26,15 @@
 			</td>
 		</tr>
 	</table>
+	-->
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-12">
+			<div class="ticket" ng-repeat="(key, value) in hashtagSummary">
+				<span class="circle"></span>
+				<a href="#">{{key}} ({{value}})</a>
+			</div>
+		</div>
+	</div>
 	<hr/>
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
