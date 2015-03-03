@@ -14,77 +14,38 @@ angular.module('angularEventJourney')
       frontend : undefined,
       backend : undefined,
       tool : undefined,
-      hosting : undefined,
-  	  isLoading : true
+      hosting : undefined     
     };
   	
-  	var isFrontEndDataLoaded = false;
-  	var isBackEndDataLoaded = false;
-  	var isToolDataLoaded = false;  	
-    var isHostingDataLoaded = false;
-
-    var isAllDataLoaded = function _isAllDataLoaded() {
-    	return isFrontEndDataLoaded && isBackEndDataLoaded && isToolDataLoaded
-        && isHostingDataLoaded;
-    };
+    $scope.promises = [];
 
     var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
-  	$scope.loadPage = function _loadPage() {
-  		technologyFactory.retrieveFrontend().$loaded() 
-  			.then(function(data) {
-  				$scope.techModel.frontend = _.remove(data, isObject);
-  				isFrontEndDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			}, function (error) {
-  				isFrontEndDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			});
+      var promise0 = technologyFactory.retrieveFrontend().$loaded();
+      var promise1 = technologyFactory.retrieveBackend().$loaded();
+      var promise2 = technologyFactory.retrieveTool().$loaded();
+      var promise3 = technologyFactory.retrieveHosting().$loaded();
 
-  		technologyFactory.retrieveBackend().$loaded() 
-  			.then(function(data) {
+      $scope.promises.push(promise0);
+      $scope.promises.push(promise1);
+      $scope.promises.push(promise2);
+      $scope.promises.push(promise3);
+
+    $scope.loadPage = function _loadPage() {
+      promise0.then(function(data) {
+          $scope.techModel.frontend = _.remove(data, isObject);
+        });
+
+  		promise1.then(function(data) {
   				$scope.techModel.backend = _.remove(data, isObject);
-  				isBackEndDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			}, function (error) {
-  				isBackEndDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
   			});
   			
-  		technologyFactory.retrieveTool().$loaded() 
-  			.then(function(data) {
+  		promise2.then(function(data) {
   				$scope.techModel.tool = _.remove(data, isObject);
-  				isToolDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			}, function (error) {
-  				isToolDataLoaded = true;
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
   			});		
 
-      technologyFactory.retrieveHosting().$loaded() 
-        .then(function(data) {
+      promise3.then(function(data) {
           $scope.techModel.hosting = _.remove(data, isObject);
-          isHostingDataLoaded = true;
-          if (isAllDataLoaded()) {
-            $scope.isLoading = false;
-          }
-        }, function (error) {
-          isHostingDataLoaded = true;
-          if (isAllDataLoaded()) {
-            $scope.isLoading = false;
-          }
         });
   	};
 

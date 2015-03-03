@@ -1,16 +1,6 @@
-<div class="container">
+<div class="container" cg-busy="promise">
 
 	<div ng-include="'components/navbar/navbar.html'"></div>
-
-	 <div class="page-loader" ng-show="isLoading">
-	    <div class="row">
-	      <img id="spinner" src="assets/images/loader.gif" >
-	    </div>
-	    <div class="row">
-	      <span translate>LOADING</span>
-	    </div>
-	 </div>
-
 	<div class="page-header" ng-init="showPage()">
 		<h1 translate>ABOUT_ME</h1>
 	</div>

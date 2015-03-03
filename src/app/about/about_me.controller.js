@@ -9,13 +9,24 @@ angular.module('angularEventJourney')
 
       var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
-      $scope.me = {};
+      var showPageWithPromise = function _showPageWithPromise() {
+        var deferred = $q.defer();
+        var aboutMe = $firebase(mainFactory.refSkill()).$asObject();
+        aboutMe.$loaded().then (function(data) {
+             deferred.resolve(data); 
+          }, function(error) {
+              deferred.reject(error);
+          });
+          return deferred.promise;  
+      };
 
-      $scope.isLoading = false;
+      $scope.promise = showPageWithPromise();
+
+      $scope.me = {};
 
       $scope.showPage = function _showPage() {
             $scope.isLoading = true;
-             showPageWithPromise().then(function(meObject) {
+             $scope.promise.then(function(meObject) {
                 $scope.me.description = meObject.description;
                 // remove null or undefined object
                 meObject.servers = _.remove(meObject.servers, isObject);
@@ -42,22 +53,8 @@ angular.module('angularEventJourney')
                 $scope.me.mobile.icons =_.remove($scope.me.mobile.icons, isObject);
                 $scope.me.mobile.list =_.remove($scope.me.mobile.list, isObject);
                 $scope.me.mobile.list =_.sortBy($scope.me.mobile.list, fnIdentity);
-
-                $scope.isLoading = false;
              }, function(error) {
-                $scope.isLoading = false;
                 alert(error.message);
              });
       }; 
-
-      var showPageWithPromise = function _showPageWithPromise() {
-        var deferred = $q.defer();
-        var aboutMe = $firebase(mainFactory.refSkill()).$asObject();
-        aboutMe.$loaded().then (function(data) {
-             deferred.resolve(data); 
-          }, function(error) {
-              deferred.reject(error);
-          });
-          return deferred.promise;  
-      };
   }]);

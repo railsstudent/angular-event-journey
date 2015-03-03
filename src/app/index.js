@@ -133,7 +133,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'FRONT_END' : 'Front-end',
     'BACK_END' : 'Back-end',
     'TOOLS' : 'Tools',
-    'HOSTING' : 'Hosting'
+    'HOSTING' : 'Hosting',
+    'PAGE' : 'Page: {{page_num}}'
   };
 
   var hkTexts = {
@@ -196,7 +197,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'FRONT_END' : '前端框架',
     'BACK_END' : '後端框架',
     'TOOLS' : '工具',
-    'HOSTING' : '託管服務'
+    'HOSTING' : '託管服務',
+    'PAGE' : '頁面：: {{page_num}}'
   };
 
   // register translation table
