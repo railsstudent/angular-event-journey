@@ -99,6 +99,7 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : 'Email',
     'PASSWORD_PLACEHOLDER' : 'Password',
     'SIGN_IN' : 'Please Sign In',
+    'SIGN_IN_BUTTON' : 'Sign In',
     'DESCRIPTION' : 'Description:',
     'LOADING' : 'Loading...',
     'NAME' : 'Name: ',
@@ -134,7 +135,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'BACK_END' : 'Back-end',
     'TOOLS' : 'Tools',
     'HOSTING' : 'Hosting',
-    'PAGE' : 'Page: {{page_num}}'
+    'PAGE' : 'Page: {{page_num}}',
+    'LOGOUT' : 'Log Out'
   };
 
   var hkTexts = {
@@ -166,6 +168,7 @@ app.config(['$translateProvider', function($translateProvider) {
     'EMAIL_PLACEHOLDER' : '電子郵件',
     'PASSWORD_PLACEHOLDER' : '密碼',
     'SIGN_IN' : '請登錄',
+    'SIGN_IN_BUTTON' : '登錄',
     'DESCRIPTION' : '介紹：',
     'LOADING' : '載入中...',
     'NAME' : '名稱：   ',
@@ -198,7 +201,10 @@ app.config(['$translateProvider', function($translateProvider) {
     'BACK_END' : '後端框架',
     'TOOLS' : '工具',
     'HOSTING' : '託管服務',
-    'PAGE' : '頁面：: {{page_num}}'
+    'PAGE' : '頁面： {{page_num}}',
+    'YOUR_PASSWORD_IS_REQUIRED' : '需要您的密碼。',
+    'YOUR_EMAIL_IS_REQUIRED' : '輸入一個有效的電子郵件。',
+    'LOGOUT' : '登出'
   };
 
   // register translation table

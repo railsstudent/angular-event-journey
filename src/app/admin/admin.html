@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-cloak cg-busy="promise">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
@@ -7,15 +7,6 @@
 	  		<p>{{errorObj.title}}</p>
 	  		<p>{{errorObj.message}}</p>
 	  	</div>
-
-	 <div class="page-loader" ng-show="isLoading">
-	    <div class="row">
-	      <img id="spinner" src="assets/images/loader.gif" >
-	    </div>
-	    <div class="row">
-	      <span translate>LOADING</span>
-	    </div>
-	 </div>
 	  	
 	  <form novalidate name="loginForm" ng-submit="submitForm(loginForm.$valid)" 
 	  	class="form-signin">
@@ -38,7 +29,7 @@
 	    </div>
 
 	    <button class="btn btn-lg btn-primary btn-block" type="submit"
-	    	ng-disabled="loginForm.$invalid">Sign in</button>
+	    	ng-disabled="loginForm.$invalid" translate>SIGN_IN_BUTTON</button>
 	  </form>
 	</div>
 </div>

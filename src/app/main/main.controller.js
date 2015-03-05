@@ -13,6 +13,7 @@ angular.module('angularEventJourney')
     $scope.numOrganization = 0;
     $scope.currentPage = 0;
     $scope.itemPerPage = 0;
+    $scope.promise = null;
 
     $scope.scrollToElement = function _scrollToElement(elementId) {
       $location.hash(elementId);
@@ -31,7 +32,10 @@ angular.module('angularEventJourney')
         if ($scope.currentPage === 1) {
           console.log ('Load first page....');
           prevPage = $scope.currentPage;
-          loadNextPage(undefined);
+          $scope.promise = loadNextPage(undefined);
+          $scope.promise.then(function(data) { 
+              console.log('loadNextPage result: ' + data); 
+            });
         } else if (prevPage < $scope.currentPage) {
           console.log('Load next page');
           // get the key of the last organization
@@ -39,7 +43,10 @@ angular.module('angularEventJourney')
           var lastKey = keys1[keys1.length - 1];
           var startAtId = lastKey ? lastKey: undefined;
           prevPage = $scope.currentPage;
-          loadNextPage(startAtId);
+          $scope.promise = loadNextPage(startAtId);
+          $scope.promise.then(function(data) { 
+              console.log('loadNextPage result: ' + data); 
+            });
         } else if (prevPage > $scope.currentPage) {
           console.log('Load previous page');
           // get the key of the first organization
@@ -47,19 +54,20 @@ angular.module('angularEventJourney')
           var firstKey = keys2[0];
           var endAtId = firstKey ? firstKey : undefined;
           prevPage = $scope.currentPage;
-          loadPrevPage(endAtId);
+          $scope.promise = loadPrevPage(endAtId);
+          $scope.promise.then(function (data) {
+              console.log('loadPrevPage result: ' + data);
+          });
         } 
       }
     };
 
     var loadNextPage = function _loadNextPage(startAtId) {
-      if ($scope.state.isLoading === false) {
-        $scope.state.isLoading = true;
-      }
 
       var itemPerPage = $scope.itemPerPage;
       itemPerPage = itemPerPage + (startAtId ? 1 : 0);
 
+      var deferred = $q.defer();
       mainFactory.getNextPage(startAtId, itemPerPage)
         .once('value', function(dataSnapshot) {
             var vals = dataSnapshot.val()||{};
@@ -75,21 +83,20 @@ angular.module('angularEventJourney')
               $scope.currentPage = 1;
               prevPage = 1;
             }
-            $scope.state.isLoading = false; 
             $timeout(function() {
               $scope.organizations = vals;
+              deferred.resolve('success');
             }, 100);
         });
+        return deferred.promise;
     };
 
     var loadPrevPage = function _loadPrevPage(endAtId) {
-      if ($scope.state.isLoading === false) {
-        $scope.state.isLoading = true;
-      }
 
       var itemPerPage = $scope.itemPerPage;
       itemPerPage = itemPerPage + (endAtId ? 1 : 0);
       
+      var deferred = $q.defer();
       mainFactory.getPrevPage(endAtId, itemPerPage)
         .once('value', function(dataSnapshot) {
             var vals = dataSnapshot.val()||{};
@@ -101,27 +108,26 @@ angular.module('angularEventJourney')
               v.$id = k;
             });
 
-            $scope.state.isLoading = false; 
             $timeout(function() {
               $scope.organizations = vals;
+              deferred.resolve('success');
             }, 100);
         });
+        return deferred.promise;
     }; 
 
     $scope.showPage = function _showPage() {
-      $scope.state.isLoading = true;
       
       var itemPerPageSync = mainFactory.getChildRef('/itemPerPage');
       if (itemPerPageSync) {
         itemPerPageSync.once('value', function(snapshot) {
           $scope.itemPerPage = snapshot.val();
-          loadNextPage(undefined);
+          $scope.promise = loadNextPage(undefined);
+          $scope.promise.then(function(data) { 
+              console.log('loadNextPage result: ' + data); 
+            });
         });
       }
-    };
-
-    $scope.state = {
-      isLoading : false,
     };
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
@@ -131,8 +137,6 @@ angular.module('angularEventJourney')
         templateUrl: 'app/main/organizationModalContent.html',
         controller: ['$scope', '$modalInstance', '$q', 'mainFactory',
               function _modalController ($scope, $modalInstance, $q, mainFactory) { 
-
-              $scope.isLoading = false;
         
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -142,13 +146,13 @@ angular.module('angularEventJourney')
 
               $scope.addOrganization = function _addOrganization(isValid) {
                 if (isValid) {
-                  $scope.isLoading = true;
                   $scope.msgObj = {
                       message : '',
                       cssClassName : ''
                   };
 
-                  handleAddOrganization().then(function(id) {
+                  $scope.promise = handleAddOrganization();
+                  $scope.promise.then(function(id) {
                     $scope.organization.name = '';
                     $scope.organization.shortname = '';
                     $scope.organization.description = '';
@@ -168,7 +172,6 @@ angular.module('angularEventJourney')
                       return (currentValue || 0) + 1;
                     });
 
-                    $scope.isLoading = false;
                     $scope.msgObj.message = 'ADD_ORG_SUCCESS_CODE'; // 'Congratuation!!! Add organization is successful.';
                     $scope.msgObj.cssClassName = 'success';
 
@@ -176,7 +179,6 @@ angular.module('angularEventJourney')
                       $modalInstance.close();
                     }, 1500);
                   }, function(error) {
-                    $scope.isLoading = false;
                     $scope.msgObj.message = 'ADD_ORG_ERROR_CODE'; // 'Fail to add new organization.';
                     $scope.msgObj.cssClassName = 'danger';
                   });
@@ -218,31 +220,28 @@ angular.module('angularEventJourney')
       });
     };
   }])
-  .controller('MainEditCtrl', ['$scope', '$state',  '$stateParams', 'mainFactory',
-      function ($scope, $state, $stateParams, mainFactory) {
-
-      $scope.isLoading = true;
+  .controller('MainEditCtrl', ['$scope', '$state',  '$stateParams', '$q', 'mainFactory',
+      function ($scope, $state, $stateParams, $q, mainFactory) {
 
       $scope.msgObj = {
         message : '',
         cssClassName : ''
       };
 
+      $scope.promise = null;
+
      var organization = mainFactory.retrieveOrganization($stateParams.id);
-      organization.$loaded().then(
+     $scope.promise = organization.$loaded();
+      $scope.promise.then(
         function(data) {
           $scope.editObj = data;
-          $scope.isLoading = false;
         }, function(error) {
           $scope.editObj = null;
-          $scope.isLoading = false;
         }
       );
       
       $scope.save = function _save(isValid) {
         if (isValid) {
-          $scope.isLoading = true;
-
           var editObj = {
                 name : $scope.editObj.name,
                 code : $scope.editObj.code,
@@ -250,16 +249,14 @@ angular.module('angularEventJourney')
                 url : $scope.editObj.url,
                 facebook : $scope.editObj.facebook,
                 meetup : $scope.editObj.meetup,
-                events : $scope.editObj.events
+                events : $scope.editObj.events ? $scope.editObj.events : null
               };
 
-          mainFactory.saveOrganization($scope.editObj.$id, editObj)
-            .then(function(ref) {
-                  $scope.isLoading = false;
+            $scope.promise = mainFactory.saveOrganization($scope.editObj.$id, editObj);
+            $scope.promise.then(function(ref) {
                   $state.go('home');
                 },
               function(error) {
-                $scope.isLoading = false;
                 $scope.msgObj.message = 'SAVE_ORG_ERROR_CODE';
                 $scope.msgObj.cssClassName = 'danger';
             });

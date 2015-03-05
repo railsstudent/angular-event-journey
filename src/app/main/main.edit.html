@@ -1,17 +1,7 @@
-<div class="contaner">
+<div class="contaner" ng-cloak cg-busy="promise">
     <div ng-include="'components/navbar/navbar.html'"></div>
 
   <form class="form-horizontal" id="form1" name="form1" ng-submit="save(form1.$valid)">
-
-      <div class="page-loader" ng-show="isLoading">
-        <div class="row">
-          <img id="spinner" src="assets/images/loader.gif" >
-        </div>
-        <div class="row">
-          <span translate>LOADING</span>
-        </div>
-      </div>
-
       <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message | translate }}</alert>
 
       <div class="form-group">

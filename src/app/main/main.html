@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-cloak cg-busy="promise">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
@@ -47,13 +47,5 @@
       </div>
     </div>
   </div>
-  <div class="page-loader" ng-show="state.isLoading">
-    <div class="row">
-      <img id="spinner" src="assets/images/loader.gif" >
-    </div>
-    <div class="row">
-      <span translate>LOADING</span>
-    </div>
- </div>
   <pager total-items="numOrganization" items-per-page="itemPerPage" ng-model="currentPage" ng-change="pageChanged()"></pager>
 </div>
