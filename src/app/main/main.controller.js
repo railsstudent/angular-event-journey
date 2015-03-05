@@ -249,7 +249,8 @@ angular.module('angularEventJourney')
                 url : $scope.editObj.url,
                 facebook : $scope.editObj.facebook,
                 meetup : $scope.editObj.meetup,
-                events : $scope.editObj.events ? $scope.editObj.events : null
+                events : $scope.editObj.events ? $scope.editObj.events : null,
+                event_counter : $scope.editObj.event_counter ? $scope.editObj.event_counter : 0
               };
 
             $scope.promise = mainFactory.saveOrganization($scope.editObj.$id, editObj);

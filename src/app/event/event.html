@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-cloak cg-busy="promises">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 	<h1 ng-init="loadPage()">{{organizationName}}</h1>
@@ -14,19 +14,6 @@
 			<span translate="HASH_TAG"></span>
 		</div>
 	</div>
-	<!--
-	<table>
-		<tr>
-			<td>
-				<span ng-repeat="(key, value) in hashtagSummary">
-					<span class="label" ng-class= "{'label-info' : true }">
-						{{key}} ({{value}})
-					</span>&nbsp;&nbsp;
-				</span>
-			</td>
-		</tr>
-	</table>
-	-->
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			<div class="ticket" ng-repeat="(key, value) in hashtagSummary">
@@ -59,7 +46,7 @@
 			<a ui-sref="home" translate>BACK_HOME</a>
 		</div>
 	</div>
-
+<!--
 	<div class="page-loader" ng-show="isLoading">
 	    <div class="row">
 	      <img id="spinner" src="assets/images/loader.gif" >
@@ -68,4 +55,5 @@
 	      <span translate>LOADING</span>
 	    </div>
 	 </div>
+-->
 </div>

@@ -6,7 +6,6 @@ angular.module('angularEventJourney')
   	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $timeout, RATE) {
   		
 	  $scope.events = [];
-    $scope.isLoading = true;
     $scope.organizationName = undefined;
     $scope.numEvents = 0;
     // array of hashmap of [ { id : eventId, tags: [hash tags] } ]
@@ -71,41 +70,19 @@ angular.module('angularEventJourney')
     });
 
   	$scope.organizationId = $stateParams.organizationId;
-    
-  	var isEventDataLoaded = false;
-  	var isNameDataLoaded = false;
-
-    var isAllDataLoaded = function _isAllDataLoaded() {
-    	return isEventDataLoaded && isNameDataLoaded; 
-    };
+    $scope.promises = [];
 
   	$scope.loadPage = function _loadPage() {
-  		eventFactory.retrieveAllEvents($scope.organizationId).$loaded() 
-  			.then(function(data) {
+  		var promise0 = eventFactory.retrieveAllEvents($scope.organizationId).$loaded();
+      $scope.promises.push (promise0);
+  		promise0.then(function(data) {
           $scope.events = data;
-				  isEventDataLoaded = true; 
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			}, function (error) {
-  				isEventDataLoaded = true; 
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
   			});
 
-  		mainFactory.retrieveOrganization($scope.organizationId).$loaded() 
-  			.then(function(data) {
+      var promise1 = mainFactory.retrieveOrganization($scope.organizationId).$loaded();
+      $scope.promises.push (promise1);
+  		promise1.then(function(data) {
   				$scope.organizationName = data.name;
-          isNameDataLoaded = true; 
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
-  			}, function (error) {
-  				isNameDataLoaded = true; 
-  				if (isAllDataLoaded()) {
-  					$scope.isLoading = false;
-  				}
   			});
   	};
 
@@ -117,6 +94,7 @@ angular.module('angularEventJourney')
         controller: ['$scope', '$modalInstance', '$q', 'eventFactory',
               function _modalController ($scope, $modalInstance, $q, eventFactory) { 
 
+              $scope.promise = null;
               $scope.state = {
                   isLoading : false,
                   minStep : 5,
@@ -136,7 +114,9 @@ angular.module('angularEventJourney')
                       additionalMessage : ''                    
                   };
 
-                  handleAddEvent(organizationId).then(function(id) {
+                  $scope.promise = handleAddEvent(organizationId);
+//                  handleAddEvent(organizationId).then(function(id) {
+                  $scope.promise.then(function(id) {
                     $scope.newEvent.name = '';
                     $scope.newEvent.venue = '';
                     $scope.newEvent.eventDate = undefined;
