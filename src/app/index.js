@@ -136,7 +136,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'TOOLS' : 'Tools',
     'HOSTING' : 'Hosting',
     'PAGE' : 'Page: {{page_num}}',
-    'LOGOUT' : 'Log Out'
+    'LOGOUT' : 'Log Out',
+    'DELETE_EVENT_MSG' : 'Are you sure to delete the event?'
   };
 
   var hkTexts = {
@@ -204,7 +205,8 @@ app.config(['$translateProvider', function($translateProvider) {
     'PAGE' : '頁面： {{page_num}}',
     'YOUR_PASSWORD_IS_REQUIRED' : '需要您的密碼。',
     'YOUR_EMAIL_IS_REQUIRED' : '輸入一個有效的電子郵件。',
-    'LOGOUT' : '登出'
+    'LOGOUT' : '登出',
+    'DELETE_EVENT_MSG' : '您確定要刪除活動？'
   };
 
   // register translation table
