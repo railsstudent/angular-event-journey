@@ -1,19 +1,9 @@
   <form class="form-horizontal" name="eventForm" novalidate 
     ng-submit="saveEvent(eventForm.$valid)"
-    style="background: #eee;">
+    style="background: #eee;" cg-busy="{promise: promise, minDuration: minDuration}">
       <div class="modal-header">
             <h3 class="modal-title" translate>EDIT_EVENT</h3>
       </div>
-     
-      <div class="page-loader" ng-show="state.isLoading">
-        <div class="row">
-          <img id="spinner" src="assets/images/loader.gif" >
-        </div>
-        <div class="row">
-          <span translate>LOADING</span>
-        </div>
-     </div>
-
       <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">
         <p>{{msgObj.message | translate }}</p>
         <p>{{msgObj.additionalMessage }}</p>
