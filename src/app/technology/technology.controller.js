@@ -7,8 +7,8 @@
  * Controller of the angularEventJourney
  */
 angular.module('angularEventJourney')
-  .controller('technologyCtrl', ['$scope', 'technologyFactory',
-   	function ($scope, technologyFactory) {
+  .controller('technologyCtrl', ['$scope', '$q', 'technologyFactory',
+   	function ($scope, $q, technologyFactory) {
 
     $scope.techModel = {    
       frontend : undefined,
@@ -17,36 +17,21 @@ angular.module('angularEventJourney')
       hosting : undefined     
     };
   	
-    $scope.promises = [];
-
     var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
-      var promise0 = technologyFactory.retrieveFrontend().$loaded();
-      var promise1 = technologyFactory.retrieveBackend().$loaded();
-      var promise2 = technologyFactory.retrieveTool().$loaded();
-      var promise3 = technologyFactory.retrieveHosting().$loaded();
-
-      $scope.promises.push(promise0);
-      $scope.promises.push(promise1);
-      $scope.promises.push(promise2);
-      $scope.promises.push(promise3);
+    $scope.promises = $q.all(
+       [technologyFactory.retrieveFrontend().$loaded()
+      ,technologyFactory.retrieveBackend().$loaded()
+      ,technologyFactory.retrieveTool().$loaded()
+      ,technologyFactory.retrieveHosting().$loaded()]);
 
     $scope.loadPage = function _loadPage() {
-      promise0.then(function(data) {
-          $scope.techModel.frontend = _.remove(data, isObject);
-        });
-
-  		promise1.then(function(data) {
-  				$scope.techModel.backend = _.remove(data, isObject);
-  			});
-  			
-  		promise2.then(function(data) {
-  				$scope.techModel.tool = _.remove(data, isObject);
-  			});		
-
-      promise3.then(function(data) {
-          $scope.techModel.hosting = _.remove(data, isObject);
-        });
+         $scope.promises.then(function(dataArray) {
+            $scope.techModel.frontend = _.remove(dataArray[0], isObject);
+            $scope.techModel.backend = _.remove(dataArray[1], isObject);
+            $scope.techModel.tool = _.remove(dataArray[2], isObject);
+            $scope.techModel.hosting = _.remove(dataArray[3], isObject);
+         });
   	};
 
   }]);
