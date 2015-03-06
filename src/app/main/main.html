@@ -1,10 +1,10 @@
 <div class="container" ng-cloak cg-busy="promise">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
-
-  <div class="jumbotron text-center" ng-init="showPage()">
-    <h1 translate>PASSION_WEB_DEV</h1>
+  <div class="jumbotron text-center"> 
+    <h3 translate>PASSION_WEB_DEV</h3>
     <h3 translate>LOVE_TO_CODE</h3>
+    <!--
     <p class="lead">
       <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
       <span translate>HOBBY</span>
@@ -15,6 +15,14 @@
       <button type="button" id="btnAddOrganization" 
           class="btn btn-lg btn-info" ng-click="showOrganizationForm()" translate>ADD_ORGANIZATION</button>
     </p>
+    -->
+    <div class="row">
+      <div class="col-offset-sm-4 col-offset-md-4 col-offset-lg-4">
+          <button type="button" class="btn btn-md btn-info" ng-click="scrollToElement('learn_more')"  translate>LEARN_MORE</button>
+          <button type="button" id="btnAddOrganization" 
+            class="btn btn-md btn-info" ng-click="showOrganizationForm()" translate>ADD_ORGANIZATION</button>
+      </div>
+    </div>
   </div>
   <div id="learn_more" class="row">
     <div class="col-sm-4 col-md-4 col-lg-4">

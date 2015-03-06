@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', 
-       '$q', '$modal', '$timeout',  'mainFactory', 
-     function ($scope, $location, $anchorScroll, $q, $modal, $timeout, mainFactory) {
+  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', '$q', '$modal', 'mainFactory', 
+     function ($scope, $location, $anchorScroll, $q, $modal, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -83,10 +82,8 @@ angular.module('angularEventJourney')
               $scope.currentPage = 1;
               prevPage = 1;
             }
-            $timeout(function() {
-              $scope.organizations = vals;
-              deferred.resolve('success');
-            }, 100);
+            $scope.organizations = vals;
+            deferred.resolve('success');
         });
         return deferred.promise;
     };
@@ -107,28 +104,22 @@ angular.module('angularEventJourney')
             _.forEach(vals, function(v, k) {
               v.$id = k;
             });
-
-            $timeout(function() {
-              $scope.organizations = vals;
-              deferred.resolve('success');
-            }, 100);
+            $scope.organizations = vals;
+            deferred.resolve('success');
         });
         return deferred.promise;
     }; 
 
-    $scope.showPage = function _showPage() {
-      
-      var itemPerPageSync = mainFactory.getChildRef('/itemPerPage');
-      if (itemPerPageSync) {
-        itemPerPageSync.once('value', function(snapshot) {
-          $scope.itemPerPage = snapshot.val();
-          $scope.promise = loadNextPage(undefined);
-          $scope.promise.then(function(data) { 
-              console.log('loadNextPage result: ' + data); 
-            });
-        });
-      }
-    };
+    var promiseLoadPage = $q.defer();
+    $scope.promise = promiseLoadPage.promise;
+    mainFactory.getChildRef('/itemPerPage').once('value', function(snapshot) {
+      $scope.itemPerPage = snapshot.val();
+      loadNextPage(undefined).then(function(data) {
+        console.log('itemPerPage = ' + $scope.itemPerPage);
+        console.log('call loadNextPage after itemPerPage: ' + data);
+        promiseLoadPage.resolve(data);
+      });
+    });
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
         
@@ -174,10 +165,7 @@ angular.module('angularEventJourney')
 
                     $scope.msgObj.message = 'ADD_ORG_SUCCESS_CODE'; // 'Congratuation!!! Add organization is successful.';
                     $scope.msgObj.cssClassName = 'success';
-
-                    $timeout(function() {
-                      $modalInstance.close();
-                    }, 1500);
+                    $modalInstance.close();
                   }, function(error) {
                     $scope.msgObj.message = 'ADD_ORG_ERROR_CODE'; // 'Fail to add new organization.';
                     $scope.msgObj.cssClassName = 'danger';

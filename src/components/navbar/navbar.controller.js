@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', 
-  	function ($rootScope, $scope, $location, $translate) {
-       //$scope.date = new Date();
+  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', '$modal',  
+  	function ($rootScope, $scope, $location, $translate, $modal) {
 
        $scope.isActive = function(viewLocation) {
           return viewLocation === $location.path();
@@ -18,6 +17,16 @@ angular.module('angularEventJourney')
 
        $scope.logout = function _logout() {
           $rootScope.logout();
-          alert ('You are log out.');
+          $modal.open({
+            keyboard : false,
+            templateUrl: 'components/navbar/logout.html',
+            controller: ['$scope', '$modalInstance',
+                function _modalController ($scope, $modalInstance) { 
+                  $scope.ok = function () {
+                    $modalInstance.close('logout');
+                  };
+                }],
+              size: 'sm',
+          });
        };
   }]);
