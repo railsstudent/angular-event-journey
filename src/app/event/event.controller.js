@@ -19,7 +19,6 @@ angular.module('angularEventJourney')
     var computeHashtagSummary = function _hashtagSummary() {
       var aggregatedHashtags = {};
       _.forEach($scope.hashtags, function(o) {
-        var allTags = o.tags;
         _.forEach(o.tags, function (t) {
           if (aggregatedHashtags[t]) {
             aggregatedHashtags[t] = aggregatedHashtags[t] + 1;

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular.module('angularEventJourney')
   .controller('AboutCtrl', ['$scope', '$firebase', 'mainFactory', 
