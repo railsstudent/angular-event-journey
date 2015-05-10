@@ -16,7 +16,6 @@
     "fontawesome": "4.2.0",
     "angular-busy" : "4.1.x",
     "lodash" : "3.8.x",
-    "ngInfiniteScroll": "1.2.x",
     "angular-translate-loader-static-files" : "~2.7.x"
   }
 }

@@ -29,7 +29,6 @@
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-
 .thumbnail_large {
 	display: block;
 	padding: 4px;
@@ -41,7 +40,8 @@
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
-	height: 450px;
+	height: 200px;
+  overflow: auto;
 }
 
 .hide_bullet {
