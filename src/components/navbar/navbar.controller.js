@@ -10,7 +10,7 @@ angular.module('angularEventJourney')
 
        $scope.changeLanguage = function _changeLanguage(langKey) {
           //var langKey = _.isEqual($translate.use(), 'en') ? 'zh-hk' : 'en';
-          console.log ('$translate.user() = ' + $translate.use());
+          console.log ('$translate.use() = ' + $translate.use());
           console.log ('langKey = ' + langKey);
           $translate.use(langKey);
        };
