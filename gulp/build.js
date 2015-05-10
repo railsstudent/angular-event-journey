@@ -99,4 +99,10 @@ gulp.task('copybower', function() {
     .pipe(gulp.dest('dist/bower_components'));
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copybower']);
+// https://www.npmjs.com/package/gulp-angular-translate
+gulp.task('copyTranslationFile', function() {
+  return gulp.src('src/app/locale-*.json')
+    .pipe(gulp.dest('dist/app'));
+});
+
+gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copybower', 'copyTranslationFile']);
