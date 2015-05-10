@@ -1,7 +1,7 @@
-<div class="container" ng-cloak cg-busy="promises">
+<div class="container" ng-cloak ng-init="loadPage()" cg-busy="promises">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
-	<h1 ng-init="loadPage()">{{organizationName}}</h1>
+	<h1>{{organizationName}}</h1>
 	<h3 translate="EVENTS" translate-values="{ value : '{{numEvents}}'}">EVENTS</h3>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-lg-12">

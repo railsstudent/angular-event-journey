@@ -76,6 +76,11 @@ angular.module('angularEventJourney')
       
       isEarlierThan : function _isEarlierThan(milliSeconds1, milliSeconds2) {
         return milliSeconds1 < milliSeconds2;
+      },
+
+      isDateInPast : function _isDateInPast(eventDate) {
+        var now = new Date();
+        return eventDate < now.getTime();
       }
 
 /*      getNextPage : function _getNextPage(startAtId, limit) {

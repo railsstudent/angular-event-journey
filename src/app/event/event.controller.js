@@ -2,8 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', 'RATE', 
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, RATE) {
+      'mainFactory', '$modal', 'RATE', '$q',
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, RATE, $q) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -69,20 +69,16 @@ angular.module('angularEventJourney')
     });
 
   	$scope.organizationId = $stateParams.organizationId;
-    $scope.promises = [];
+    $scope.promises = $q.all([
+      eventFactory.retrieveAllEvents($scope.organizationId).$loaded(),
+      mainFactory.retrieveOrganization($scope.organizationId).$loaded()
+    ]);
 
   	$scope.loadPage = function _loadPage() {
-  		var promise0 = eventFactory.retrieveAllEvents($scope.organizationId).$loaded();
-      $scope.promises.push (promise0);
-  		promise0.then(function(data) {
-          $scope.events = data;
-  			});
-
-      var promise1 = mainFactory.retrieveOrganization($scope.organizationId).$loaded();
-      $scope.promises.push (promise1);
-  		promise1.then(function(data) {
-  				$scope.organizationName = data.name;
-  			});
+      $scope.promises.then(function(data) {
+         $scope.events = data[0];
+         $scope.organizationName = data[1].name;
+      });
   	};
 
   	$scope.showEventForm = function _showEventForm(organizationId) {
@@ -94,7 +90,7 @@ angular.module('angularEventJourney')
               function _modalController ($scope, $modalInstance, $q, eventFactory) { 
 
               $scope.promise = null;
-              $scope.minDuration = 3000;
+              $scope.minDuration = 2000;
               $scope.state = {
                   minStep : 5,
                   isMerdian : false
@@ -153,8 +149,10 @@ angular.module('angularEventJourney')
                       $scope.newEvent.timeFrom, 
                       $scope.newEvent.timeTo);
 
-                 if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
+                  if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
                     deferred.reject('Event Time To cannot be earlier than Event Time From.');
+                  } else if (eventFactory.isDateInPast(oEvent.timeFrom)) { 
+                    deferred.reject('Event date is in the past.');
                   } else {
 
                     var newObj = { name : $scope.newEvent.name,
@@ -237,7 +235,7 @@ angular.module('angularEventJourney')
             function _modalController ($scope, $modalInstance, $q, eventFactory, $filter) { 
 
               $scope.promise = null;
-              $scope.minDuration = 3000;
+              $scope.minDuration = 2000;
 
               $scope.state = {
                   minStep : 5,
@@ -258,9 +256,11 @@ angular.module('angularEventJourney')
                         $scope.editEvent.timeFrom, 
                         $scope.editEvent.timeTo);
 
-                   if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
+                    if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
                       deferred.reject('Event Time To cannot be earlier than Event Time From.');
-                   } else {
+                    } else if (eventFactory.isDateInPast(oEvent.timeFrom)) { 
+                      deferred.reject('Event date is in the past.');
+                    } else {
 
                       var rate = $scope.editEvent.rate || 0;
                       var percent = RATE.hundred * (($scope.editEvent.rate || 0) / RATE.base);
