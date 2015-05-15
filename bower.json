@@ -14,8 +14,8 @@
     "firebase": "2.1.x",
     "angularfire": "0.9.x",
     "fontawesome": "4.2.0",
-    "angular-busy" : "4.1.x",
-    "lodash" : "3.8.x",
+    "angular-busy" : "~4.1.x",
+    "lodash" : "~3.8.x",
     "angular-translate-loader-static-files" : "~2.7.x"
   }
 }

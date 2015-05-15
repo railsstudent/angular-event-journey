@@ -75,5 +75,6 @@ app.config(['$translateProvider', function($translateProvider) {
     suffix: '.json'
   }).preferredLanguage('zh-hk')
     .fallbackLanguage('en')
-    .useSanitizeValueStrategy('escaped');
+    .useSanitizeValueStrategy('escaped')
+    .useMissingTranslationHandlerLog();
 }]);
