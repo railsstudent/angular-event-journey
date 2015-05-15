@@ -2,8 +2,9 @@
 
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', '$q',
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q) {
+      'mainFactory', '$modal', '$q', '$location', '$anchorScroll',
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q,
+        $location, $anchorScroll) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -142,6 +143,12 @@ angular.module('angularEventJourney')
                       }
           }
       });
+    };
+
+    $scope.moveToTop = function _moveToTop() {
+
+        $location.hash("pageTop");
+        $anchorScroll();
     };
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 

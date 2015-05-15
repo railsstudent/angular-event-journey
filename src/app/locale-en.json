@@ -70,5 +70,6 @@
     "DELETE_EVENT_MSG" : "Are you sure to delete the event?",
     "LOGOUT_MSG" : "You have already logout.",
     "PREV_TEXT" : "<< Previous",
-    "NEXT_TEXT" : "Next >>"
+    "NEXT_TEXT" : "Next >>",
+    "MOVE_TO_TOP" : "Move to top"
 }

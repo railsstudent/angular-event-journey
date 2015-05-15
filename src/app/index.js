@@ -23,7 +23,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         controller: 'AboutCtrl'
       })
     .state('events', {
-        url: 'organization/:organizationId/events',
+        url: '/organization/:organizationId/events',
         templateUrl: 'app/event/event.html',
         controller : 'EventCtrl as ev'
       })
