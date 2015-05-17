@@ -32,6 +32,7 @@
           </ul>
         </li>
         <li ng-show="$root.authData">
+           <span class="navbar-text" translate="HI_LOGIN_USER" translate-values="{login : $root.authData.password.email}"></span>
            <button class="btn btn-default navbar-btn" ng-click="logout()" translate>LOGOUT</button>
         </li>
     </ul>

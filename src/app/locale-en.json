@@ -42,7 +42,7 @@
     "ADD_ORG_SUCCESS_CODE" : "Congratuation!!! Add organization is successful.",
     "ADD_ORG_ERROR_CODE" :  "Fail to add new organization.",
     "SAVE_ORG_ERROR_CODE" : "Error!!! Organization is not saved.",
-    "NUM_ORG" : "Number of Organizations: {{value}}",
+    "NUM_ORG" : "No. of Organizations: {{value}}",
     "TECH" : "Technology",
     "MOBILE" : "Mobile Platform",
     "VIEW_EVENT" : "View Event",
@@ -71,5 +71,6 @@
     "LOGOUT_MSG" : "You have already logout.",
     "PREV_TEXT" : "<< Previous",
     "NEXT_TEXT" : "Next >>",
-    "MOVE_TO_TOP" : "Move to top"
+    "MOVE_TO_TOP" : "Move to top",
+    "HI_LOGIN_USER" : "Hi {{login}}"
 }
