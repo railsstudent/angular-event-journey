@@ -3,8 +3,9 @@
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
       'mainFactory', '$modal', '$q', '$location', '$anchorScroll',
+      'timeFactory',
   	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q,
-        $location, $anchorScroll) {
+        $location, $anchorScroll, timeFactory) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -38,8 +39,7 @@ angular.module('angularEventJourney')
         var tagArray = _.map(addedTags.split(','), function(t) {
                               return _.trim(t).toLowerCase();
                         });
-        $scope.hashtags.push ({ id : newEventId,  
-                                tags : tagArray });
+        $scope.hashtags.push ({ id : newEventId, tags : tagArray });
         $scope.hashtagSummary = computeHashtagSummary();
     });
 
@@ -70,20 +70,33 @@ angular.module('angularEventJourney')
     });
 
   	$scope.organizationId = $stateParams.organizationId;
+    var $eventSyncArray = eventFactory.retrieveAllEvents($scope.organizationId);
+    $eventSyncArray.$watch(function (event) {
+      var key = event.key;
+      var oEvent = _.find($scope.events, function (o) {
+                          return _.isEqual(o.$id, key);
+                        });
+      if (oEvent) {
+        oEvent.duration = timeFactory.totalTimeStr(oEvent.timeFrom, oEvent.timeTo);                                               
+      }                                
+    });
+
     $scope.promises = $q.all([
-      eventFactory.retrieveAllEvents($scope.organizationId).$loaded(),
+      $eventSyncArray.$loaded(),
       mainFactory.retrieveOrganization($scope.organizationId).$loaded()
     ]);
 
   	$scope.loadPage = function _loadPage() {
       $scope.promises.then(function(data) {
          $scope.events = data[0];
+         _.forEach($scope.events, function (o) {
+            o.duration = timeFactory.totalTimeStr(o.timeFrom, o.timeTo); 
+          });
          $scope.organizationName = data[1].name;
       });
   	};
 
   	$scope.showEventForm = function _showEventForm(organizationId) {
-        
       $modal.open({
         keyboard : false,
         templateUrl: 'app/event/event.add.html',
@@ -135,11 +148,11 @@ angular.module('angularEventJourney')
         controller: 'EventEditModalCtrl',
           size: 'lg',
           resolve : {
-            organizationId  : function _resolveOrganizationId () { 
-                                return organizationId;
-                              },
-            eventId : function _resolveEventId() {
-                            return eventId;
+            input  : function _resolveOrganizationId () { 
+                        return { 
+                          organizationId: organizationId,
+                          eventId : eventId
+                        }
                       }
           }
       });
@@ -262,9 +275,9 @@ angular.module('angularEventJourney')
         };
 }])
   .controller('EventEditModalCtrl', ['$scope', '$modalInstance', '$q', 
-            'eventFactory', '$filter', 'organizationId', 'eventId', 'RATE',
+            'eventFactory', '$filter', 'input', 'RATE', '$timeout',
             function _modalController ($scope, $modalInstance, $q, eventFactory, 
-                $filter, organizationId, eventId, RATE) { 
+                $filter, input, RATE, $timeout) { 
 
               $scope.promise = null;
               $scope.minDuration = 2000;
@@ -306,7 +319,8 @@ angular.module('angularEventJourney')
                             percent: percent
                            };
                       var priority = oEvent.timeTo;
-                      eventFactory.saveEvent(organizationId, eventId, editObj, priority)
+                      eventFactory.saveEvent(input.organizationId, input.eventId, 
+                                    editObj, priority)
                           .then(function (ref) {
                               if (ref) {
                                 deferred.resolve(ref.key());
@@ -319,7 +333,8 @@ angular.module('angularEventJourney')
                   return deferred.promise;
               };
   
-              $scope.promise = eventFactory.retrieveEvent(organizationId, eventId).$loaded();
+              $scope.promise = eventFactory.retrieveEvent(
+                  input.organizationId, input.eventId).$loaded();
               $scope.promise.then(function(data) {
                     $scope.editEvent = data;
                     var dt = new Date(data.eventDate);
@@ -344,7 +359,7 @@ angular.module('angularEventJourney')
                       additionalMessage : ''
                   };
 
-                  $scope.promise = handleSaveEvent(organizationId, eventId);
+                  $scope.promise = handleSaveEvent(input.organizationId, input.eventId);
                   $scope.promise.then(function(ref) {
                       $scope.editEvent = undefined;
 
@@ -357,7 +372,9 @@ angular.module('angularEventJourney')
                       
                       $scope.msgObj.message = 'EDIT_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
                       $scope.msgObj.cssClassName = 'success';
-                      $modalInstance.close();
+                      $timeout(function() {
+                        $modalInstance.close();
+                      }, 1000);
                     }, function(error) {
                       $scope.msgObj.message = 'EDIT_EVENT_ERROR_CODE'; // 'Fail to add new event.';
                       $scope.msgObj.cssClassName = 'danger';

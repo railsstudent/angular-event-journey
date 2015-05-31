@@ -25,11 +25,12 @@
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
 	        <accordion-heading>
-	            {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
+	            {{$index + 1}}: {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
 	    	<p>Venue: {{event.venue}}</p>
 	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}}</p>
 	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
+	    	<p>Duration: {{event.duration}} </p>
 	    	<p>Hashtag: {{event.hashtag}}</p>
 	    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" ></rating>
 	    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
