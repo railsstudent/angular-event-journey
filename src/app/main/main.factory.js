@@ -7,7 +7,8 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('mainFactory', [ '$firebase', function ($firebase) {
+  .factory('mainFactory', [ '$firebaseObject', '$firebaseArray', '$q', 
+     function ($firebaseObject, $firebaseArray, $q) {
 // Service logic
 // ...
     // Create our Firebase reference
@@ -51,15 +52,22 @@ angular.module('angularEventJourney')
       getChildRef : tmpGetChildRef,
 
       retrieveOrganization : function _retrieveOrganization(id) {
-        return $firebase(tmpGetChildRef('/records/' + id)).$asObject();
+        return $firebaseObject(tmpGetChildRef('/records/' + id));
       },
 
       addOrganization : function _add(newOrganization) {
-        return $firebase(refRecords1).$push(newOrganization);
+        var deferred = $q.defer();
+        var newOrganizationRef = refRecords1.push(newOrganization);
+        deferred.resolve(newOrganizationRef);
+        return deferred.promise;
       },
 
       saveOrganization : function _save(keyId, oldOrganization) {
-          return $firebase(refRecords1).$set(keyId, oldOrganization);        
+          var deferred = $q.defer();
+          var childRef = refRecords1.child(keyId);
+          childRef.set(oldOrganization);
+          deferred.resolve(childRef);
+          return deferred.promise;
       },
 
       getNextPage : function _getNextPage(startAtId, limit) {

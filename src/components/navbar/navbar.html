@@ -33,7 +33,8 @@
         </li>
         <li ng-show="$root.authData">
            <span class="navbar-text" translate="HI_LOGIN_USER" translate-values="{login : $root.authData.password.email}"></span>
-           <button class="btn btn-default navbar-btn" ng-click="logout()" translate>LOGOUT</button>
+           <!-- http://stackoverflow.com/questions/28956803/bootstrap-glyphicons-is-not-display-when-using-with-angular-translate -->
+           <button class="btn btn-default navbar-btn" ng-click="logout()">{{ 'LOGOUT' | translate }} <i class="fa fa-sign-out"></i></button>
         </li>
     </ul>
   </div>

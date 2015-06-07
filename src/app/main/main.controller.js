@@ -175,7 +175,7 @@ angular.module('angularEventJourney')
 
               var handleAddOrganization = function _handleAddOrganization() {
 
-                  var deferred = $q.defer();
+//                  var deferred = $q.defer();
                   var newObj = { code : $scope.organization.shortname,
                         description : $scope.organization.description,
                         url : $scope.organization.website, 
@@ -184,7 +184,7 @@ angular.module('angularEventJourney')
                         name : $scope.organization.name
                       };
 
-                  mainFactory.addOrganization(newObj)
+                  /*mainFactory.addOrganization(newObj)
                       .then(function (ref) {
                           if (ref) {
                             deferred.resolve(ref.key());
@@ -192,7 +192,9 @@ angular.module('angularEventJourney')
                             deferred.reject('');
                           }
                       });
-                  return deferred.promise;
+                  return deferred.promise;*/
+                  var promise = mainFactory.addOrganization(newObj);
+                  return promise;
               };
 
               $scope.organization = {
