@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', '$modal',  
-  	function ($rootScope, $scope, $location, $translate, $modal) {
+  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', '$modal', '$anchorScroll', 
+  	function ($rootScope, $scope, $location, $translate, $modal, $anchorScroll) {
 
        $scope.isActive = function(viewLocation) {
           return viewLocation === $location.path();
@@ -29,4 +29,9 @@ angular.module('angularEventJourney')
               size: 'sm',
           });
        };
+
+      $scope.moveToTop = function _moveToTop() {
+          $location.hash("pageTop");
+          $anchorScroll();
+      };
   }]);

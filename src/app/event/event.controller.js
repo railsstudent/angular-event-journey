@@ -2,10 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', '$q', '$location', '$anchorScroll',
-      'timeFactory',
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q,
-        $location, $anchorScroll, timeFactory) {
+      'mainFactory', '$modal', '$q', 'timeFactory',
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -158,11 +156,11 @@ angular.module('angularEventJourney')
       });
     };
 
-    $scope.moveToTop = function _moveToTop() {
+/*    $scope.moveToTop = function _moveToTop() {
 
         $location.hash("pageTop");
         $anchorScroll();
-    };
+    };*/
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
       'eventFactory', 'organizationId', 'refCounter',
@@ -258,7 +256,7 @@ angular.module('angularEventJourney')
             return deferred.promise;
         };
 
-        $scope.openDatepicker = function($event) {
+        $scope.openDatepicker = function _openDatepicker($event) {
           $event.preventDefault();
           $event.stopPropagation();
           $scope.opened = true;
@@ -280,7 +278,7 @@ angular.module('angularEventJourney')
                 $filter, input, RATE, $timeout) { 
 
               $scope.promise = null;
-              $scope.minDuration = 2000;
+              $scope.minDuration = 1500;
 
               $scope.state = {
                   minStep : 5,
@@ -386,7 +384,7 @@ angular.module('angularEventJourney')
                 }
               };
 
-              $scope.openDatepicker = function($event) {
+              $scope.openDatepicker = function _openDatepicker($event) {
                 $event.preventDefault();
                 $event.stopPropagation();
                 $scope.opened = true;

@@ -1,4 +1,4 @@
-<div class="container" cg-busy="promises" ng-cloak>
+<div class="container" cg-busy="promises" ng-cloak id="pageTop">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
@@ -13,9 +13,7 @@
 		        <p>
 		        	<a href="{{item.url}}" target="_blank">{{item.name}}</a>
 		    	</p>
-		    	<p>
-		        	{{item.description}}
-		    	</p>
+		    	<p>{{item.description}}</p>
 		    	<p ng-show="item.github">
 		    		Github: <a href="{{item.github}}" target="_blank">{{item.github}}</a>
 		    	</p>
@@ -33,9 +31,7 @@
 		        <p>
 		        	<a href="{{item.url}}" target="_blank">{{item.name}}</a>
 		    	</p>
-		    	<p>
-		        	{{item.description}}
-		    	</p>
+		    	<p>{{item.description}}</p>
 		    	<p ng-show="item.github">
 		    		Github: <a href="{{item.github}}" target="_blank">{{item.github}}</a>
 		    	</p>
@@ -85,4 +81,5 @@
     </div>
   </div>
  </div>
+  <div ng-include="'components/navbar/moveToTop.html'"></div>
 </div>
