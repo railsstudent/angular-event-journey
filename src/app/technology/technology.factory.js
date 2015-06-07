@@ -7,7 +7,7 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('technologyFactory', [ '$firebase', function ($firebase) {
+  .factory('technologyFactory', [ '$firebaseArray', function ($firebaseArray) {
 // Service logic
 // ...
     // Create our Firebase reference
@@ -36,19 +36,19 @@ angular.module('angularEventJourney')
       },
 
       retrieveFrontend : function _retrieveFrontend() {
-        return $firebase(refFrontend1).$asArray();
+        return $firebaseArray(refFrontend1);
       },
 
      retrieveBackend : function _retrieveFrontend() {
-        return $firebase(refBackend1).$asArray();
+        return $firebaseArray(refBackend1);
       },
 
      retrieveTool : function _retrieveFrontend() {
-        return $firebase(refTool1).$asArray();
+        return $firebaseArray(refTool1);
       },
 
       retrieveHosting : function _retrieveHosting() {
-        return $firebase(refHosting1).$asArray();
+        return $firebaseArray(refHosting1);
       }  
     };
   }]);

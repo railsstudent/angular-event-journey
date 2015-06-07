@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('AboutCtrl', ['$scope', '$firebase', 'mainFactory', 
-      function ($scope, $firebase, mainFactory) {
+  .controller('AboutCtrl', ['$scope', '$firebaseObject', 'mainFactory', 
+      function ($scope, $firebaseObject, mainFactory) {
 
       var fnIdentity = function(x) { return x; };
 
       var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
       $scope.me = {};
-      $scope.promise = $firebase(mainFactory.refSkill()).$asObject().$loaded();
+      $scope.promise = $firebaseObject(mainFactory.refSkill()).$loaded();
       $scope.promise.then(function(meObject) {
 
           $scope.me.description = meObject.description;
