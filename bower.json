@@ -13,7 +13,7 @@
     "angular-translate": "~2.7.x",
     "firebase": "^2.2.x",
     "angularfire": "^1.1.x",
-    "fontawesome": "^4.3.0",
+    "fontawesome": "^4.3.x",
     "angular-busy" : "~4.1.x",
     "lodash" : "~3.8.x",
     "angular-translate-loader-static-files" : "~2.7.x",
