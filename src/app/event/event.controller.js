@@ -10,6 +10,7 @@ angular.module('angularEventJourney')
     $scope.numEvents = 0;
     // array of hashmap of [ { id : eventId, tags: [hash tags] } ]
     $scope.hashtags = [];
+    $scope.searchText = '';
 
     var refCounter = eventFactory.refCounter($stateParams.organizationId);
     refCounter.on('value', function(dataSnapShot) {
@@ -156,11 +157,6 @@ angular.module('angularEventJourney')
       });
     };
 
-/*    $scope.moveToTop = function _moveToTop() {
-
-        $location.hash("pageTop");
-        $anchorScroll();
-    };*/
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
       'eventFactory', 'organizationId', 'refCounter',

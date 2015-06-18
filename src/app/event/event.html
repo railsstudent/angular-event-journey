@@ -22,8 +22,15 @@
 		</div>
 	</div>
 	<hr/>
+	<div class="row">
+		<div class="col-md-8 col-sm-8 col-lg-8" >
+			 <input type="text" class="form-control" placeholder="Search event" ng-model="searchText" >
+		</div>
+	</div>
+
+	<hr/>
 	<accordion close-others="true">	
-		<accordion-group is-open="status.open" ng-repeat="event in events track by $index">
+		<accordion-group is-open="status.open" ng-repeat="event in events | filter:searchText  track by $index">
 	        <accordion-heading>
 	            {{$index + 1}}: {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
