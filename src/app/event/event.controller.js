@@ -151,7 +151,7 @@ angular.module('angularEventJourney')
                         return { 
                           organizationId: organizationId,
                           eventId : eventId
-                        }
+                        };
                       }
           }
       });

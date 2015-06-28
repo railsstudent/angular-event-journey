@@ -9,7 +9,7 @@ angular.module('angularEventJourney')
 		return {
 			duration : duration
 		};
-	};
+	}
 
 	function _totalTime(start, end) {
 			var diff = _timeDiff(start, end);
@@ -17,7 +17,7 @@ angular.module('angularEventJourney')
 				hours: Math.floor(diff.duration.asHours()),
 				minutes: diff.duration.minutes()
 			};
-	};
+	}
 
 	return {
 		timeDiff : _timeDiff,
