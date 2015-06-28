@@ -31,7 +31,7 @@ angular.module('angularEventJourney')
        };
 
       $scope.moveToTop = function _moveToTop() {
-          $location.hash("pageTop");
+          $location.hash('pageTop');
           $anchorScroll();
       };
   }]);
