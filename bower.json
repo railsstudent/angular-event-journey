@@ -19,5 +19,20 @@
     "angular-translate-loader-static-files" : "~2.7.x",
     "angular-translate-handler-log" : "~2.7.x",
     "angular-moment" : "~0.10.x"
+  },
+  "overrides": {
+    "bootstrap" : {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.js",
+        "dist/fonts/glyphicons-halflings-regular.eot",
+        "dist/fonts/glyphicons-halflings-regular.svg",
+        "dist/fonts/glyphicons-halflings-regular.ttf",
+        "dist/fonts/glyphicons-halflings-regular.woff"
+      ]
+    }
   }
 }
