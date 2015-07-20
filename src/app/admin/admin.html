@@ -31,5 +31,14 @@
 	    <button class="btn btn-lg btn-primary btn-block" type="submit"
 	    	ng-disabled="loginForm.$invalid" translate>SIGN_IN_BUTTON</button>
 	  </form>
+	  <form name="thirdPartyLoginForm" class="form-signin">
+	  	  <div class="form-group">
+	  	  	<span translate>LOGIN_WITH</span>
+	  	  </div>
+		  <div class="form-group">
+		  	<label class="btn btn-success" ng-click="thirdPartyLogin('github')">Github</label>
+  		  	<label class="btn btn-warning" ng-click="thirdPartyLogin(	'google')">Google</label>
+		  </div>
+	  </form>
 	</div>
 </div>

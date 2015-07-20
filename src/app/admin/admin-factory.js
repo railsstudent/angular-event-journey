@@ -10,6 +10,12 @@ angular.module('angularEventJourney')
   .factory('adminFactory', ['mainFactory','$q', function (mainFactory, $q) {
 // Service logic
 // ...
+    var options = {
+                    remember: "sessionOnly",
+                  };
+
+    var mainRef = mainFactory.ref();
+
 // Public API here
     return {
      
@@ -18,7 +24,7 @@ angular.module('angularEventJourney')
         var deferred = $q.defer();
 
         // call firebase to authenticate
-        mainFactory.ref().authWithPassword({
+        mainRef.authWithPassword({
             email : user.email,
             password: user.password
         }, function(error, authData) {
@@ -28,14 +34,51 @@ angular.module('angularEventJourney')
               // successfully authenticate user
               deferred.resolve(authData);
             }
-        }, {
-            remember : 'sessionOnly'
-        });
+        }, options);
         return deferred.promise;
       }, 
 
       logout : function _logout() {
-      	mainFactory.ref().unauth();
+      	mainRef.unauth();
+      },
+
+      authWithProvider : function _authWithProvider(provider) {
+        var deferred = $q.defer();
+        mainRef.authWithOAuthPopup(provider, 
+          function(error, authData) {
+            if (error) {
+              if (error.code === "TRANSPORT_UNAVAILABLE") {
+                // fall-back to browser redirects, and pick up the session
+                // automatically when we come back to the origin page
+                ref.authWithOAuthRedirect(provider, 
+                  function(error) { 
+                    if (error) {
+                      deferred.reject(error); 
+                    } 
+                  }, options);
+              } else {
+                deferred.reject(error);
+              }
+            } else if (authData) {
+              deferred.resolve(authData);
+            }
+          }, options);
+        return deferred.promise;        
+      },
+
+      getName : function _getName(authData) {
+        if (!authData) {
+          return '';
+        }
+
+        switch (authData.provider) {
+          case 'password':
+            return authData.password.email;
+          case 'github':
+            return authData.github.displayName;  
+          case 'google':
+            return authData.google.displayName;
+        }
       }
     };
   }]);

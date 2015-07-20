@@ -40,27 +40,37 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.otherwise('/home');
   }])
-    .run (['$rootScope', 'mainFactory', 'adminFactory',   
-        function($rootScope, mainFactory, adminFactory) {
+    .run (['$rootScope', '$state', 'mainFactory', 'adminFactory',   
+        function($rootScope, $state, mainFactory, adminFactory) {
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
-            if ( toState.name === 'admin' && $rootScope.authData) {
-                event.preventDefault();
-                return false;
-            }
-        });
+              console.log('fromState.name = ' + fromState.name 
+                  + ', toState.name = ' + toState.name)
+              if ( toState.name === 'admin' && $rootScope.authData) {
+                  event.preventDefault();
+                  return false;
+              }
+              $state.$current.name = toState.name;
+              console.log('$state.$current.name = ' + $state.$current.name);
+          });
 
         $rootScope.login = adminFactory.authWithPassword;
-
+        $rootScope.thirdPartyLogin = adminFactory.authWithProvider;
         $rootScope.logout = adminFactory.logout;
+        $rootScope.getName = adminFactory.getName;
 
         mainFactory.ref().onAuth(function(authData) {
             if (authData) {
                 console.log('Client is authenticated.', authData.uid);
                 $rootScope.authData = authData;
+                $rootScope.displayName = $rootScope.getName(authData);
+                if ($state.is('admin')) {
+                  $state.go('home');
+                }
             } else {
                 $rootScope.authData = null;
+                $rootScope.displayName = null;
                 console.log('Client is unauthenticated.');
             }
         });

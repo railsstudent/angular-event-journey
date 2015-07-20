@@ -9,6 +9,7 @@ Functions
 **Authentication**
 
 - Login into the website to perform CRUD on website
+- Support Github, Google authentication
 
 **Organizations**
 

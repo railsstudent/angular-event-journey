@@ -20,10 +20,10 @@ angular.module('angularEventJourney')
     var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
     $scope.promises = $q.all(
-       [technologyFactory.retrieveFrontend().$loaded()
-      ,technologyFactory.retrieveBackend().$loaded()
-      ,technologyFactory.retrieveTool().$loaded()
-      ,technologyFactory.retrieveHosting().$loaded()]);
+       [technologyFactory.retrieveFrontend().$loaded(),
+        technologyFactory.retrieveBackend().$loaded(),
+        technologyFactory.retrieveTool().$loaded(),
+        technologyFactory.retrieveHosting().$loaded()]);
 
     $scope.loadPage = function _loadPage() {
          $scope.promises.then(function(dataArray) {

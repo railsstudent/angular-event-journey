@@ -72,5 +72,6 @@
     "PREV_TEXT" : "<< Previous",
     "NEXT_TEXT" : "Next >>",
     "MOVE_TO_TOP" : "Move to top",
-    "HI_LOGIN_USER" : "Hi {{login}}"
+    "HI_LOGIN_USER" : "Hi {{login}}",
+    "LOGIN_WITH" : "Login With"
 }
