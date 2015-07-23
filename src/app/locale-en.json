@@ -73,5 +73,6 @@
     "NEXT_TEXT" : "Next >>",
     "MOVE_TO_TOP" : "Move to top",
     "HI_LOGIN_USER" : "Hi {{login}}",
-    "LOGIN_WITH" : "Login With"
+    "LOGIN_WITH" : "Login With",
+    "DELETE_ORGANIZATION_MSG" : "Are you sure to delete the organization and its events?"
 }

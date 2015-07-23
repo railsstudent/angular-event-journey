@@ -52,22 +52,27 @@ angular.module('angularEventJourney')
       getChildRef : tmpGetChildRef,
 
       retrieveOrganization : function _retrieveOrganization(id) {
-        return $firebaseObject(tmpGetChildRef('/records/' + id));
+        return $firebaseObject(refRecords1.child(id));
       },
 
-      addOrganization : function _add(newOrganization) {
+      addOrganization : function _addOrganization(newOrganization) {
         var deferred = $q.defer();
         var newOrganizationRef = refRecords1.push(newOrganization);
         deferred.resolve(newOrganizationRef);
         return deferred.promise;
       },
 
-      saveOrganization : function _save(keyId, oldOrganization) {
+      saveOrganization : function _saveOrganization(keyId, oldOrganization) {
           var deferred = $q.defer();
           var childRef = refRecords1.child(keyId);
           childRef.set(oldOrganization);
           deferred.resolve(childRef);
           return deferred.promise;
+      },
+
+      removeOrganization : function _removeOrganization(keyId) {
+        var obj = $firebaseObject(refRecords1.child(keyId));
+        return obj.$remove();
       },
 
       getNextPage : function _getNextPage(startAtId, limit) {

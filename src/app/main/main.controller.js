@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', '$q', '$modal', 'mainFactory', 
-     function ($scope, $location, $anchorScroll, $q, $modal, mainFactory) {
+  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', '$q', '$modal', '$state', 'mainFactory', 
+     function ($scope, $location, $anchorScroll, $q, $modal, $state, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -209,6 +209,40 @@ angular.module('angularEventJourney')
           size: 'lg',
       });
     };
+
+    // http://stackoverflow.com/questions/24713242/using-ui-router-with-bootstrap-ui-modal
+    $scope.removeOrganization = 
+      function _removeOrganization(organizationId) {
+        var modalInstance = $modal.open({
+          templateUrl: 'removeOrganiztion.html',
+          controller: function($scope, $modalInstance) { 
+              $scope.ok = function _ok() {
+                 $modalInstance.close('confirmed'); 
+              };
+
+              $scope.cancel = function _cancel() {
+                $modalInstance.dismiss('cancel');
+              };
+          },
+          size: 'sm'
+        });
+
+        modalInstance.result.then(function (value) {
+          if (_.isEqual(value, 'confirmed')) {
+            // update counter
+            refCounter.transaction(function(currentValue) {
+                return (currentValue || 0) - 1;
+            });
+            mainFactory.removeOrganization(organizationId)
+              .then(function(ref) {
+                $state.go('home', {}, { reload: true });
+              }, function(error) {
+                $state.go('home', {}, { reload: true });
+              });
+          }
+        });
+    };
+
   }])
   .controller('MainEditCtrl', ['$scope', '$state',  '$stateParams', '$q', 'mainFactory',
       function ($scope, $state, $stateParams, $q, mainFactory) {

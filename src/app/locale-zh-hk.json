@@ -70,5 +70,6 @@
     "NEXT_TEXT" : "下一頁 >>",
     "MOVE_TO_TOP" : "返回頁首頂",
     "HI_LOGIN_USER" : "你好 {{login}}",
-    "LOGIN_WITH" : "第三方登錄"
+    "LOGIN_WITH" : "第三方登錄",   
+    "DELETE_ORGANIZATION_MSG" : "您確定要刪除組織和活動？"
 }

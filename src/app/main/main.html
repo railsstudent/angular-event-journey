@@ -34,25 +34,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4" ng-repeat="organization in organizations">
-      <div class="thumbnail">
-        <div class="caption">
-          <div>
-            <h3 tooltip="{{organization.name}}">{{organization.name | addEllipsis:20 }}</h3>
-            <p><span translate>SHORT_NAME</span> {{organization.code}}</p>
-            <p tooltip="{{organization.description}}" tooltip-placement="bottom">
-              <span translate>DESCRIPTION</span>{{organization.description | addEllipsis:120 }}
-            </p>
-            <p><span translate="WEB_SITE"></span><a target="_blank" ng-href="{{organization.url}}">{{organization.url}}</a></p>
-            <a ng-href="{{organization.facebook}}" ng-show="organization.facebook" target="_blank" tooltip="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a> 
-            <a ng-href="{{organization.meetup}}" ng-show="organization.meetup" target="_blank" tooltip="Meetup"><i class="fa fa-cloud fa-2x"></i></a>
-            <a class="pull-right" ui-sref="home_edit({ id : organization.$id })" ng-show="$root.authData">
-              <button type="button" class="btn btn-md btn-default" ng-show="$root.authData" translate>EDIT</button>
-            </a>
-            <p><a ui-sref="events({organizationId: organization.$id })" translate>VIEW_EVENT</a>
-            </p>                            
-          </div>
-        </div>
-      </div>
+      <div ng-include="'app/main/main.item.html'"></div>
     </div>
   </div>
   <pager total-items="numOrganization" items-per-page="itemPerPage" ng-model="currentPage" ng-change="pageChanged()" previous-text="{{ 'PREV_TEXT' | translate }}" next-text="{{ 'NEXT_TEXT' | translate }}"></pager> 
