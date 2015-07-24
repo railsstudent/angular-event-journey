@@ -1,7 +1,8 @@
 <div class="thumbnail">
   <div class="caption">
     <div>
-      <span class="close" ng-click="removeOrganization(organization.$id)">X</span>
+      <span class="close" ng-click="removeOrganization(organization.$id)"
+        ng-show="$root.authData">x</span>
       <h3 tooltip="{{organization.name}}">{{organization.name | addEllipsis:20 }}</h3>
       <p><span translate>SHORT_NAME</span> {{organization.code}}</p>
       <p tooltip="{{organization.description}}" tooltip-placement="bottom">
