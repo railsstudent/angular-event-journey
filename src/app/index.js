@@ -45,8 +45,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
-              console.log('fromState.name = ' + fromState.name 
-                  + ', toState.name = ' + toState.name)
+              console.log('fromState.name = ' + fromState.name + ', toState.name = ' + toState.name);
               if ( toState.name === 'admin' && $rootScope.authData) {
                   event.preventDefault();
                   return false;

@@ -42,7 +42,7 @@
     "ADD_ORG_SUCCESS_CODE" : "Congratuation!!! Add organization is successful.",
     "ADD_ORG_ERROR_CODE" :  "Fail to add new organization.",
     "SAVE_ORG_ERROR_CODE" : "Error!!! Organization is not saved.",
-    "NUM_ORG" : "No. of Organizations: {{value}}",
+    "NUM_ORG" : "{{value}} Organization(s)",
     "TECH" : "Technology",
     "MOBILE" : "Mobile Platform",
     "VIEW_EVENT" : "View Event",
