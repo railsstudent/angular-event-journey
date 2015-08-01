@@ -43,8 +43,8 @@
 	    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
 	    	</p>
 	    	<div ng-show="$root.authData">
-	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)" translate>DELETE</label> &nbsp;&nbsp;
-	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)" translate>EDIT</label>
+	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">{{ 'DELETE' | translate }} <i class="fa fa-trash-o"></i></label> &nbsp;&nbsp;
+	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">{{ 'EDIT' | translate }} <i class="fa fa-pencil-square-o"></i></label>
 	   		</div>
 	    </accordion-group>
   	</accordion>

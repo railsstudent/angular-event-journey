@@ -13,7 +13,7 @@
     "angular-translate": "~2.7.x",
     "firebase": "^2.2.x",
     "angularfire": "^1.1.x",
-    "fontawesome": "^4.3.x",
+    "fontawesome": "^4.4.x",
     "angular-busy" : "~4.1.x",
     "lodash" : "~3.8.x",
     "angular-translate-loader-static-files" : "~2.7.x",
@@ -32,6 +32,12 @@
         "dist/fonts/glyphicons-halflings-regular.svg",
         "dist/fonts/glyphicons-halflings-regular.ttf",
         "dist/fonts/glyphicons-halflings-regular.woff"
+      ]
+    },
+    "fontawesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/*"
       ]
     }
   }
