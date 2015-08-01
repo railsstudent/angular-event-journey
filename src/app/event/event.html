@@ -5,11 +5,6 @@
 	  <li ng-href="#">{{organizationName}}</li>
 	  <li class="active" translate="EVENTS" translate-values="{ value : '{{numEvents}}'}">EVENT</li>
 	</ol>
-	<div class="row">
-		<div class="col-md-12 col-sm-12 col-lg-12">
-			<label class="btn btn-info btn-lg pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData" translate="ADD_EVENT" ></label>
-		</div>
-	</div>
 	<hr/>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-lg-12">
@@ -27,10 +22,12 @@
 	<hr/>
 	<div class="row">
 		<div class="col-md-8 col-sm-8 col-lg-8" >
-			 <input type="text" class="form-control" placeholder="Search event" ng-model="searchText" >
+			<input type="text" class="form-control" placeholder="Search event" ng-model="searchText" >
+		</div>
+		<div class="col-md-4 col-sm-4 col-lg-4">
+			<label class="btn btn-info btn-md pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData" translate="ADD_EVENT" ></label>
 		</div>
 	</div>
-
 	<hr/>
 	<accordion close-others="true">	
 		<accordion-group is-open="status.open" ng-repeat="event in events | filter:searchText  track by $index">
@@ -38,7 +35,7 @@
 	            {{$index + 1}}: {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
 	    	<p>Venue: {{event.venue}}</p>
-	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}}</p>
+	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
 	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
 	    	<p>Duration: {{event.duration}} </p>
 	    	<p>Hashtag: {{event.hashtag}}</p>
