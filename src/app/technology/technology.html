@@ -1,7 +1,10 @@
 <div class="container" cg-busy="promises" ng-cloak id="pageTop">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
-
+	<ol class="breadcrumb">
+	  <li><a ui-sref="home" translate>HOME</a></li>
+	  <li class="active" translate>TECH</li>
+	</ol>
   <div class="row" ng-init="loadPage()">
     <div class="col-sm-4 col-md-4 col-lg-4">
     	<h1 translate="FRONT_END"></h1>
