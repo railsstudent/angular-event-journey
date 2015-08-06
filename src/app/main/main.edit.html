@@ -56,11 +56,10 @@
           <p class="help-block" ng-show="form1.meetup.$invalid && !form1.meetup.$pristine">Please enter valid url</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-offset-9 col-sm-offset-9 col-lg-offset-9">
-          <p><button type="submit" class="btn btn-md btn-default" ng-disabled="form1.$invalid" translate>SAVE</button>
-            <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>
-          </p>      
+      <div class="form-group">
+        <div class="col-md-offset-10 col-sm-offset-10 col-lg-offset-10">
+            <button type="submit" class="btn btn-md btn-default" ng-disabled="form1.$invalid" translate>SAVE</button>
+            <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>      
         </div>           
       </div>
   </form>

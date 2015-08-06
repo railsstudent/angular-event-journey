@@ -71,5 +71,6 @@
     "MOVE_TO_TOP" : "返回頁首頂",
     "HI_LOGIN_USER" : "你好 {{login}}",
     "LOGIN_WITH" : "第三方登錄",   
-    "DELETE_ORGANIZATION_MSG" : "您確定要刪除組織和活動？"
+    "DELETE_ORGANIZATION_MSG" : "您確定要刪除組織和活動？",
+    "SEARCH_EVENT" : "搜尋活動"
 }

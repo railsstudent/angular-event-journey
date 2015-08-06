@@ -22,7 +22,7 @@
 	<hr/>
 	<div class="row">
 		<div class="col-md-8 col-sm-8 col-lg-8" >
-			<input type="text" class="form-control" placeholder="Search event" ng-model="searchText" >
+			<input type="text" class="form-control" placeholder="{{ 'SEARCH_EVENT' | translate }}" ng-model="searchText" >
 		</div>
 		<div class="col-md-4 col-sm-4 col-lg-4">
 			<label class="btn btn-info btn-md pull-right" ng-click="showEventForm(organizationId)" ng-show="$root.authData" translate="ADD_EVENT" ></label>
