@@ -157,6 +157,25 @@ angular.module('angularEventJourney')
       });
     };
 
+    $scope.defaults = {
+      zoomControl : false
+    };
+
+    $scope.markers = {
+      x : {
+          lat: 22.337,
+          lng: 114.172,
+          focus: true,
+          draggable: false
+      }
+    };
+
+    $scope.center = {
+      lat: 22.337,
+      lng: 114.172,
+      zoom: 18
+    }
+
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
       'eventFactory', 'organizationId', 'refCounter',

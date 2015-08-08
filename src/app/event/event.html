@@ -34,14 +34,21 @@
 	        <accordion-heading>
 	            {{$index + 1}}: {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
 	        </accordion-heading>
-	    	<p>Venue: {{event.venue}}</p>
-	        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
-	    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
-	    	<p>Duration: {{event.duration}} </p>
-	    	<p>Hashtag: {{event.hashtag}}</p>
-	    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" ></rating>
-	    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
-	    	</p>
+	        <div class="row">
+	        	<div class="col-lg-8 col-md-8 col-sm-8">
+			    	<p>Venue: {{event.venue}}</p>
+			        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
+			    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
+			    	<p>Duration: {{event.duration}} </p>
+			    	<p>Hashtag: {{event.hashtag}}</p>
+			    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" ></rating>
+			    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
+			    	</p>
+		    	</div>
+		    	<div class="col-lg-4 col-md-4 col-sm-4">
+		    		 <leaflet width="100%" height="200px" defaults="defaults" markers="markers" center="center"></leaflet>
+		    	</div>
+	    	</div>
 	    	<div ng-show="$root.authData">
 	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">{{ 'DELETE' | translate }} <i class="fa fa-trash-o"></i></label> &nbsp;&nbsp;
 	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">{{ 'EDIT' | translate }} <i class="fa fa-pencil-square-o"></i></label>
