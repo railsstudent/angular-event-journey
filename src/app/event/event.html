@@ -36,12 +36,13 @@
 	        </accordion-heading>
 	        <div class="row">
 	        	<div class="col-lg-8 col-md-8 col-sm-8">
-			    	<p>Venue: {{event.venue}}</p>
-			        <p>Date: {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
-			    	<p>Time: {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
-			    	<p>Duration: {{event.duration}} </p>
-			    	<p>Hashtag: {{event.hashtag}}</p>
-			    	<p>Rating: <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" ></rating>
+			    	<p>{{'BUILDING' | translate}} {{ event.building }}</p>
+			    	<p>{{'VENUE' | translate }} {{event.venue}}</p>
+			        <p>{{'DATE' | translate }} {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
+			    	<p>{{'TIME' | translate }} {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
+			    	<p>{{'DURATION' | translate}} {{event.duration}} </p>
+			    	<p>{{'HASH_TAG' | translate }} {{event.hashtag}}</p>
+			    	<p>{{'RATING' | translate }} <rating ng-model="event.rate" max="10" readonly="true" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" ></rating>
 			    	<span class="label" ng-class="{'label-warning': event.percent<30, 'label-info': event.percent>=30 && event.percent<70, 'label-success': event.percent>=70}">{{event.percent}}%</span>
 			    	</p>
 		    	</div>

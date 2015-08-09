@@ -16,6 +16,13 @@
         <p ng-show="eventForm.name.$invalid && !eventForm.name.$pristine" class="help-block">Please enter event name</p>
       </div>
     </div>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.building.$invalid && !eventForm.building.$pristine }">
+      <label for="venue" class="col-sm-2 control-label" translate>BUILDING</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="building" name="building" ng-required="true" ng-model="editEvent.building">
+        <p ng-show="eventForm.building.$invalid && !eventForm.building.$pristine" class="help-block">Please enter building</p>
+      </div>
+    </div>
     <div class="form-group" ng-class="{ 'has-error' : eventForm.venue.$invalid && !eventForm.venue.$pristine }">
       <label for="venue" class="col-sm-2 control-label" translate>VENUE</label>
       <div class="col-sm-9">

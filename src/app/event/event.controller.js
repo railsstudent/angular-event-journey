@@ -184,24 +184,8 @@ angular.module('angularEventJourney')
     };
 
     $scope.defaults = {
-      zoomControl : false
+      zoomControl : true
     };
-
-    $scope.markers = {
-      x : {
-          lat: 22.337,
-          lng: 114.172,
-          focus: true,
-          draggable: false
-      }
-    };
-
-    $scope.center = {
-      lat: 22.337,
-      lng: 114.172,
-      zoom: 18
-    }
-
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
       'eventFactory', 'organizationId', 'refCounter',
@@ -230,12 +214,14 @@ angular.module('angularEventJourney')
             $scope.promise = handleAddEvent(organizationId);
             $scope.promise.then(function(id) {
                 $scope.newEvent.name = '';
+                $scope.newEvent.building = '';
                 $scope.newEvent.venue = '';
                 $scope.newEvent.eventDate = undefined;
                 $scope.newEvent.timeFrom = undefined;
                 $scope.newEvent.timeTo = undefined;
 
                 $scope.eventForm.$setPristine($scope.eventForm.name);
+                $scope.eventForm.$setPristine($scope.eventForm.building);
                 $scope.eventForm.$setPristine($scope.eventForm.venue);
                 $scope.eventForm.$setPristine($scope.eventForm.eventDate);
                 $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
@@ -275,6 +261,7 @@ angular.module('angularEventJourney')
             } else {
 
               var newObj = { name : $scope.newEvent.name,
+                    building : $scope.newEvent.building,
                     venue : $scope.newEvent.venue,
                     eventDate : oEvent.eventDate, 
                     timeFrom : oEvent.timeFrom, 
@@ -306,6 +293,7 @@ angular.module('angularEventJourney')
         var today = new Date();
         $scope.newEvent = {
           name : '',
+          building : 'TBD',
           venue : 'TBD',
           eventDate: today,
           timeFrom: today,
@@ -349,6 +337,7 @@ angular.module('angularEventJourney')
                       var rate = $scope.editEvent.rate || 0;
                       var percent = RATE.hundred * (($scope.editEvent.rate || 0) / RATE.base);
                       var editObj = { name : $scope.editEvent.name,
+                            building : $scope.editEvent.building,
                             venue : $scope.editEvent.venue,
                             eventDate : oEvent.eventDate, 
                             timeFrom : oEvent.timeFrom, 
@@ -403,6 +392,7 @@ angular.module('angularEventJourney')
                       $scope.editEvent = undefined;
 
                       $scope.eventForm.$setPristine($scope.eventForm.name);
+                      $scope.eventForm.$setPristine($scope.eventForm.building);
                       $scope.eventForm.$setPristine($scope.eventForm.venue);
                       $scope.eventForm.$setPristine($scope.eventForm.eventDate);
                       $scope.eventForm.$setPristine($scope.eventForm.timeFrom);

@@ -11,8 +11,12 @@ angular.module('angularEventJourney')
 
   	// use mapquest geocoding api
     var appKey = '0WGV61dvTFci9Fu8Liu9bmbnTGUz2f7b';
-    var geocodeUrl = "http://www.mapquestapi.com/geocoding/v1/address?key=" +  appKey + 
+    var hkboundingBox = "&boundingBox=22.153549, 113.835083,22.56204, 114.441788";
+    var geocodeUrl = "http://www.mapquestapi.com/geocoding/v1/address?key=" +  
+              appKey + 
+              hkboundingBox +
     					"&inFormat=kvp&outFormat=json&maxResults=1&thumbMaps=false&location=";
+
 // Public API here
     return {
        initGeocode : function _initGeocode() {
