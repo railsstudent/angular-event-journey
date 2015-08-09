@@ -2,8 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', '$q', 'timeFactory',
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory) {
+      'mainFactory', '$modal', '$q', 'timeFactory', 'geocoderFactory', 
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory, geocoderFactory) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -76,7 +76,20 @@ angular.module('angularEventJourney')
                           return _.isEqual(o.$id, key);
                         });
       if (oEvent) {
-        oEvent.duration = timeFactory.totalTimeStr(oEvent.timeFrom, oEvent.timeTo);                                               
+        oEvent.duration = timeFactory.totalTimeStr(oEvent.timeFrom, oEvent.timeTo);  
+        oEvent.geocode = geocoderFactory.initGeocode();
+        geocoderFactory.getLatLng(oEvent.venue).then(
+          function(data) {
+             oEvent.geocode.markers[1].lat = data.lat;
+             oEvent.geocode.markers[1].lng = data.lng;
+             oEvent.geocode.center.lat = data.lat;
+             oEvent.geocode.center.lng = data.lng;
+          }, function(data) {
+             oEvent.geocode.markers[1].lat = data.lat;
+             oEvent.geocode.markers[1].lng = data.lng;
+             oEvent.geocode.center.lat = data.lat;
+             oEvent.geocode.center.lng = data.lng;
+          });
       }                                
     });
 
@@ -90,6 +103,19 @@ angular.module('angularEventJourney')
          $scope.events = data[0];
          _.forEach($scope.events, function (o) {
             o.duration = timeFactory.totalTimeStr(o.timeFrom, o.timeTo); 
+            o.geocode = geocoderFactory.initGeocode();
+            geocoderFactory.getLatLng(o.venue).then(
+              function(data) {
+                 o.geocode.markers[1].lat = data.lat;
+                 o.geocode.markers[1].lng = data.lng;
+                 o.geocode.center.lat = data.lat;
+                 o.geocode.center.lng = data.lng;
+              }, function(data) {
+                 o.geocode.markers[1].lat = data.lat;
+                 o.geocode.markers[1].lng = data.lng;
+                 o.geocode.center.lat = data.lat;
+                 o.geocode.center.lng = data.lng;
+              }); 
           });
          $scope.organizationName = data[1].name;
       });
