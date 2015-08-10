@@ -75,5 +75,9 @@
     "HI_LOGIN_USER" : "Hi {{login}}",
     "LOGIN_WITH" : "Login With",
     "DELETE_ORGANIZATION_MSG" : "Are you sure to delete the organization and its events?",
-    "SEARCH_EVENT" : "Search Event"
+    "SEARCH_EVENT" : "Search Event",
+    "DATE" : "Date: ",
+    "TIME" : "Time: ",
+    "DURATION" : "Duration: ",
+    "BUILDING" : "Building: "
 }

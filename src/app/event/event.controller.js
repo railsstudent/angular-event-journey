@@ -2,8 +2,8 @@
 
 angular.module('angularEventJourney')
   .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', '$q', 'timeFactory',
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory) {
+      'mainFactory', '$modal', '$q', 'timeFactory', 'geocoderFactory', 
+  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory, geocoderFactory) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -76,7 +76,20 @@ angular.module('angularEventJourney')
                           return _.isEqual(o.$id, key);
                         });
       if (oEvent) {
-        oEvent.duration = timeFactory.totalTimeStr(oEvent.timeFrom, oEvent.timeTo);                                               
+        oEvent.duration = timeFactory.totalTimeStr(oEvent.timeFrom, oEvent.timeTo);  
+        oEvent.geocode = geocoderFactory.initGeocode();
+        geocoderFactory.getLatLng(oEvent.venue).then(
+          function(data) {
+             oEvent.geocode.markers[1].lat = data.lat;
+             oEvent.geocode.markers[1].lng = data.lng;
+             oEvent.geocode.center.lat = data.lat;
+             oEvent.geocode.center.lng = data.lng;
+          }, function(data) {
+             oEvent.geocode.markers[1].lat = data.lat;
+             oEvent.geocode.markers[1].lng = data.lng;
+             oEvent.geocode.center.lat = data.lat;
+             oEvent.geocode.center.lng = data.lng;
+          });
       }                                
     });
 
@@ -90,6 +103,19 @@ angular.module('angularEventJourney')
          $scope.events = data[0];
          _.forEach($scope.events, function (o) {
             o.duration = timeFactory.totalTimeStr(o.timeFrom, o.timeTo); 
+            o.geocode = geocoderFactory.initGeocode();
+            geocoderFactory.getLatLng(o.venue).then(
+              function(data) {
+                 o.geocode.markers[1].lat = data.lat;
+                 o.geocode.markers[1].lng = data.lng;
+                 o.geocode.center.lat = data.lat;
+                 o.geocode.center.lng = data.lng;
+              }, function(data) {
+                 o.geocode.markers[1].lat = data.lat;
+                 o.geocode.markers[1].lng = data.lng;
+                 o.geocode.center.lat = data.lat;
+                 o.geocode.center.lng = data.lng;
+              }); 
           });
          $scope.organizationName = data[1].name;
       });
@@ -157,6 +183,9 @@ angular.module('angularEventJourney')
       });
     };
 
+    $scope.defaults = {
+      zoomControl : true
+    };
 }])
   .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
       'eventFactory', 'organizationId', 'refCounter',
@@ -185,12 +214,14 @@ angular.module('angularEventJourney')
             $scope.promise = handleAddEvent(organizationId);
             $scope.promise.then(function(id) {
                 $scope.newEvent.name = '';
+                $scope.newEvent.building = '';
                 $scope.newEvent.venue = '';
                 $scope.newEvent.eventDate = undefined;
                 $scope.newEvent.timeFrom = undefined;
                 $scope.newEvent.timeTo = undefined;
 
                 $scope.eventForm.$setPristine($scope.eventForm.name);
+                $scope.eventForm.$setPristine($scope.eventForm.building);
                 $scope.eventForm.$setPristine($scope.eventForm.venue);
                 $scope.eventForm.$setPristine($scope.eventForm.eventDate);
                 $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
@@ -230,6 +261,7 @@ angular.module('angularEventJourney')
             } else {
 
               var newObj = { name : $scope.newEvent.name,
+                    building : $scope.newEvent.building,
                     venue : $scope.newEvent.venue,
                     eventDate : oEvent.eventDate, 
                     timeFrom : oEvent.timeFrom, 
@@ -261,6 +293,7 @@ angular.module('angularEventJourney')
         var today = new Date();
         $scope.newEvent = {
           name : '',
+          building : 'TBD',
           venue : 'TBD',
           eventDate: today,
           timeFrom: today,
@@ -304,6 +337,7 @@ angular.module('angularEventJourney')
                       var rate = $scope.editEvent.rate || 0;
                       var percent = RATE.hundred * (($scope.editEvent.rate || 0) / RATE.base);
                       var editObj = { name : $scope.editEvent.name,
+                            building : $scope.editEvent.building,
                             venue : $scope.editEvent.venue,
                             eventDate : oEvent.eventDate, 
                             timeFrom : oEvent.timeFrom, 
@@ -358,6 +392,7 @@ angular.module('angularEventJourney')
                       $scope.editEvent = undefined;
 
                       $scope.eventForm.$setPristine($scope.eventForm.name);
+                      $scope.eventForm.$setPristine($scope.eventForm.building);
                       $scope.eventForm.$setPristine($scope.eventForm.venue);
                       $scope.eventForm.$setPristine($scope.eventForm.eventDate);
                       $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
