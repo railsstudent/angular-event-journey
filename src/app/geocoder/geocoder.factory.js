@@ -40,7 +40,7 @@ angular.module('angularEventJourney')
       getLatLng : function _getLatLng(address) {
       	var requestUrl = geocodeUrl + address;
       	var deferred = $q.defer();
-      	$http.get(requestUrl).then(function (response) {
+      	$http.get(requestUrl, { cache: true}).then(function (response) {
       		var latlng =response.data.results[0].locations[0].latLng;
       		console.log ('lat: ' + latlng.lat + ', lng: ' + latlng.lng);
       		var result = { 
