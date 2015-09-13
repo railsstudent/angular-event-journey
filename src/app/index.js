@@ -4,8 +4,7 @@ var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate', 
  'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive']);
 
-app.config(['$stateProvider', '$urlRouterProvider', 
-    function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
         url: '/home',
@@ -39,7 +38,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
       });
 
     $urlRouterProvider.otherwise('/home');
-  }])
+    $locationProvider.html5Mode(true);
+  })
     .run (['$rootScope', '$state', 'mainFactory', 'adminFactory',   
         function($rootScope, $state, mainFactory, adminFactory) {
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
