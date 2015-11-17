@@ -256,9 +256,9 @@ angular.module('angularEventJourney')
 
             if (eventFactory.isEarlierThan(oEvent.timeTo, oEvent.timeFrom)) {
               deferred.reject('Event Time To cannot be earlier than Event Time From.');
-            } else if (eventFactory.isDateInPast(oEvent.timeFrom)) { 
+            /*} else if (eventFactory.isDateInPast(oEvent.timeFrom)) { 
               deferred.reject('Event date is in the past.');
-            } else {
+            */} else {
 
               var newObj = { name : $scope.newEvent.name,
                     building : $scope.newEvent.building,
