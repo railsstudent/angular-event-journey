@@ -6,12 +6,18 @@
 	  <li class="active" translate="EVENTS" translate-values="{ value : '{{numEvents}}'}">EVENT</li>
 	</ol>
 	<hr/>
-	<div class="row">
+		<div class="form-group">
+			<button type="button" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed" ng-show="isCollapsed">
+				{{ 'SHOW_HASHTAG' | translate }}</button>
+			<button type="button" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed" ng-show="!isCollapsed">
+				{{ 'HIDE_HASHTAG' | translate }}</button>
+		</div>
+	<div class="row" collapse="isCollapsed">
 		<div class="col-md-12 col-sm-12 col-lg-12">
-			<span translate="HASH_TAG"></span>
+			<span translate="HASH_TAG"></span> 
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" collapse="isCollapsed">
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			<div class="ticket" ng-repeat="(key, value) in hashtagSummary">
 				<span class="circle"></span>
