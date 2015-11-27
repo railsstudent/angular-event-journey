@@ -76,5 +76,7 @@
     "DATE" : "日期：   ",
     "TIME" : "時間：   ",
     "DURATION" : "歷時：    ",
-    "BUILDING" : "大樓：   "
+    "BUILDING" : "大樓：   ",
+    "SHOW_HASHTAG" : "顯示井號",
+    "HIDE_HASHTAG" : "隱藏井號"
 }

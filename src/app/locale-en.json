@@ -79,5 +79,7 @@
     "DATE" : "Date: ",
     "TIME" : "Time: ",
     "DURATION" : "Duration: ",
-    "BUILDING" : "Building: "
+    "BUILDING" : "Building: ",
+    "SHOW_HASHTAG" : "Show hashtag",
+    "HIDE_HASHTAG" : "Hide hashtag"
 }

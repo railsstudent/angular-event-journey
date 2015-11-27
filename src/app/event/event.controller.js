@@ -11,6 +11,7 @@ angular.module('angularEventJourney')
     // array of hashmap of [ { id : eventId, tags: [hash tags] } ]
     $scope.hashtags = [];
     $scope.searchText = '';
+    $scope.isCollapsed = false; 
 
     var refCounter = eventFactory.refCounter($stateParams.organizationId);
     refCounter.on('value', function(dataSnapShot) {
