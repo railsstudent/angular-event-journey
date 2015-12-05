@@ -18,12 +18,18 @@
 
       <alert ng-show="msgObj.message" type="{{msgObj.cssClassName}}">{{msgObj.message | translate }}</alert>
 
-     <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine }">
+     <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && organizationForm.shortname.$touched }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="shortname" name="shortname" required
           ng-model="organization.shortname">
+          <!--
         <p ng-show="organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine" class="help-block">Please enter short name</p>
+        -->
+        <div class="help-block" ng-messages="organizationForm.shortname.$error">
+          <div ng-message="required">Please enter short name</div>
+        </div>
+
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.name.$invalid && !organizationForm.name.$pristine }">
@@ -31,7 +37,7 @@
       <div class="col-sm-9">
         <input type="text" class="form-control" id="name" name="name" required
           ng-model="organization.name">
-        <p ng-show="organizationForm.name.$invalid && !organizationForm.name.$pristine" class="help-block">Please enter short name</p>
+        <p ng-show="organizationForm.name.$invalid && !organizationForm.name.$pristine" class="help-block">Please enter full name</p>
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.desc.$invalid && !organizationForm.desc.$pristine }">

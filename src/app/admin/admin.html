@@ -14,34 +14,38 @@
 
 		<!--To access the form: <form name>.<angular property> -->
 		<!-- To access an input: <form name>.<input name>.<angular property> -->
-	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputEmail.$invalid && !loginForm.inputEmail.$pristine }">
+	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputEmail.$invalid && loginForm.inputEmail.$touched }">
 		    <label for="inputEmail" class="sr-only" translate>EMAIL</label>
 			<div class="input-group">
 				<div class="input-group-addon"><i class="fa fa-user"></i></div>
 				<input type="email" ng-model="user.email" name="inputEmail"
 		    		id="inputEmail" class="form-control" placeholder="{{ 'EMAIL_PLACEHOLDER' | translate}}" required>
 		    </div>
-		    <p ng-show="loginForm.inputEmail.$invalid && !loginForm.inputEmail.$pristine" translate class="help-block">YOUR_EMAIL_IS_REQUIRED</p>
+			<div class="help-block" ng-messages="loginForm.inputEmail.$error" ng-show="loginForm.inputEmail.$touched">
+				<p ng-message="required"><span translate>YOUR_EMAIL_IS_REQUIRED</span></p>
+				<p ng-message="email"><span translate>VALID_EMAIL</span></p>
+			</div>
 	    </div>
 
-	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputPassword.$invalid && !loginForm.inputPassword.$pristine }">
+	    <div class="form-group" ng-class="{ 'has-error' : loginForm.inputPassword.$invalid && loginForm.inputPassword.$touched }">
 		    <label for="inputPassword" class="sr-only" translate>PASSWORD</label>
 			<input type="password" ng-model="user.password" name="inputPassword"
 			    	id="inputPassword" class="form-control" placeholder="{{ 'PASSWORD_PLACEHOLDER' |  translate}}" required>
-		    <p ng-show="loginForm.inputPassword.$invalid && loginForm.inputPassword.$pristine" translate class="help-block">YOUR_PASSWORD_IS_REQUIRED</p>
+			<div class="help-block" ng-messages="loginForm.inputPassword.$error" ng-if="loginForm.inputPassword.$touched">
+				<p ng-message="required"><span translate>YOUR_PASSWORD_IS_REQUIRED</span></p>
+			</div>
 	    </div>
 
 	    <button class="btn btn-lg btn-primary btn-block" type="submit"
-	    	ng-disabled="loginForm.$invalid" translate>SIGN_IN_BUTTON</button>
-	  
+	    	ng-disabled="loginForm.$invalid" translate>SIGN_IN_BUTTON</button>	  
 	  </form>
 	  <form name="thirdPartyLoginForm" class="form-signin">
 	  	  <div class="form-group">
 	  	  	<span translate>LOGIN_WITH</span>
 	  	  </div>
 		  <div class="form-group">
-		  	<label class="btn btn-success" ng-click="thirdPartyLogin('github')">Github</label>
-  		  	<label class="btn btn-warning" ng-click="thirdPartyLogin(	'google')">Google</label>
+		  	<label class="btn btn-success" ng-click="thirdPartyLogin('github')"><i class="fa fa-github"></i>&nbsp;|&nbsp;Github</label>
+  		  	<label class="btn btn-warning" ng-click="thirdPartyLogin(	'google')"><i class="fa fa-google"></i>&nbsp;|&nbsp;Google</label>
 		  </div>
 	  </form>
 	</div>

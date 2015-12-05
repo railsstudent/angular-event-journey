@@ -63,6 +63,7 @@
     "PAGE" : "頁面： {{page_num}}",
     "YOUR_PASSWORD_IS_REQUIRED" : "需要您的密碼。",
     "YOUR_EMAIL_IS_REQUIRED" : "輸入一個有效的電子郵件。",
+    "VALID_EMAIL" : "輸入一個有效的電子郵件。",
     "LOGOUT" : "登出",
     "DELETE_EVENT_MSG" : "您確定要刪除活動？",
     "LOGOUT_MSG" : "您已經登出。",

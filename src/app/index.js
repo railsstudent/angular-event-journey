@@ -2,7 +2,7 @@
 
 var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate', 
- 'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive']);
+ 'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive', 'ngMessages']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider

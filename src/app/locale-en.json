@@ -24,6 +24,7 @@
     "SHORT_NAME": "Code:   ",
     "YOUR_EMAIL_IS_REQUIRED" : "Enter a valid email.",
     "YOUR_PASSWORD_IS_REQUIRED" : "Your password is required.",
+    "VALID_EMAIL" : "This needs to be a valid email.",
     "EMAIL" : "Email",
     "PASSWORD" : "Password",
     "EMAIL_PLACEHOLDER" : "Email",
