@@ -40,8 +40,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/home');
     $locationProvider.html5Mode(true);
   })
-    .run (['$rootScope', '$state', 'mainFactory', 'adminFactory',   
-        function($rootScope, $state, mainFactory, adminFactory) {
+    .run (function($rootScope, $state, mainFactory, adminFactory) {
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
         $rootScope.$on('$stateChangeStart', 
             function(event, toState, toParams, fromState, fromParams){
@@ -73,9 +72,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
                 console.log('Client is unauthenticated.');
             }
         });
-   }]);
+   });
 
-app.config(['$translateProvider', function($translateProvider) {
+app.config(function($translateProvider) {
 
   // which language to use?
   // fallback language
@@ -86,4 +85,6 @@ app.config(['$translateProvider', function($translateProvider) {
     .fallbackLanguage('en')
     .useSanitizeValueStrategy('escaped')
     .useMissingTranslationHandlerLog();
-}]);
+});
+
+// http://stackoverflow.com/questions/22176739/using-underscore-with-jshint

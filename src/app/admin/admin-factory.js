@@ -7,11 +7,11 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('adminFactory', ['mainFactory','$q', function (mainFactory, $q) {
+  .factory('adminFactory', function (mainFactory, $q) {
 // Service logic
 // ...
     var options = {
-                    remember: "sessionOnly",
+                    remember: 'sessionOnly',
                   };
 
     var mainRef = mainFactory.ref();
@@ -47,7 +47,7 @@ angular.module('angularEventJourney')
         mainRef.authWithOAuthPopup(provider, 
           function(error, authData) {
             if (error) {
-              if (error.code === "TRANSPORT_UNAVAILABLE") {
+              if (error.code === 'TRANSPORT_UNAVAILABLE') {
                 // fall-back to browser redirects, and pick up the session
                 // automatically when we come back to the origin page
                 ref.authWithOAuthRedirect(provider, 
@@ -81,4 +81,4 @@ angular.module('angularEventJourney')
         }
       }
     };
-  }]);
+  });
