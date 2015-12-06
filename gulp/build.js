@@ -76,7 +76,7 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function () {
   return gulp.src($.mainBowerFiles())
-    .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size());
@@ -94,9 +94,12 @@ gulp.task('clean', function (done) {
 });
 
 // https://github.com/thomasstreet/famous-angular-starter/issues/6
-gulp.task('copybower', function() {
-  return gulp.src('bower_components/**/*')
-    .pipe(gulp.dest('dist/bower_components'));
+gulp.task('copyBootstrap', function() {
+  return gulp.src([
+      'bower_components/angular-bootstrap/**/*',
+      'bower_components/bootstrap/**/*'
+    ], { base: './' })
+    .pipe(gulp.dest('dist/'));
 });
 
 // https://www.npmjs.com/package/gulp-angular-translate
@@ -105,4 +108,4 @@ gulp.task('copyTranslationFile', function() {
     .pipe(gulp.dest('dist/app'));
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copybower', 'copyTranslationFile']);
+gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copyBootstrap', 'copyTranslationFile']);
