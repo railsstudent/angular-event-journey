@@ -9,28 +9,34 @@
         <p>{{msgObj.additionalMessage}}</p>
       </alert>
 
-     <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
+     <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && eventForm.name.$touched }">
       <label for="name" class="col-sm-2 control-label" translate>NAME</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="name" name="name" ng-required="true" ng-model="newEvent.name">
-        <p ng-show="eventForm.name.$invalid && !eventForm.name.$pristine" class="help-block">Please enter event name</p>
+        <div ng-messages="eventForm.name.$error" ng-show="eventForm.name.$touched" class="help-block">
+          <div ng-message="required">Please enter event name</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.building.$invalid && !eventForm.building.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.building.$invalid && eventForm.building.$touched }">
       <label for="building" class="col-sm-2 control-label" translate>BUILDING</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="building" name="building" ng-required="true" ng-model="newEvent.building">
-        <p ng-show="eventForm.building.$invalid && !eventForm.building.$pristine" class="help-block">Please enter building</p>
+        <div ng-messages="eventForm.building.$error" ng-show="eventForm.building.$touched" class="help-block">
+          <div ng-message="required">Please enter building</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.venue.$invalid && !eventForm.venue.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.venue.$invalid && eventForm.venue.$touched }">
       <label for="venue" class="col-sm-2 control-label" translate>VENUE</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="venue" name="venue" ng-required="true" ng-model="newEvent.venue">
-        <p ng-show="eventForm.venue.$invalid && !eventForm.venue.$pristine" class="help-block">Please enter venue</p>
+        <div ng-messages="eventForm.venue.$error" ng-show="eventForm.venue.$touched" class="help-block">
+          <div ng-message="required">Please enter venue</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.eventDate.$invalid && eventForm.eventDate.$touched }">
       <label for="eventDate" class="col-sm-2 control-label" translate>EVENT_DATE</label>
       <div class="col-sm-9">
         <p class="input-group">
@@ -39,7 +45,10 @@
             <label type="button" class="btn btn-default" ng-click="openDatepicker($event)"><i class="fa fa-calendar"></i></label>
           </span>
         </p>
-        <p ng-show="eventForm.eventDate.$invalid && !eventForm.eventDate.$pristine" class="help-block">Please enter event date</p>
+        <div ng-messages="eventForm.eventDate.$error" ng-show="eventForm.eventDate.$touched" class="help-block">
+          <div ng-message="required">Please enter event date</div>
+          <div ng-message="date">Please enter a valid event date</div>
+        </div>
       </div>
     </div>
     <div class="form-group">
@@ -48,7 +57,10 @@
         <div class="col-sm-8 col-md-8 col-lg-8">
           <timepicker ng-model="newEvent.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
             minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
-          <p ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">Please enter from time</p>
+          <div ng-messages="eventForm.timeFrom.$error" ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" class="help-block">
+            <div ng-message="required">Please enter from time</div>
+            <div ng-message="time">Please enter a valid from time</div>
+          </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-6 col-sm-6" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
@@ -56,15 +68,20 @@
         <div class="col-sm-8 col-md-8 col-lg-8">
           <timepicker ng-model="newEvent.timeTo" ng-required="true" name="timeTo" 
           id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
-          <p ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">Please enter to time</p>
+         <div ng-messages="eventForm.timeTo.$error" ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">
+            <div ng-message="required">Please enter to time</div>
+            <div ng-message="time">Please enter a valid to time</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : eventForm.hashtag.$invalid && !eventForm.hashtag.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.hashtag.$invalid && eventForm.hashtag.$touched }">
       <label for="hashtag" class="col-sm-2 control-label" translate>HASH_TAG</label>
       <div class="col-sm-9">
         <input type="text" ng-model="newEvent.hashtag" name="hashtag" id="hashtag" required size="80%" placeholder="Please enter at least one hash tag, separated by comma"></input>
-        <p ng-show="eventForm.hashtag.$invalid && !eventForm.hashtag.$pristine" class="help-block">Please enter at least one hashtag, separated by comma</p>
+        <div ng-messages="eventForm.hashtag.$error" ng-show="eventForm.hashtag.$touched" class="help-block">
+          <div ng-message="required">Please enter at least one hashtag, separated by comma</div>
+        </div>
       </div>
     </div>
     <!-- div-->

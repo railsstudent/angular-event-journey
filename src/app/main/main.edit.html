@@ -8,52 +8,64 @@
         <h3 class="col-sm-offset-2 col-md-offset-2 col-lg-offset-2" translate>EDIT_ORGANIZATION</h3>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error' : form1.name.$invalid && !form1.name.$pristine }">
-  	    <label for="name" translate class="col-sm-2 col-md-2 col-lg-2 control-label">NAME</label>
-  	    <div class="col-sm-9 col-md-9 col-lg-9">
-  	        <input name="name" type="text" class="form-control" ng-model="editObj.name" required></input>
-  	        <p class="help-block" ng-show="form1.name.$invalid && !form1.name.$pristine">Please enter name</p>  
-  	    </div>
-      </div>
-   
-      <div class="form-group" ng-class="{ 'has-error' : form1.code.$invalid && !form1.code.$pristine }">
+      <div class="form-group" ng-class="{ 'has-error' : form1.code.$invalid && form1.code.$touched }">
           <label for="code" translate class="col-sm-2 col-md-2 col-lg-2 control-label">SHORT_NAME</label>
           <div class="col-sm-9 col-md-9 col-lg-9">
               <input name="code" type="text" class="form-control" ng-model="editObj.code" required></input>
-              <p class="help-block" ng-show="form1.code.$invalid && !form1.code.$pristine">Please enter short name</p>
+              <div class="help-block" ng-messages="form1.code.$error" ng-show="form1.code.$touched">
+                <div ng-message="required">Please enter short name</div>
+              </div>
           </div>
       </div>
-   
-      <div class="form-group" ng-class="{ 'has-error' : form1.desc.$invalid && !form1.desc.$pristine }">
+
+      <div class="form-group" ng-class="{ 'has-error' : form1.name.$invalid && form1.name.$touched }">
+  	    <label for="name" translate class="col-sm-2 col-md-2 col-lg-2 control-label">NAME</label>
+  	    <div class="col-sm-9 col-md-9 col-lg-9">
+  	        <input name="name" type="text" class="form-control" ng-model="editObj.name" required></input>
+  	        <div class="help-block" ng-messages="form1.name.$error" ng-show="form1.name.$touched">
+              <div ng-message="required">Please enter name</div>  
+            </div>
+  	    </div>
+      </div>
+      
+      <div class="form-group" ng-class="{ 'has-error' : form1.desc.$invalid && form1.desc.$touched }">
           <label for="desc" translate class="col-sm-2 col-md-2 col-lg-2 control-label">DESCRIPTION</label>
           <div class="col-sm-9 col-md-9 col-lg-9">
               <textarea required name="desc" id="desc" class="form-control" ng-model="editObj.description">
               </textarea>
-          	<p class="help-block" ng-show="form1.desc.$invalid && !form1.desc.$pristine">Please enter description</p>
+            <div class="help-block" ng-messages="form1.desc.$error" ng-show="form1.desc.$touched">
+              <div ng-message="required">Please enter description</div>  
+            </div>
           </div>
       </div>
               
-      <div class="form-group" ng-class="{ 'has-error' : form1.website.$invalid && !form1.website.$pristine }">
+      <div class="form-group" ng-class="{ 'has-error' : form1.website.$invalid && form1.website.$touched }">
         <label translate for="website" class="col-sm-2 col-md-2 col-lg-2 control-label">WEB_SITE</label>
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="website" id="website" class="form-control" ng-model="editObj.url"></input>
-          <p class="help-block" ng-show="form1.website.$invalid && !form1.website.$pristine">Please enter valid url</p>
+          <div class="help-block" ng-messages="form1.website.$error" ng-show="form1.website.$touched">
+            <div ng-message="url">Please enter valid url</div>  
+          </div>
         </div>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error' : form1.facebook.$invalid && !form1.facebook.$pristine }">
+      <div class="form-group" ng-class="{ 'has-error' : form1.facebook.$invalid && form1.facebook.$touched }">
         <label for="facebook" class="col-sm-2 col-md-2 col-lg-2 control-label">Facebook:</label>
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="facebook" id="facebook" class="form-control" ng-model="editObj.facebook"></input>
-          <p class="help-block" ng-show="form1.facebook.$invalid && !form1.facebook.$pristine">Please enter valid url</p>
+          <div class="help-block" ng-messages="form1.facebook.$error" ng-show="form1.facebook.$touched">
+            <div ng-message="url">Please enter valid url</div>  
+          </div>
         </div>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error' : form1.meetup.$invalid && !form1.meetup.$pristine }">
+      <div class="form-group" ng-class="{ 'has-error' : form1.meetup.$invalid && form1.meetup.$touched }">
         <label for="meetup" class="col-sm-2 col-md-2 col-lg-2 control-label">Meetup:</label>
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="meetup" id="meetup" class="form-control" ng-model="editObj.meetup"></input>
-          <p class="help-block" ng-show="form1.meetup.$invalid && !form1.meetup.$pristine">Please enter valid url</p>
+          <div class="help-block" ng-messages="form1.meetup.$error" ng-show="form1.meetup.$touched">
+            <div ng-message="url">Please enter valid url</div>  
+          </div>
         </div>
       </div>
       <div class="form-group">

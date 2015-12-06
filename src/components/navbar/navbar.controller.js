@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('NavbarCtrl', ['$rootScope', '$scope', '$location', '$translate', '$modal', '$anchorScroll', 
-  	function ($rootScope, $scope, $location, $translate, $modal, $anchorScroll) {
+  .controller('NavbarCtrl', function ($rootScope, $scope, $location, $translate, $modal, $anchorScroll) {
 
        $scope.isActive = function(viewLocation) {
           return viewLocation === $location.path();
@@ -34,4 +33,4 @@ angular.module('angularEventJourney')
           $location.hash('pageTop');
           $anchorScroll();
       };
-  }]);
+  });

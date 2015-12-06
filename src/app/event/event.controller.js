@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('EventCtrl', ['$scope', '$stateParams', 'eventFactory', 
-      'mainFactory', '$modal', '$q', 'timeFactory', 'geocoderFactory', 
-  	function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory, geocoderFactory) {
+  .controller('EventCtrl', 
+    function ($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory, geocoderFactory) {
   		
 	  $scope.events = [];
     $scope.organizationName = undefined;
@@ -187,11 +186,8 @@ angular.module('angularEventJourney')
     $scope.defaults = {
       zoomControl : true
     };
-}])
-  .controller('EventAddModalCtrl', ['$scope', '$modalInstance', '$q', 
-      'eventFactory', 'organizationId', 'refCounter',
-      function _modalController ($scope, $modalInstance, $q, 
-          eventFactory, organizationId, refCounter) { 
+})
+  .controller('EventAddModalCtrl', function ($scope, $modalInstance, $q, eventFactory, organizationId, refCounter) { 
 
         $scope.promise = null;
         $scope.minDuration = 2000;
@@ -301,11 +297,8 @@ angular.module('angularEventJourney')
           timeTo : today,
           hashtag : 'TBD'
         };
-}])
-  .controller('EventEditModalCtrl', ['$scope', '$modalInstance', '$q', 
-            'eventFactory', '$filter', 'input', 'RATE', '$timeout',
-            function _modalController ($scope, $modalInstance, $q, eventFactory, 
-                $filter, input, RATE, $timeout) { 
+})
+  .controller('EventEditModalCtrl', function ($scope, $modalInstance, $q, eventFactory, $filter, input, RATE, $timeout) { 
 
               $scope.promise = null;
               $scope.minDuration = 1500;
@@ -421,4 +414,4 @@ angular.module('angularEventJourney')
                 $event.stopPropagation();
                 $scope.opened = true;
               };
-}]);
+});

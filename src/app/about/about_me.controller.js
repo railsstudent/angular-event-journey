@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('AboutCtrl', ['$scope', '$firebaseObject', 'mainFactory', 
-      function ($scope, $firebaseObject, mainFactory) {
+  .controller('AboutCtrl', function ($scope, $firebaseObject, mainFactory) {
 
       var fnIdentity = function(x) { return x; };
 
@@ -39,4 +38,4 @@ angular.module('angularEventJourney')
           $scope.me.mobile.list =_.remove($scope.me.mobile.list, isObject);
           $scope.me.mobile.list =_.sortBy($scope.me.mobile.list, fnIdentity);
       });
-  }]);
+  });

@@ -21,54 +21,60 @@
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && organizationForm.shortname.$touched }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="shortname" name="shortname" required
+        <input type="text" class="form-control" id="shortname" name="shortname" required 
           ng-model="organization.shortname">
-          <!--
-        <p ng-show="organizationForm.shortname.$invalid && !organizationForm.shortname.$pristine" class="help-block">Please enter short name</p>
-        -->
-        <div class="help-block" ng-messages="organizationForm.shortname.$error">
+        <div class="help-block" ng-messages="organizationForm.shortname.$error" ng-show="organizationForm.shortname.$touched">
           <div ng-message="required">Please enter short name</div>
         </div>
-
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.name.$invalid && !organizationForm.name.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.name.$invalid && organizationForm.name.$touched }">
       <label for="name" class="col-sm-2 control-label" translate>NAME</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="name" name="name" required
           ng-model="organization.name">
-        <p ng-show="organizationForm.name.$invalid && !organizationForm.name.$pristine" class="help-block">Please enter full name</p>
+        <div ng-messages="organizationForm.name.$error" ng-show="organizationForm.name.$touched" class="help-block">
+          <div ng-message="required">Please enter full name</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.desc.$invalid && !organizationForm.desc.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.desc.$invalid && organizationForm.desc.$touched }">
       <label for="desc" class="col-sm-2 control-label" translate>DESCRIPTION</label>
       <div class="col-sm-9">
         <textarea ng-model="organization.description" required class="form-control" id="desc" name="desc">{{ 'DESC' | translate }}</textarea>
-        <p ng-show="organizationForm.desc.$invalid && !organizationForm.desc.$pristine" class="help-block">Please enter description</p>
+        <div ng-messages="organizationForm.desc.$error" ng-show="organizationForm.desc.$touched" class="help-block">
+          <div ng-message="required">Please enter description</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.website.$invalid && !organizationForm.website.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.website.$invalid && organizationForm.website.$touched }">
       <label for="website" class="col-sm-2 control-label" translate>WEB_SITE</label>
       <div class="col-sm-9">
         <input type="url" class="form-control" id="website" name="website" 
           ng-model="organization.website">
-        <p ng-show="organizationForm.website.$invalid && !organizationForm.website.$pristine" class="help-block">Please enter valid url.</p>
+        <div ng-messages="organizationForm.website.$error" ng-show="organizationForm.website.$touched" class="help-block">
+          <div ng-message="url">Please enter valid url</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.facebook.$invalid && organizationForm.facebook.$touched }">
       <label for="facebook" class="col-sm-2 control-label">Facebook:</label>
       <div class="col-sm-9">
         <input type="url" class="form-control" id="facebook" name="facebook"
           ng-model="organization.facebook">
-        <p ng-show="organizationForm.facebook.$invalid && !organizationForm.facebook.$pristine" class="help-block">Please enter valid url.</p>
+        <div ng-messages="organizationForm.facebook.$error" ng-show="organizationForm.facebook.$touched" class="help-block">
+          <div ng-message="url">Please enter valid url</div>
+        </div>
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.meetup.$invalid && organizationForm.meetup.$touched }">
       <label for="meetup" class="col-sm-2 control-label">Meetup:</label>
       <div class="col-sm-9">
         <input type="url" class="form-control" id="meetup" name="meetup"
           ng-model="organization.meetup">
-        <p ng-show="organizationForm.meetup.$invalid && !organizationForm.meetup.$pristine" class="help-block">Please enter valid url.</p>
+        <div ng-messages="organizationForm.meetup.$error" ng-show="organizationForm.meetup.$touched" class="help-block">
+          <div ng-message="url">Please enter valid url</div>
+        </div>
       </div>
     </div>
     <!-- div-->

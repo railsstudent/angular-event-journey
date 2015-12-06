@@ -7,8 +7,7 @@
  * Controller of the angularEventJourney
  */
 angular.module('angularEventJourney')
-  .controller('technologyCtrl', ['$scope', '$q', 'technologyFactory',
-   	function ($scope, $q, technologyFactory) {
+  .controller('technologyCtrl', function ($scope, $q, technologyFactory) {
 
     $scope.techModel = {    
       frontend : undefined,
@@ -34,4 +33,4 @@ angular.module('angularEventJourney')
          });
   	};
 
-  }]);
+  });

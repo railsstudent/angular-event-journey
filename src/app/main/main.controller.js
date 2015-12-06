@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', ['$scope' , '$location', '$anchorScroll', '$q', '$modal', '$state', 'mainFactory', 
-     function ($scope, $location, $anchorScroll, $q, $modal, $state, mainFactory) {
+  .controller('MainCtrl', function ($scope, $location, $anchorScroll, $q, $modal, $state, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -126,8 +125,7 @@ angular.module('angularEventJourney')
       $modal.open({
         keyboard : false,
         templateUrl: 'app/main/organizationModalContent.html',
-        controller: ['$scope', '$modalInstance', '$q', 'mainFactory',
-              function _modalController ($scope, $modalInstance, $q, mainFactory) { 
+        controller:  function _modalController ($scope, $modalInstance, $q, mainFactory) { 
         
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -205,7 +203,7 @@ angular.module('angularEventJourney')
                 facebook : '',
                 meetup : ''
               };
-          }],
+          },
           size: 'lg',
       });
     };
@@ -242,10 +240,8 @@ angular.module('angularEventJourney')
           }
         });
     };
-
-  }])
-  .controller('MainEditCtrl', ['$scope', '$state',  '$stateParams', '$q', 'mainFactory',
-      function ($scope, $state, $stateParams, $q, mainFactory) {
+  })
+  .controller('MainEditCtrl', function ($scope, $state, $stateParams, $q, mainFactory) {
 
       $scope.msgObj = {
         message : '',
@@ -291,5 +287,4 @@ angular.module('angularEventJourney')
       $scope.cancel = function _cancel() {
         $state.go('home');
       };
-
-  }]);
+  });
