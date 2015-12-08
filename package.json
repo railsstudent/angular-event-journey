@@ -1,6 +1,6 @@
 {
   "name": "angularEventJourney",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/railsstudent/angular-event-journey.git"
@@ -44,7 +44,6 @@
     "require-dir": "^0.1.0",
     "uglify-save-license": "^0.4.1",
     "wiredep": "^1.8.5",
-    "connect-modrewrite" : "^0.8.x",
     "karma": "~0.13.x"
   },
   "scripts": {
@@ -52,6 +51,6 @@
   },
   "engines": {
     "node": "^0.12.x",
-    "npm": "^2.9.x"
+    "npm": "^2.14.x"
   }
 }
