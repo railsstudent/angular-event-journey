@@ -53,10 +53,6 @@ angular.module('angularEventJourney')
         return refCategories1;
       },
 
-      refSkillCategory : function _refSkillCategory(skillCategory) {
-        return new Firebase(urlSkill + '/' + skillCategory + '/list'); 
-      },
-
       getChildRef : tmpGetChildRef,
 
       retrieveOrganization : function _retrieveOrganization(id) {

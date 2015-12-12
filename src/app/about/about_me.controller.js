@@ -80,7 +80,7 @@ angular.module('angularEventJourney')
 
       });
 
-      $scope.chosenCategory = "servers";
+      $scope.chosenCategory = 'servers';
       $scope.newSkill = '';
 
       $scope.addSkill = function _addSkill(newSkill) {
@@ -100,7 +100,7 @@ angular.module('angularEventJourney')
             $scope.addSkillForm.$setPristine($scope.addSkillForm.skill);
             $scope.addSkillForm.$setUntouched($scope.addSkillForm.skill);
         });
-      }
+      };
 
       $scope.removeSkill = function _removeSkill(category, objSkill, index) {
  
@@ -110,14 +110,14 @@ angular.module('angularEventJourney')
             console.log('delete record with key = ' + ref.key());
             // remove corresponding visible object by flag
             _.remove($scope.visible[category], function(o) {
-                return o.id == ref.key(); 
+                return o.id === ref.key(); 
             });
 
             $scope.confirm = { type: 'success', msg: objSkill.value + ' deleted successfully.' };
         }, function(reason) {
             $scope.confirm = { type: 'danger', msg: objSkill.value + ' cannot not delete. Reason: ' + reason };
         });
-      }
+      };
 
       $scope.getVisibleObject = function _getVisibility1(category, id) {
         var arr = $scope.visible[category];
@@ -128,7 +128,7 @@ angular.module('angularEventJourney')
           return element;
         }
         return null;
-      }
+      };
 
       $scope.getVisibility = function _getVisibility(category, id) {
         var element = $scope.getVisibleObject(category, id);
@@ -136,14 +136,14 @@ angular.module('angularEventJourney')
           return element.flag;
         }
         return false;
-      }
+      };
 
       $scope.setVisibility = function _setVisibility(category, id, flagValue) {
         var element = $scope.getVisibleObject(category, id);
         if (element) {
           element.flag = flagValue;
         }    
-      }
+      };
 
       $scope.saveSkill = function _saveSkill(category, id) {
         var editValue = $scope.getVisibleObject(category, id).editValue;
@@ -156,5 +156,5 @@ angular.module('angularEventJourney')
         }, function(reason) {
             $scope.confirm = { type: 'danger', msg: editValue + ' cannot not update. Reason: ' + reason };
         });
-      }
-  })
+      };
+  });
