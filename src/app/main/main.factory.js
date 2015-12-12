@@ -7,8 +7,7 @@
  * Factory in the angularEventJourney.
  */
 angular.module('angularEventJourney')
-  .factory('mainFactory', [ '$firebaseObject', '$firebaseArray', '$q', 
-     function ($firebaseObject, $firebaseArray, $q) {
+  .factory('mainFactory', function ($firebaseObject, $firebaseArray, $q) {
 // Service logic
 // ...
     // Create our Firebase reference
@@ -19,6 +18,7 @@ angular.module('angularEventJourney')
     var organizationUrl = 'https://blazing-fire-2680.firebaseio.com/organizations';
     var refRecords1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations/records');    
     var refCounter1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations/counter');
+    var refCategories1 = new Firebase('https://blazing-fire-2680.firebaseio.com/categories');
 
     var tmpGetChildRef = function _getChildRef(relativePath) {
         if (relativePath) {
@@ -47,6 +47,14 @@ angular.module('angularEventJourney')
 
       refRecords : function _refRecords() {
         return refRecords1;
+      },
+
+      refCategories : function _refCategories() {
+        return refCategories1;
+      },
+
+      refSkillCategory : function _refSkillCategory(skillCategory) {
+        return new Firebase(urlSkill + '/' + skillCategory + '/list'); 
       },
 
       getChildRef : tmpGetChildRef,
@@ -87,4 +95,4 @@ angular.module('angularEventJourney')
                 .limitToLast(limit);       
       }
     };
-  }]);
+  });
