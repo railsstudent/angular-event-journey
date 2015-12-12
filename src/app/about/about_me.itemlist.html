@@ -5,7 +5,7 @@
 		<div class="col-lg-8 col-sm-8 col-md-8">
 			{{fIndex + 1}}. {{item.value}}
 		</div>
-		<div class="col-lg-4 col-sm-4 col-md-4">
+		<div class="col-lg-4 col-sm-4 col-md-4" ng-show="$root.authData">
 			<button type="button" class="btn btn-sm btn-primary"
 				ng-click="setVisibility(category, item.$id, false)"><i class="fa fa-pencil"></i></button>
 
@@ -14,7 +14,7 @@
 
 		</div>
 	</div>				    		
-	<div class="row about-top-buffer" ng-show="getVisibility(category, item.$id) === false">
+	<div class="row about-top-buffer" ng-show="getVisibility(category, item.$id) === false && $root.authData">
 		<form class="in-line" novalidate name="updateSkillForm" 
 			ng-submit="this.saveSkill(category, item.$id)">
 			<div class="col-lg-8 col-sm-8 col-md-8">
