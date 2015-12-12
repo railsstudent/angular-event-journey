@@ -55,24 +55,24 @@ angular.module('angularEventJourney')
 
           $q.all(arrayPromises).then(function (allData) {
 
-            _.each(allData[0], function() {
-                $scope.visible.databases.push(true);
+            _.each(allData[0], function(o) {
+                $scope.visible.databases.push({ id: o.$id, flag: true,  editValue : o.value});
             });
 
-            _.each(allData[1], function() {
-                $scope.visible.servers.push(true);
+            _.each(allData[1], function(o) {
+                $scope.visible.servers.push({ id: o.$id, flag: true,  editValue : o.value});
             });
 
-            _.each(allData[2], function() {
-                $scope.visible.frameworks.push(true);
+            _.each(allData[2], function(o) {
+                $scope.visible.frameworks.push({ id: o.$id, flag: true,  editValue : o.value});
             });
 
-            _.each(allData[3], function() {
-                $scope.visible.skills.push(true);
+            _.each(allData[3], function(o) {
+                $scope.visible.skills.push({ id: o.$id, flag: true,  editValue : o.value});
             });
 
-            _.each(allData[4], function() {
-                $scope.visible.mobile.push(true);
+            _.each(allData[4], function(o) {
+                $scope.visible.mobile.push({ id: o.$id, flag: true,  editValue : o.value});
             });
           });
  
@@ -90,7 +90,7 @@ angular.module('angularEventJourney')
             ref.setPriority(newSkill);
             $scope.confirm = { type: 'success', msg: newSkill + ' added successfully.' };
             // add visible flag for new object
-            $scope.visible[$scope.chosenCategory].push(true);
+            $scope.visible[$scope.chosenCategory].push({ id: ref.key(), flag: true, editValue: newSkill });
             $scope.newSkill = '';
             $scope.addSkillForm.$setPristine($scope.addSkillForm.skill);
             $scope.addSkillForm.$setUntouched($scope.addSkillForm.skill);
@@ -108,19 +108,58 @@ angular.module('angularEventJourney')
         $scope.promise = aboutMeFactory.removeItem(category, objSkill.$id);
         $scope.promise.then(function(ref) {
             console.log('delete record with key = ' + ref.key());
-            // remove corresponding visible flag
-            $scope.visible[category].splice(index, 1);
+            // remove corresponding visible object by flag
+            _.remove($scope.visible[category], function(o) {
+                return o.id == ref.key(); 
+            });
+
             $scope.confirm = { type: 'success', msg: objSkill.value + ' deleted successfully.' };
         }, function(reason) {
             $scope.confirm = { type: 'danger', msg: objSkill.value + ' cannot not delete. Reason: ' + reason };
         });
       }
 
-      $scope.toggleEditMode = function _toggleEditMode(category, index) {
-        $scope.visible[category][index] = !$scope.visible[category][index];
+      $scope.getVisibleObject = function _getVisibility1(category, id) {
+        var arr = $scope.visible[category];
+        var element = _.find(arr, function(o) {
+                          return o.id === id;
+                      });
+        return element;
       }
 
-      $scope.saveSkill = function _saveSkill() {
+      $scope.getEditValue = function _getVisibility1(category, id) {
+        var element = $scope.getVisibleObject(category, id);
+        if (element) {
+          return element.editValue;
+        }
+        return '';
+      }
 
+      $scope.getVisibility = function _getVisibility(category, id) {
+        var element = $scope.getVisibleObject(category, id);
+        if (element) {
+          return element.flag;
+        }
+        return false;
+      }
+
+      $scope.setVisibility = function _setVisibility(category, id, flagValue) {
+        var element = $scope.getVisibleObject(category, id);
+        if (element) {
+          element.flag = flagValue;
+        }    
+      }
+
+      $scope.saveSkill = function _saveSkill(category, id) {
+        var editValue = $scope.getEditValue(category, id);
+        $scope.promise = aboutMeFactory.updateItem(category ,id, editValue);
+        $scope.promise.then(function(ref) {
+            console.log('update record with key = ' + ref.key());
+            ref.setPriority(editValue);
+            $scope.setVisibility(category, id, true);
+            $scope.confirm = { type: 'success', msg: editValue + ' updated successfully.' };
+        }, function(reason) {
+            $scope.confirm = { type: 'danger', msg: editValue + ' cannot not update. Reason: ' + reason };
+        });
       }
   })

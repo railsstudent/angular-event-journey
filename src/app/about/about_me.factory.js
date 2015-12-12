@@ -23,6 +23,18 @@ angular.module('angularEventJourney')
 				console.log("category = " + category);
 
 				return $firebaseObject(new Firebase(url)).$remove();
+			},
+
+			updateItem: function _updateItem(category, skillKey, editValue) {
+				var url = urlSkill + '/' + category + '/list/' + skillKey;
+
+				console.log("key = " + skillKey);
+				console.log("update object from url: " + url);
+				console.log("category = " + category);
+
+				var ref = $firebaseObject(new Firebase(url));
+				ref.value = editValue; 
+				return ref.$save();				
 			}
 		};
 });
