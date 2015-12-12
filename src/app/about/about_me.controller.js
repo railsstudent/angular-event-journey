@@ -116,9 +116,8 @@ angular.module('angularEventJourney')
         });
       }
 
-
-      $scope.updateSkill = function _removeSkill(category, objSkill) {
-
+      $scope.toggleEditMode = function _toggleEditMode(category, index) {
+        $scope.visible[category][index] = !$scope.visible[category][index];
       }
 
       $scope.saveSkill = function _saveSkill() {
