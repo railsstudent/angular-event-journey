@@ -64,11 +64,8 @@
 		       <i style="margin: 5px" ng-repeat="item in me.skills.icons track by $index" class="fa {{::item}} fa-lg"></i>
 		      <div class="caption">
 		        <h3 translate>SKILL</h3>
-		        <ul  ng-repeat="item in me.skills.list track by $index" class="hide_bullet" >
-			        <li class="about-top-buffer">{{$index + 1}}. {{item.value}}
-			        	<button type="button" class="btn btn-sm btn-warning pull-right"
-			        		ng-click="removeSkill('skills', item)">X</button>
-			        </li>
+		        <ul ng-repeat="(fIndex, item) in me.skills.list track by $index" class="hide_bullet" >
+					<div ng-repeat="category in ['skills']" ng-include="'app/about/about_me.itemlist.html'"></div>
 			    </ul>
 		      </div>
 		    </div>
@@ -78,11 +75,8 @@
 			   	<i style="margin: 5px" ng-repeat="item in me.frameworks.icons track by $index" class="fa {{::item}} fa-lg"></i>
 			    <div class="caption">
 			    	<h3 translate>FRAMEWORK</h3>
-			        <ul ng-repeat="item in me.frameworks.list track by $index" class="hide_bullet">
-				        <li class="about-top-buffer">{{$index + 1}}. {{item.value}}
-				        	<button type="button" class="btn btn-sm btn-warning pull-right"
-				        		ng-click="removeSkill('frameworks', item)">X</button>
-				        </li>
+			        <ul ng-repeat="(fIndex, item) in me.frameworks.list track by $index" class="hide_bullet">
+					    <div ng-repeat="category in ['frameworks']" ng-include="'app/about/about_me.itemlist.html'"></div>
 				    </ul>
 			    </div>
 			</div>
@@ -92,11 +86,8 @@
 			    <i class="fa fa-database fa-lg"></i>
 			    <div class="caption">
 			    	<h3 translate>DATABASE</h3>
-			    	<ul ng-repeat="item in me.databases track by $index" class="hide_bullet">
-				        <li class="about-top-buffer">{{$index + 1}}. {{item.value}}
-				        	<button type="button" class="btn btn-sm btn-warning pull-right"
-				        		ng-click="removeSkill('databases', item)">X</button>
-				        </li>
+			    	<ul ng-repeat="(fIndex, item) in me.databases track by $index" class="hide_bullet">
+					    <div ng-repeat="category in ['databases']" ng-include="'app/about/about_me.itemlist.html'"></div>
 				    </ul>
 			    </div>
 			</div>
@@ -107,13 +98,10 @@
 			<div class="thumbnail_large">
 				<i class="fa fa-desktop fa-lg"></i>
 			    <div class="caption">
-			    <h3 translate>SERVER</h3>
-			    <ul ng-repeat="item in me.servers track by $index" class="hide_bullet">
-				    <li class="about-top-buffer">{{$index + 1}}. {{item.value}}
-				    	<button type="button" class="btn btn-sm btn-warning pull-right"
-				    		ng-click="removeSkill('servers', item)">X</button>
-				    </li>
-				</ul>
+				    <h3 translate>SERVER</h3>
+				    <ul ng-repeat="(fIndex, item) in me.servers track by $index" class="hide_bullet">
+					    <div ng-repeat="category in ['servers']" ng-include="'app/about/about_me.itemlist.html'"></div>
+					</ul>
 			   	</div>
 			</div>
 	 	</div>
@@ -122,36 +110,8 @@
 			   	<i style="margin: 5px" ng-repeat="item in me.mobile.icons track by $index" class="fa {{::item}} fa-lg"></i>
 			    <div class="caption">
 			    	<h3 translate>MOBILE</h3>
-			    	<ul ng-repeat="item in me.mobile.list track by $index" class="hide_bullet">
-				    	<li>
-				    		<div class="row" ng-show="getVisibility('mobile', item.$id) ===  true">
-				    			<div class="col-lg-8 col-sm-8 col-md-8">
-				    				{{$index + 1}}. {{item.value}}
-				    			</div>
-				    			<div class="col-lg-4 col-sm-4 col-md-4">
-				    				<button type="button" class="btn btn-sm btn-primary"
-				    					ng-click="setVisibility('mobile', item.$id, false)"><i class="fa fa-pencil"></i></button>
-
-				    				<button type="button" class="btn btn-sm btn-warning"
-				    					ng-click="removeSkill('mobile', item, $index)"><i class="fa fa-close"></i></button>
-				    		
-				    			</div>
-				    		</div>				    		
-				    		<div class="row about-top-buffer" ng-show="getVisibility('mobile', item.$id) === false">
-				    			<form class="in-line" novalidate name="updateSkillForm" 
-				    				ng-submit="saveSkill('mobile', item.$id)">
-					    			<div class="col-lg-8 col-sm-8 col-md-8">
-						    			{{$index + 1}}. <input type="text" value="{{getEditValue('mobile', item.$id)}}" 
-										ng-model="getVisibleObject('mobile', item.$id).editValue"></input>
-					    			</div>
-					    			<div class="col-md-4 col-sm-4 col-lg-4">
-							    		<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i></button>
-							    		<button type="button" class="btn btn-sm btn-warning"
-							    			ng-click="setVisibility('mobile', item.$id, true)"><i class="fa fa-undo"></i></button>
-					    			</div>
-					    		</form>
-				    		</div>
-				    	</li>
+			    	<ul ng-repeat="(fIndex, item) in me.mobile.list track by $index" class="hide_bullet">
+				    	<div ng-repeat="category in ['mobile']" ng-include="'app/about/about_me.itemlist.html'"></div>
 					</ul>
 			   	</div>
 			</div>

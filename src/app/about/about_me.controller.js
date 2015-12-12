@@ -7,14 +7,7 @@ angular.module('angularEventJourney')
 
       $scope.count = 0;
       $scope.me = {};
-      $scope.promise = [ $firebaseObject(mainFactory.refSkill()).$loaded(), 
-                        $firebaseArray(mainFactory.refCategories()).$loaded()];
-
-      $q.all($scope.promise).then(function(allData) {
-        
-          var meObject = allData[0];
-
-          // add show hide flags
+      // add show hide flags
           $scope.visible = {
             servers : [],
             databases : [],
@@ -22,11 +15,18 @@ angular.module('angularEventJourney')
             mobile : [],
             frameworks : []
           };
+      $scope.promise = [ $firebaseObject(mainFactory.refSkill()).$loaded(), 
+                        $firebaseArray(mainFactory.refCategories()).$loaded()];
+
+
+      $q.all($scope.promise).then(function(allData) {
+        
+          var meObject = allData[0];
 
           $scope.me.description = meObject.description;
         
           var refSkill = mainFactory.refSkill();
-         $scope.me.servers = $firebaseArray(refSkill.child('/servers/list'));
+          $scope.me.servers = $firebaseArray(refSkill.child('/servers/list'));
           $scope.me.databases = $firebaseArray(refSkill.child('/databases/list'));
 
           $scope.me.frameworks = meObject.frameworks;
@@ -121,18 +121,13 @@ angular.module('angularEventJourney')
 
       $scope.getVisibleObject = function _getVisibility1(category, id) {
         var arr = $scope.visible[category];
-        var element = _.find(arr, function(o) {
-                          return o.id === id;
-                      });
-        return element;
-      }
-
-      $scope.getEditValue = function _getVisibility1(category, id) {
-        var element = $scope.getVisibleObject(category, id);
-        if (element) {
-          return element.editValue;
+        if (arr) {
+          var element = _.find(arr, function(o) {
+                            return o.id === id;
+                        });
+          return element;
         }
-        return '';
+        return null;
       }
 
       $scope.getVisibility = function _getVisibility(category, id) {
@@ -151,7 +146,7 @@ angular.module('angularEventJourney')
       }
 
       $scope.saveSkill = function _saveSkill(category, id) {
-        var editValue = $scope.getEditValue(category, id);
+        var editValue = $scope.getVisibleObject(category, id).editValue;
         $scope.promise = aboutMeFactory.updateItem(category ,id, editValue);
         $scope.promise.then(function(ref) {
             console.log('update record with key = ' + ref.key());

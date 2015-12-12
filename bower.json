@@ -15,7 +15,7 @@
     "angularfire": "^1.1.x",
     "fontawesome": "^4.4.x",
     "angular-busy" : "~4.1.x",
-    "lodash" : "^3.8.x",
+    "lodash" : "^3.10.x",
     "angular-translate-loader-static-files" : "~2.7.x",
     "angular-translate-handler-log" : "~2.7.x",
     "angular-moment" : "~0.10.x",
