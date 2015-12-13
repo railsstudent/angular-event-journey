@@ -47,7 +47,7 @@
     "ADD_EVENT" : "增加活動",
     "VENUE" : "地點：   ",
     "EVENT_DATE" : "活動日期：   ",
-    "TIME_FROM" : "時間由：   ",   
+    "TIME_FROM" : "時間由：   ",
     "TIME_TO" : "時間到：   ",
     "ADD_EVENT_SUCCESS_CODE" : "增加活動成功。",
     "ADD_EVENT_ERROR_CODE" : "增加活動失敗。",
@@ -71,7 +71,7 @@
     "NEXT_TEXT" : "下一頁 >>",
     "MOVE_TO_TOP" : "返回頁首頂",
     "HI_LOGIN_USER" : "你好 {{login}}",
-    "LOGIN_WITH" : "第三方登錄",   
+    "LOGIN_WITH" : "第三方登錄",
     "DELETE_ORGANIZATION_MSG" : "您確定要刪除組織和活動？",
     "SEARCH_EVENT" : "搜尋活動",
     "DATE" : "日期：   ",
@@ -79,5 +79,6 @@
     "DURATION" : "歷時：    ",
     "BUILDING" : "大樓：   ",
     "SHOW_HASHTAG" : "顯示井號",
-    "HIDE_HASHTAG" : "隱藏井號"
+    "HIDE_HASHTAG" : "隱藏井號",
+    "SUBMIT" : "遞交"
 }

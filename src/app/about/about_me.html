@@ -25,12 +25,12 @@
           <div ng-message="required">Please enter new skill</div>
         </div>
 	  </div>
-	  <button type="submit" class="btn btn-primary"	ng-disabled="addSkillForm.$invalid">Submit</button>
+	  <button type="submit" class="btn btn-primary"	ng-disabled="addSkillForm.$invalid" translate>SUBMIT</button>
 	</form>
 	<div class="row top-buffer">
 		<div class="col-sm-4 col-md-4 col-lg-4">
 		    <div class="thumbnail_small">
-		      <i class="fa fa-female fa-lg"></i>	
+		      <i class="fa fa-female fa-lg"></i>
 		      <div class="caption">
 		        <h3 translate>DESC</h3>
 		        <p>{{::me.description}}</p>
@@ -69,7 +69,7 @@
 			    </ul>
 		      </div>
 		    </div>
-		</div>    
+		</div>
 		<div class="col-sm-4 col-md-4 col-lg-4">
 			<div class="thumbnail_large">
 			   	<i style="margin: 5px" ng-repeat="item in me.frameworks.icons track by $index" class="fa {{::item}} fa-lg"></i>

@@ -82,5 +82,6 @@
     "DURATION" : "Duration: ",
     "BUILDING" : "Building: ",
     "SHOW_HASHTAG" : "Show hashtag",
-    "HIDE_HASHTAG" : "Hide hashtag"
+    "HIDE_HASHTAG" : "Hide hashtag",
+    "SUBMIT" : "Submit"
 }
