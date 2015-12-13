@@ -5,12 +5,12 @@
 	  <li><a ui-sref="home" translate>HOME</a></li>
 	  <li class="active" translate>ABOUT_ME</li>
 	</ol>
-	<form class="form-inline">
+	<form class="form-inline" ng-show="$root.authData">
 		<div class="form-group">
 			<alert ng-show='confirm.msg' type='{{confirm.type}}'>{{confirm.msg}}</alert>
 	  	</div>
 	</form>
-	<form class="form-inline" name="addSkillForm" novalidate ng-submit="addSkill(newSkill)">
+	<form class="form-inline" name="addSkillForm" novalidate ng-submit="addSkill(newSkill)" ng-show="$root.authData">
 	  <div class="form-group">
 	    <select name="category" id="category"
 	    	ng-model="chosenCategory"
