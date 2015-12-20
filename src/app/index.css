@@ -40,7 +40,7 @@
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
-	height: 200px;
+	height: 300px;
   overflow: auto;
 }
 
@@ -116,13 +116,13 @@ div .signin {
   width: 100%;
   padding-top: 25px;
   opacity: 0.8;
-  filter: alpha(opacity=80);  
+  filter: alpha(opacity=80);
   height: 100%;
 }
 
 .center {
 
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
 }
 

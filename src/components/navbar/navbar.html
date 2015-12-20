@@ -1,54 +1,52 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarCtrl">
-  <div class="navbar-header">
-    <a class="navbar-brand" ui-sref="home">
-      <i class="fa fa-home"></i> <span translate="TITLE"></span>
-    </a>
-  </div>
-
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-    <ul class="nav navbar-nav">
-      <li ng-class="{ active: isActive('/home') }">
-        <a ui-sref="home" translate>HOME</a>
-      </li>
-      <li ng-class="{ active: isActive('/about_me') }">
-        <a ui-sref="about_me" translate>ABOUT</a>
-      </li>
-      <li ng-class="{ active: isActive('/technology') }">
-        <a ui-sref="technology" translate>TECH</a>
-      </li>
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right">
-       <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span translate='LANGUAGE'></span><span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#" ng-click="changeLanguage('en')">
-              <span translate="ENGLISH"></span></a>
-            </li>
-            <li><a href="#" ng-click="changeLanguage('zh-hk')">
-                <span translate="CHINESE"></span>
-              </a>
-            </li>
-          </ul>
+   <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="home">
+        <i class="fa fa-home"></i> <span translate="TITLE"></span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: isActive('/home') }">
+          <a ui-sref="home" translate>HOME</a>
         </li>
-        <!--
-        <li ng-show="$root.authData">
-           <span class="navbar-text" translate="HI_LOGIN_USER" translate-values="{login : $root.displayName}"></span>
-        -->
-           <!-- http://stackoverflow.com/questions/28956803/bootstrap-glyphicons-is-not-display-when-using-with-angular-translate -->
-        <!--
-           <button class="btn btn-default navbar-btn" ng-click="logout()">{{ 'LOGOUT' | translate }} <i class="fa fa-sign-out"></i></button>
+        <li ng-class="{ active: isActive('/about_me') }">
+          <a ui-sref="about_me" translate>ABOUT</a>
         </li>
-        -->
-        <!-- show menu with logout button and name -->
-         <li ng-show="$root.authData" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="navbar-text" translate="HI_LOGIN_USER" translate-values="{login : $root.displayName}"></li>
-            <li role="separator" class="divider"></li>
-            <li><a href ng-click="logout()"><i class="fa fa-sign-out"></i>{{ 'LOGOUT' | translate }} </a></li>
-          </ul>
-         </li>
-    </ul>
+        <li ng-class="{ active: isActive('/technology') }">
+          <a ui-sref="technology" translate>TECH</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span translate='LANGUAGE'></span><span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" ng-click="changeLanguage('en')">
+                <span translate="ENGLISH"></span></a>
+              </li>
+              <li><a href="#" ng-click="changeLanguage('zh-hk')">
+                  <span translate="CHINESE"></span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- show menu with logout button and name -->
+           <li ng-show="$root.authData" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="navbar-text" translate="HI_LOGIN_USER" translate-values="{login : $root.displayName}"></li>
+              <li role="separator" class="divider"></li>
+              <li><a href ng-click="logout()"><i class="fa fa-sign-out"></i>{{ 'LOGOUT' | translate }} </a></li>
+            </ul>
+           </li>
+      </ul>
+    </div>
   </div>
 </nav>
