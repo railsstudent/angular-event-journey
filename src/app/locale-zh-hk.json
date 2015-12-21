@@ -80,5 +80,6 @@
     "BUILDING" : "大樓：   ",
     "SHOW_HASHTAG" : "顯示井號",
     "HIDE_HASHTAG" : "隱藏井號",
-    "SUBMIT" : "遞交"
+    "SUBMIT" : "遞交",
+    "TOOL" : "工具"
 }

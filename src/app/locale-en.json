@@ -83,5 +83,6 @@
     "BUILDING" : "Building: ",
     "SHOW_HASHTAG" : "Show hashtag",
     "HIDE_HASHTAG" : "Hide hashtag",
-    "SUBMIT" : "Submit"
+    "SUBMIT" : "Submit",
+    "TOOL" : "Tool"
 }

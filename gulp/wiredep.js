@@ -2,9 +2,9 @@
 
 var gulp = require('gulp');
 
-// http://ericlbarnes.com/setting-gulp-bower-bootstrap-sass-fontawesome/ 
+// http://ericlbarnes.com/setting-gulp-bower-bootstrap-sass-fontawesome/
 /*var bower = require('gulp-bower');
- 
+
 var config = {
     sassPath: './resources/sass',
     bowerDir: './bower_components'
@@ -29,7 +29,7 @@ gulp.task('wiredep', function () {
   gulp.src('src/*.html')
     .pipe(wiredep({
       directory: 'bower_components',
-      exclude: ['bootstrap'],
+    //  exclude: ['bootstrap'],
       ignorePath: /^\/|\.\.\//
     }))
     .pipe(gulp.dest('src'));

@@ -1,8 +1,9 @@
 'use strict';
 
 var app = angular.module('angularEventJourney',
- ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate', 
- 'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive', 'ngMessages']);
+ ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate',
+ 'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive', 'ngMessages',
+ 'headroom']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
@@ -42,7 +43,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   })
     .run (function($rootScope, $state, mainFactory, adminFactory) {
     // http:technologyckoverflow.com/questions/20978248/angularjs-conditional-routing-in-app-config
-        $rootScope.$on('$stateChangeStart', 
+        $rootScope.$on('$stateChangeStart',
             function(event, toState, toParams, fromState, fromParams){
               console.log('fromState.name = ' + fromState.name + ', toState.name = ' + toState.name);
               if ( toState.name === 'admin' && $rootScope.authData) {
