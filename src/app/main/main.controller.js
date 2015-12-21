@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', function ($scope, $location, $anchorScroll, $q, $modal, $state, mainFactory) {
+  .controller('MainCtrl', function ($scope, $q, $modal, $state, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -13,9 +13,8 @@ angular.module('angularEventJourney')
     $scope.itemPerPage = 0;
     $scope.promise = null;
 
-    $scope.scrollToElement = function _scrollToElement(elementId) {
-      $location.hash(elementId);
-      $anchorScroll();
+    $scope.goToAboutMe = function _goToAboutMe() {
+        $state.go('about_me', {}, { location : true });
     };
 
     var refCounter = mainFactory.refCounter();
@@ -26,13 +25,13 @@ angular.module('angularEventJourney')
     var prevPage = 0;
     $scope.pageChanged = function _pageChanged() {
       console.log('current page = ' + $scope.currentPage);
-      if (prevPage !== $scope.currentPage) { 
+      if (prevPage !== $scope.currentPage) {
         if ($scope.currentPage === 1) {
           console.log ('Load first page....');
           prevPage = $scope.currentPage;
           $scope.promise = loadNextPage(undefined);
-          $scope.promise.then(function(data) { 
-              console.log('loadNextPage result: ' + data); 
+          $scope.promise.then(function(data) {
+              console.log('loadNextPage result: ' + data);
             });
         } else if (prevPage < $scope.currentPage) {
           console.log('Load next page');
@@ -42,8 +41,8 @@ angular.module('angularEventJourney')
           var startAtId = lastKey ? lastKey: undefined;
           prevPage = $scope.currentPage;
           $scope.promise = loadNextPage(startAtId);
-          $scope.promise.then(function(data) { 
-              console.log('loadNextPage result: ' + data); 
+          $scope.promise.then(function(data) {
+              console.log('loadNextPage result: ' + data);
             });
         } else if (prevPage > $scope.currentPage) {
           console.log('Load previous page');
@@ -56,7 +55,7 @@ angular.module('angularEventJourney')
           $scope.promise.then(function (data) {
               console.log('loadPrevPage result: ' + data);
           });
-        } 
+        }
       }
     };
 
@@ -69,7 +68,7 @@ angular.module('angularEventJourney')
       mainFactory.getNextPage(startAtId, itemPerPage)
         .once('value', function(dataSnapshot) {
             var vals = dataSnapshot.val()||{};
-            if (startAtId) { 
+            if (startAtId) {
               delete vals[startAtId]; // delete the extraneous record
             }
             // store $id in organization object; otherwise edit organiztion function breaks
@@ -91,12 +90,12 @@ angular.module('angularEventJourney')
 
       var itemPerPage = $scope.itemPerPage;
       itemPerPage = itemPerPage + (endAtId ? 1 : 0);
-      
+
       var deferred = $q.defer();
       mainFactory.getPrevPage(endAtId, itemPerPage)
         .once('value', function(dataSnapshot) {
             var vals = dataSnapshot.val()||{};
-            if (endAtId) { 
+            if (endAtId) {
               delete vals[endAtId]; // delete the extraneous record
             }
             // store $id in organization object; otherwise edit organiztion function breaks
@@ -107,7 +106,7 @@ angular.module('angularEventJourney')
             deferred.resolve('success');
         });
         return deferred.promise;
-    }; 
+    };
 
     var promiseLoadPage = $q.defer();
     $scope.promise = promiseLoadPage.promise;
@@ -121,12 +120,12 @@ angular.module('angularEventJourney')
     });
 
     $scope.showOrganizationForm = function _showOrganizationForm() {
-        
+
       $modal.open({
         keyboard : false,
         templateUrl: 'app/main/organizationModalContent.html',
-        controller:  function _modalController ($scope, $modalInstance, $q, mainFactory) { 
-        
+        controller:  function _modalController ($scope, $modalInstance, $q, mainFactory) {
+
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
               };
@@ -176,8 +175,8 @@ angular.module('angularEventJourney')
 //                  var deferred = $q.defer();
                   var newObj = { code : $scope.organization.shortname,
                         description : $scope.organization.description,
-                        url : $scope.organization.website, 
-                        facebook : $scope.organization.facebook, 
+                        url : $scope.organization.website,
+                        facebook : $scope.organization.facebook,
                         meetup : $scope.organization.meetup,
                         name : $scope.organization.name
                       };
@@ -209,13 +208,13 @@ angular.module('angularEventJourney')
     };
 
     // http://stackoverflow.com/questions/24713242/using-ui-router-with-bootstrap-ui-modal
-    $scope.removeOrganization = 
+    $scope.removeOrganization =
       function _removeOrganization(organizationId) {
         var modalInstance = $modal.open({
           templateUrl: 'removeOrganiztion.html',
-          controller: function($scope, $modalInstance) { 
+          controller: function($scope, $modalInstance) {
               $scope.ok = function _ok() {
-                 $modalInstance.close('confirmed'); 
+                 $modalInstance.close('confirmed');
               };
 
               $scope.cancel = function _cancel() {
@@ -259,7 +258,7 @@ angular.module('angularEventJourney')
           $scope.editObj = null;
         }
       );
-      
+
       $scope.save = function _save(isValid) {
         if (isValid) {
           var editObj = {
