@@ -58,64 +58,18 @@
 		    </div>
 		</div>
  	</div>
- 	<div class="row">
-		<div class="col-sm-4 col-md-4 col-lg-4">
+ 	<div class="row" ng-repeat="categoryGroup in partitionCategories track by $index">
+		<div class="col-sm-4 col-md-4 col-lg-4" ng-repeat="objCategory in categoryGroup track by $index">
 		    <div class="thumbnail_large">
-		       <i style="margin: 5px" ng-repeat="item in me.skills.icons track by $index" class="fa {{::item}} fa-lg"></i>
+		       <i style="margin: 5px" ng-repeat="item in me[objCategory.path].icons track by $index" class="fa {{::item}} fa-lg"></i>
 		      <div class="caption">
-		        <h3 translate>SKILL</h3>
-		        <ul ng-repeat="(fIndex, item) in me.skills.list track by $index" class="hide_bullet" >
-					<div ng-repeat="category in ['skills']" ng-include="'app/about/about_me.itemlist.html'"></div>
-			    </ul>
+		        <h3 translate>{{objCategory.translationKey}}</h3>
+		        <ul ng-repeat="(fIndex, item) in me[objCategory.path].list track by $index" class="hide_bullet" >
+								<div ng-repeat="category in [objCategory.path]" ng-include="'app/about/about_me.itemlist.html'"></div>
+			    	</ul>
 		      </div>
 		    </div>
 		</div>
-		<div class="col-sm-4 col-md-4 col-lg-4">
-			<div class="thumbnail_large">
-			   	<i style="margin: 5px" ng-repeat="item in me.frameworks.icons track by $index" class="fa {{::item}} fa-lg"></i>
-			    <div class="caption">
-			    	<h3 translate>FRAMEWORK</h3>
-			        <ul ng-repeat="(fIndex, item) in me.frameworks.list track by $index" class="hide_bullet">
-					    <div ng-repeat="category in ['frameworks']" ng-include="'app/about/about_me.itemlist.html'"></div>
-				    </ul>
-			    </div>
-			</div>
-	 	</div>
-	 	<div class="col-sm-4 col-md-4 col-lg-4">
-			<div class="thumbnail_large">
-			    <i class="fa fa-database fa-lg"></i>
-			    <div class="caption">
-			    	<h3 translate>DATABASE</h3>
-			    	<ul ng-repeat="(fIndex, item) in me.databases track by $index" class="hide_bullet">
-					    <div ng-repeat="category in ['databases']" ng-include="'app/about/about_me.itemlist.html'"></div>
-				    </ul>
-			    </div>
-			</div>
-	 	</div>
-	 </div>
-	 <div class="row">
-	 	<div class="col-sm-4 col-md-4 col-lg-4">
-			<div class="thumbnail_large">
-				<i class="fa fa-desktop fa-lg"></i>
-			    <div class="caption">
-				    <h3 translate>SERVER</h3>
-				    <ul ng-repeat="(fIndex, item) in me.servers track by $index" class="hide_bullet">
-					    <div ng-repeat="category in ['servers']" ng-include="'app/about/about_me.itemlist.html'"></div>
-					</ul>
-			   	</div>
-			</div>
-	 	</div>
- 	 	<div class="col-sm-4 col-md-4 col-lg-4">
-			<div class="thumbnail_large">
-			   	<i style="margin: 5px" ng-repeat="item in me.mobile.icons track by $index" class="fa {{::item}} fa-lg"></i>
-			    <div class="caption">
-			    	<h3 translate>MOBILE</h3>
-			    	<ul ng-repeat="(fIndex, item) in me.mobile.list track by $index" class="hide_bullet">
-				    	<div ng-repeat="category in ['mobile']" ng-include="'app/about/about_me.itemlist.html'"></div>
-					</ul>
-			   	</div>
-			</div>
-	 	</div>
- 	</div>
+	</div>
  	<div ng-include="'components/navbar/moveToTop.html'"></div>
 </div>

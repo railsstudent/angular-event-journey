@@ -84,5 +84,6 @@
     "SHOW_HASHTAG" : "Show hashtag",
     "HIDE_HASHTAG" : "Hide hashtag",
     "SUBMIT" : "Submit",
-    "TOOL" : "Tool"
+    "TOOL" : "Tool",
+    "LIBRARY" : "Library"
 }

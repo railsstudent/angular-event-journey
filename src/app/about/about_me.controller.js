@@ -49,6 +49,7 @@ angular.module('angularEventJourney')
               }
           });
 
+          $scope.partitionCategories = _.chunk($scope.categories, 3);
           $q.all(arrayPromises).then(function (allSkills) {
               for (var i = 0; i < $scope.categories.length; i++) {
                 var category = $scope.categories[i].path;
