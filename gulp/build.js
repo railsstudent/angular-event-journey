@@ -93,19 +93,10 @@ gulp.task('clean', function (done) {
   $.del(['.tmp', 'dist'], done);
 });
 
-// https://github.com/thomasstreet/famous-angular-starter/issues/6
-gulp.task('copyBootstrap', function() {
-  return gulp.src([
-      'bower_components/angular-bootstrap/**/*',
-      'bower_components/bootstrap/**/*'
-    ], { base: './' })
-    .pipe(gulp.dest('dist/'));
-});
-
 // https://www.npmjs.com/package/gulp-angular-translate
 gulp.task('copyTranslationFile', function() {
   return gulp.src('src/app/locale-*.json')
     .pipe(gulp.dest('dist/app'));
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copyBootstrap', 'copyTranslationFile']);
+gulp.task('build', ['html', 'images', 'fonts', 'misc', 'copyTranslationFile']);

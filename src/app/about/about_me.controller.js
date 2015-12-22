@@ -5,83 +5,61 @@ angular.module('angularEventJourney')
 
       var isObject = function(s) { return !_.isNull(s) && !_.isUndefined(s); };
 
-      $scope.count = 0;
       $scope.me = {};
       // add show hide flags
-          $scope.visible = {
-            servers : [],
-            databases : [],
-            skills : [],
-            mobile : [],
-            frameworks : []
-          };
-      $scope.promise = [ $firebaseObject(mainFactory.refSkill()).$loaded(), 
+      $scope.visible = {};
+
+      $scope.chosenCategory = '';
+      $scope.newSkill = '';
+      $scope.promise = [ $firebaseObject(mainFactory.refSkill()).$loaded(),
                         $firebaseArray(mainFactory.refCategories()).$loaded()];
 
-
       $q.all($scope.promise).then(function(allData) {
-        
+
           var meObject = allData[0];
 
+          $scope.categories = allData[1];
+          $scope.chosenCategory = allData[1][0].path;
+
           $scope.me.description = meObject.description;
-        
-          var refSkill = mainFactory.refSkill();
-          $scope.me.servers = $firebaseArray(refSkill.child('/servers/list'));
-          $scope.me.databases = $firebaseArray(refSkill.child('/databases/list'));
-
-          $scope.me.frameworks = meObject.frameworks;
-          $scope.me.frameworks.icons = _.remove($scope.me.frameworks.icons, isObject);
-          $scope.me.frameworks.list = $firebaseArray(refSkill.child('/frameworks/list'));
-
-          $scope.me.skills = meObject.skills;
-          $scope.me.skills.icons = _.remove($scope.me.skills.icons, isObject); 
-          $scope.me.skills.list = $firebaseArray(refSkill.child('/skills/list'));
-
           $scope.me.machines = meObject.machines;
-          $scope.me.machines.icons = _.remove($scope.me.machines.icons, isObject); 
+          $scope.me.machines.icons = _.remove($scope.me.machines.icons, isObject);
           $scope.me.socialMedia =_.remove(meObject.socialMedia, isObject);
 
-          $scope.me.mobile = meObject.mobile;
-          $scope.me.mobile.icons =_.remove($scope.me.mobile.icons, isObject);
-          $scope.me.mobile.list = $firebaseArray(refSkill.child('/mobile/list'));
-          
-          var arrayPromises = [
-            $scope.me.databases.$loaded(),
-            $scope.me.servers.$loaded(),
-            $scope.me.frameworks.list.$loaded(),
-            $scope.me.skills.list.$loaded(),
-            $scope.me.mobile.list.$loaded()          
-          ];
+          var refSkill = mainFactory.refSkill();
+          var arrayPromises = [];
+          var skillIdxMap = {};
+          var i = 0;
+          _.each($scope.categories, function(o) {
+              var category = o.path;
+              console.log(category);
 
-          $q.all(arrayPromises).then(function (allData) {
-
-            _.each(allData[0], function(o) {
-                $scope.visible.databases.push({ id: o.$id, flag: true,  editValue : o.value});
-            });
-
-            _.each(allData[1], function(o) {
-                $scope.visible.servers.push({ id: o.$id, flag: true,  editValue : o.value});
-            });
-
-            _.each(allData[2], function(o) {
-                $scope.visible.frameworks.push({ id: o.$id, flag: true,  editValue : o.value});
-            });
-
-            _.each(allData[3], function(o) {
-                $scope.visible.skills.push({ id: o.$id, flag: true,  editValue : o.value});
-            });
-
-            _.each(allData[4], function(o) {
-                $scope.visible.mobile.push({ id: o.$id, flag: true,  editValue : o.value});
-            });
+              var fbCatUrl = '/' + category + '/list';
+              $scope.me[category] = {};
+              if (meObject[category]) {
+                if (meObject[category].icons) {
+                    $scope.me[category].icons = _.remove(meObject[category].icons, isObject);
+                } else {
+                    $scope.me[category].icons = {};
+                }
+                $scope.me[category].list = $firebaseArray(refSkill.child(fbCatUrl));
+                arrayPromises.push($scope.me[category].list.$loaded());
+                skillIdxMap[category] = i;
+                i = i + 1;
+              }
           });
- 
-           $scope.categories = allData[1];
 
+          $q.all(arrayPromises).then(function (allSkills) {
+              for (var i = 0; i < $scope.categories.length; i++) {
+                var category = $scope.categories[i].path;
+                var allSkill = allSkills[skillIdxMap[category]];
+                $scope.visible[category] = [];
+                _.each(allSkill, function(o) {
+                  $scope.visible[category].push({ id: o.$id, flag: true,  editValue : o.value});
+                });
+              }
+            });
       });
-
-      $scope.chosenCategory = 'servers';
-      $scope.newSkill = '';
 
       $scope.addSkill = function _addSkill(newSkill) {
         $scope.promise = aboutMeFactory.addItem($scope.chosenCategory, newSkill);
@@ -103,14 +81,14 @@ angular.module('angularEventJourney')
       };
 
       $scope.removeSkill = function _removeSkill(category, objSkill, index) {
- 
+
         console.log('removeSkill ' + objSkill + ', index = ' + index);
         $scope.promise = aboutMeFactory.removeItem(category, objSkill.$id);
         $scope.promise.then(function(ref) {
             console.log('delete record with key = ' + ref.key());
             // remove corresponding visible object by flag
             _.remove($scope.visible[category], function(o) {
-                return o.id === ref.key(); 
+                return o.id === ref.key();
             });
 
             $scope.confirm = { type: 'success', msg: objSkill.value + ' deleted successfully.' };
@@ -122,9 +100,7 @@ angular.module('angularEventJourney')
       $scope.getVisibleObject = function _getVisibility1(category, id) {
         var arr = $scope.visible[category];
         if (arr) {
-          var element = _.find(arr, function(o) {
-                            return o.id === id;
-                        });
+          var element = _.find(arr, function(o) { return o.id === id; });
           return element;
         }
         return null;
@@ -142,7 +118,7 @@ angular.module('angularEventJourney')
         var element = $scope.getVisibleObject(category, id);
         if (element) {
           element.flag = flagValue;
-        }    
+        }
       };
 
       $scope.saveSkill = function _saveSkill(category, id) {
