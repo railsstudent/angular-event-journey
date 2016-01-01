@@ -15,11 +15,7 @@ gulp.task('scripts', function () {
 
 gulp.task('partials', function () {
   return gulp.src('src/{app,components}/**/*.html')
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe($.htmlmin({collapseWhitespace: true}))
     .pipe($.ngHtml2js({
       moduleName: 'angularEventJourney'
     }))
@@ -53,11 +49,7 @@ gulp.task('html', ['wiredep', 'scripts', 'partials'], function () {
     .pipe($.useref())
     .pipe($.revReplace())
     .pipe(htmlFilter)
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe($.htmlmin({collapseWhitespace: true}))
     .pipe(htmlFilter.restore())
     .pipe(gulp.dest('dist'))
     .pipe($.size());

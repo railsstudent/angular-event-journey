@@ -5,9 +5,7 @@
         ng-show="$root.authData">x</span>
       <h3 tooltip="{{organization.name}}">{{organization.name | addEllipsis:20 }}</h3>
       <p><span translate>SHORT_NAME</span> {{organization.code}}</p>
-      <p tooltip="{{organization.description}}" tooltip-placement="bottom">
-        <span translate>DESCRIPTION</span>{{organization.description | addEllipsis:120 }}
-      </p>
+      <span translate>DESCRIPTION</span><p ng-text-truncate="organization.description" ng-tt-chars-threshold="150"></p>
       <p><span translate="WEB_SITE"></span><a target="_blank" ng-href="{{organization.url}}">{{organization.url}}</a></p>
       <a ng-href="{{organization.facebook}}" ng-show="organization.facebook" target="_blank" tooltip="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a> 
       <a ng-href="{{organization.meetup}}" ng-show="organization.meetup" target="_blank" tooltip="Meetup"><i class="fa fa-cloud fa-2x"></i></a>
