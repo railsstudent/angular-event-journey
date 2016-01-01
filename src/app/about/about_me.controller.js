@@ -49,15 +49,17 @@ angular.module('angularEventJourney')
               }
           });
 
+          var addSkillVisible = function _addSkillVisible(o) {
+            this.push({ id: o.$id, flag: true,  editValue : o.value});
+          };
+
           $scope.partitionCategories = _.chunk($scope.categories, 3);
           $q.all(arrayPromises).then(function (allSkills) {
               for (var i = 0; i < $scope.categories.length; i++) {
                 var category = $scope.categories[i].path;
                 var allSkill = allSkills[skillIdxMap[category]];
                 $scope.visible[category] = [];
-                _.each(allSkill, function(o) {
-                  $scope.visible[category].push({ id: o.$id, flag: true,  editValue : o.value});
-                });
+                _.each(allSkill, addSkillVisible, $scope.visible[category]);
               }
             });
       });
