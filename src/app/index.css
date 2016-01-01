@@ -13,14 +13,8 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
   height: 150px;
-}
-
-.thumbnail {
-  height: 300px;
 }
 
 .thumbnail img.pull-right {
@@ -37,8 +31,6 @@
 	background-color: #fff;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	-webkit-transition: all .2s ease-in-out;
-	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 	height: 300px;
   overflow: auto;
@@ -81,9 +73,7 @@ div .signin {
 .form-signin .form-control {
   position: relative;
   height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
