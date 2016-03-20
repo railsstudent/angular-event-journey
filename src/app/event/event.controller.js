@@ -346,8 +346,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                       percent: percent
                      };
                 var priority = oEvent.timeTo;
-                eventFactory.saveEvent(input.organizationId, input.eventId,
-                              editObj, priority)
+                eventFactory.saveEvent(input, editObj, priority)
                     .then(function (ref) {
                         if (ref) {
                           deferred.resolve(ref.key());
@@ -360,8 +359,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
             return deferred.promise;
         };
 
-        $scope.promise = eventFactory.retrieveEvent(
-            input.organizationId, input.eventId).$loaded();
+        $scope.promise = eventFactory.retrieveEvent(input).$loaded();
         $scope.promise.then(function(data) {
               $scope.editEvent = data;
               var dt = new Date(data.eventDate);
