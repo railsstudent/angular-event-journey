@@ -305,18 +305,23 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
 
 function eventEditModalController($scope, $modalInstance, $q, eventFactory, $filter, input, RATE, $timeout) {
 
+      // store original event data. Restore to it if user clicks cancel button
+      var origEventData = {};
+
+      console.log('origEventData.name = ' + origEventData.name);
+
       $scope.promise = null;
       $scope.minDuration = 1500;
 
       $scope.state = {
           minStep : 5,
           isMerdian : false
-        };
+      };
 
-        $scope.hoveringOver = function _hoveringOver(value) {
+      $scope.hoveringOver = function _hoveringOver(value) {
           $scope.overStar = value;
           $scope.percent = RATE.hundred * (value / RATE.base);
-        };
+      };
 
         var handleSaveEvent = function _handleSaveEvent(organizationId, eventId) {
 
@@ -365,13 +370,25 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
               var dt = new Date(data.eventDate);
               var dateFilter = $filter('date');
               var strEventDate = dateFilter(dt, 'yyyy-MM-dd');
-              $scope.editEvent.eventDate = strEventDate;
+
+              origEventData = {
+                name: data.name,
+                building: data.building,
+                venue: data.venue,
+                timeFrom: data.timeFrom,
+                timeTo: data.timeTo,
+                hashtag: data.hashtag,
+                eventDate: strEventDate,
+                rate: data.rate
+              };
+
             }, function(error) {
               $scope.editEvent = undefined;
             }
           );
 
         $scope.cancel = function () {
+          $scope.editEvent = origEventData;
           $modalInstance.dismiss('cancel');
         };
 
