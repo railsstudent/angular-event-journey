@@ -66,22 +66,26 @@
 	   		</div>
         <div class="row top-buffer">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <a class="btn  btn-primary" href="#"
+            <a class="btn btn-default" href="#"
                 socialshare
                 socialshare-provider="twitter"
-                socialshare-text="720kb AngularJS Socialshare"
-                socialshare-hashtags="angularjs, angular-socialshare"
-                socialshare-url="http://720kb.net">
+                socialshare-url=""
+                socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}."
+                socialshare-hashtags="{{event.hashtag}}">
                 <i class="fa fa-twitter"></i>&nbsp;Twitter
              </a>
-             <a class="btn  btn-primary" href="#"
+             <a class="btn btn-default" href="#"
                  socialshare
-                 socialshare-provider="facebook"
-                 socialshare-text="720kb AngularJS Socialshare"
-                 socialshare-hashtags="angularjs, angular-socialshare"
-                 socialshare-url="http://720kb.net">
-                 <i class="fa fa-facebook"></i>&nbsp;Facebook
+                 socialshare-provider="evernote"
+                 socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
+                 Evernote
               </a>
+              <a class="btn btn-default" href="#"
+                  socialshare
+                  socialshare-provider="linkedin"
+                  socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
+                  <i class="fa fa-linkedin"></i>&nbsp;LinkedIn
+               </a>
            </div>
         </div>
 	    </accordion-group>

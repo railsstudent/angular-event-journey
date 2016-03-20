@@ -23,7 +23,7 @@
     "angular-messages": "~1.3.x",
     "headroom.js": "^0.7.0",
     "ng-text-truncate": "*",
-    "angular-socialshare": "angularjs-socialshare#^0.1.20"
+    "angular-socialshare": "angularjs-socialshare#^0.2.4-beta"
   },
   "overrides": {
     "bootstrap": {
