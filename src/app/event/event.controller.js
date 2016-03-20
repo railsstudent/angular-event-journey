@@ -121,6 +121,7 @@ function eventController($scope, $stateParams, eventFactory, mainFactory, $modal
             });
         });
        $scope.organizationName = data[1].name;
+       $scope.organizationUrl = data[1].url
     });
   };
 

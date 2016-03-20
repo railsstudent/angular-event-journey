@@ -69,7 +69,7 @@
             <a class="btn btn-default" href="#"
                 socialshare
                 socialshare-provider="twitter"
-                socialshare-url=""
+                socialshare-url="{{organizationUrl}}"
                 socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}."
                 socialshare-hashtags="{{event.hashtag}}">
                 <i class="fa fa-twitter"></i>&nbsp;Twitter
@@ -77,12 +77,14 @@
              <a class="btn btn-default" href="#"
                  socialshare
                  socialshare-provider="evernote"
+                 socialshare-url="{{organizationUrl}}"
                  socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
                  Evernote
               </a>
               <a class="btn btn-default" href="#"
                   socialshare
                   socialshare-provider="linkedin"
+                  socialshare-url="{{organizationUrl}}"
                   socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
                   <i class="fa fa-linkedin"></i>&nbsp;LinkedIn
                </a>
