@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('angularEventJourney')
-  .controller('MainCtrl', function ($scope, $q, $modal, $state, mainFactory) {
+  .controller('MainCtrl', mainController)
+  .controller('MainEditCtrl', mainEditController);
+  
+  function mainController($scope, $q, $modal, $state, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
     // https://www.firebase.com/docs/web/libraries/angular/quickstart.html
@@ -239,8 +242,9 @@ angular.module('angularEventJourney')
           }
         });
     };
-  })
-  .controller('MainEditCtrl', function ($scope, $state, $stateParams, $q, mainFactory) {
+  };
+
+  function mainEditController($scope, $state, $stateParams, $q, mainFactory) {
 
       $scope.msgObj = {
         message : '',
@@ -286,4 +290,4 @@ angular.module('angularEventJourney')
       $scope.cancel = function _cancel() {
         $state.go('home');
       };
-  });
+  };

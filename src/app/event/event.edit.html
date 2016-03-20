@@ -1,4 +1,4 @@
-  <form class="form-horizontal" name="eventForm" novalidate 
+  <form class="form-horizontal" name="eventForm" novalidate
     ng-submit="saveEvent(eventForm.$valid)"
     style="background: #eee;" cg-busy="{promise: promise, minDuration: minDuration}">
       <div class="modal-header">
@@ -57,7 +57,7 @@
         <div class="col-sm-8 col-md-8 col-lg-8">
           <timepicker ng-model="editEvent.timeFrom" ng-required="true"  name="timeFrom" id="timeFrom"
             minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
-          <div ng-messages="eventForm.timeFrom.$error" ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine" 
+          <div ng-messages="eventForm.timeFrom.$error" ng-show="eventForm.timeFrom.$invalid && !eventForm.timeFrom.$pristine"
             class="help-block">
             <div ng-message="required">Please enter from time</div>
             <div ng-message="time">Please enter a valid from time</div>
@@ -67,7 +67,7 @@
       <div class="col-md-6 col-lg-6 col-sm-6" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
         <label for="timeTo" class="col-sm-4 col-md-4 col-lg-4 control-label" translate>TIME_TO</label>
         <div class="col-sm-8 col-md-8 col-lg-8">
-          <timepicker ng-model="editEvent.timeTo" ng-required="true" name="timeTo" 
+          <timepicker ng-model="editEvent.timeTo" ng-required="true" name="timeTo"
           id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
           <div ng-messages="eventForm.timeTo.$error" ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">
             <div ng-message="required">Please enter to time</div>
@@ -94,8 +94,7 @@
     </div>
     <!-- div-->
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" 
-          ng-disabled="eventForm.$invalid" translate>EDIT</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid" translate>EDIT</button>
          <button class="btn btn-warning" ng-click="cancel()" translate>CANCEL</button>
     </div>
   </form>
