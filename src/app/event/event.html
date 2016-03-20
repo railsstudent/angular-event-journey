@@ -14,7 +14,7 @@
 		</div>
 	<div class="row" collapse="isCollapsed">
 		<div class="col-md-12 col-sm-12 col-lg-12">
-			<i class="fa fa-hashtag"></i><span translate="HASH_TAG"></span> 
+			<i class="fa fa-hashtag"></i><span translate="HASH_TAG"></span>
 		</div>
 	</div>
 	<div class="row" collapse="isCollapsed">
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<hr/>
-	<accordion close-others="true">	
+	<accordion close-others="true">
 		<accordion-group is-open="status.open" ng-repeat="event in events | filter:searchText  track by $index">
 	        <accordion-heading>
 	            {{$index + 1}}: {{event.name}} <i class="pull-right fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>
@@ -57,9 +57,33 @@
 		    	</div>
 	    	</div>
 	    	<div ng-show="$root.authData">
-	    		<label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">{{ 'DELETE' | translate }} <i class="fa fa-trash-o"></i></label> &nbsp;&nbsp;
-	   			<label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">{{ 'EDIT' | translate }} <i class="fa fa-pencil-square-o"></i></label>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+	    		     <label class="btn btn-danger" ng-click="deleteEvent(organizationId, event.$id)">{{ 'DELETE' | translate }} <i class="fa fa-trash-o"></i></label> &nbsp;&nbsp;
+	   			     <label class="btn btn-info" ng-click="showEditEventForm(organizationId, event.$id)">{{ 'EDIT' | translate }} <i class="fa fa-pencil-square-o"></i></label>
+            </div>
+          </div>
 	   		</div>
+        <div class="row top-buffer">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <a class="btn  btn-primary" href="#"
+                socialshare
+                socialshare-provider="twitter"
+                socialshare-text="720kb AngularJS Socialshare"
+                socialshare-hashtags="angularjs, angular-socialshare"
+                socialshare-url="http://720kb.net">
+                <i class="fa fa-twitter"></i>&nbsp;Twitter
+             </a>
+             <a class="btn  btn-primary" href="#"
+                 socialshare
+                 socialshare-provider="facebook"
+                 socialshare-text="720kb AngularJS Socialshare"
+                 socialshare-hashtags="angularjs, angular-socialshare"
+                 socialshare-url="http://720kb.net">
+                 <i class="fa fa-facebook"></i>&nbsp;Facebook
+              </a>
+           </div>
+        </div>
 	    </accordion-group>
   	</accordion>
   	<div ng-include="'components/navbar/moveToTop.html'"></div>

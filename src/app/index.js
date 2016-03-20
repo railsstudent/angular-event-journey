@@ -3,7 +3,7 @@
 var app = angular.module('angularEventJourney',
  ['ngCookies', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate',
  'firebase', 'cgBusy', 'angularMoment', 'leaflet-directive', 'ngMessages',
- 'headroom', 'ngTextTruncate']);
+ 'headroom', 'ngTextTruncate', '720kb.socialshare']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
