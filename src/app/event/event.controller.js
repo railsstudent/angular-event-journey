@@ -121,9 +121,15 @@ function eventController($scope, $stateParams, eventFactory, mainFactory, $modal
             });
         });
        $scope.organizationName = data[1].name;
-       $scope.organizationUrl = data[1].url
+       $scope.organizationUrl = _.isEmpty(data[1].url) ? "http://www.google.ca" : data[1].url;
     });
   };
+
+  $scope.socialProviders = [
+    {provider: 'twitter', name: 'Twitter'},
+    {provider: 'facebook', name: 'Facebook'},
+    {provider: 'evernote', name: 'Evernote`'},
+    {provider: 'linkedin', name: 'LinkedIn'}];
 
   $scope.showEventForm = function _showEventForm(organizationId) {
     $modal.open({

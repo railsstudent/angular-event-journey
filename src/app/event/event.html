@@ -66,28 +66,13 @@
 	   		</div>
         <div class="row top-buffer">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <a class="btn btn-default" href="#"
+            <a class="btn btn-default" href="#" ng-repeat="socialProvider in socialProviders track by $index"
                 socialshare
-                socialshare-provider="twitter"
+                socialshare-provider="{{socialProvider.provider}}"
                 socialshare-url="{{organizationUrl}}"
-                socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}."
-                socialshare-hashtags="{{event.hashtag}}">
-                <i class="fa fa-twitter"></i>&nbsp;Twitter
+                socialshare-text="I attended {{event.name}} organized by {{organizationName}} on {{event.eventDate | date:'yyyy-MM-dd'}}.">
+                <i class="fa fa-{{socialProvider.provider}}"></i>&nbsp;{{socialProvider.name}}
              </a>
-             <a class="btn btn-default" href="#"
-                 socialshare
-                 socialshare-provider="evernote"
-                 socialshare-url="{{organizationUrl}}"
-                 socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
-                 Evernote
-              </a>
-              <a class="btn btn-default" href="#"
-                  socialshare
-                  socialshare-provider="linkedin"
-                  socialshare-url="{{organizationUrl}}"
-                  socialshare-text="I attended {{event.name}} on {{event.eventDate | date:'yyyy-MM-dd'}} and gave a rating of {{event.rate}}.">
-                  <i class="fa fa-linkedin"></i>&nbsp;LinkedIn
-               </a>
            </div>
         </div>
 	    </accordion-group>
