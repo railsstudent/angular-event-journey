@@ -121,14 +121,14 @@ function eventController($scope, $stateParams, eventFactory, mainFactory, $modal
             });
         });
        $scope.organizationName = data[1].name;
-       $scope.organizationUrl = _.isEmpty(data[1].url) ? "http://www.google.ca" : data[1].url;
+       $scope.organizationUrl = _.isEmpty(data[1].url) ? 'http://www.google.ca' : data[1].url;
     });
   };
 
   $scope.socialProviders = [
     {provider: 'twitter', name: 'Twitter'},
     {provider: 'facebook', name: 'Facebook'},
-    {provider: 'evernote', name: 'Evernote`'},
+    {provider: 'evernote', name: 'Evernote'},
     {provider: 'linkedin', name: 'LinkedIn'}];
 
   $scope.showEventForm = function _showEventForm(organizationId) {
@@ -196,7 +196,7 @@ function eventController($scope, $stateParams, eventFactory, mainFactory, $modal
   $scope.defaults = {
     zoomControl : true
   };
-};
+}
 
 function eventAddModalController($scope, $modalInstance, $q, eventFactory, organizationId, refCounter) {
 
@@ -308,7 +308,7 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
         timeTo : today,
         hashtag : 'TBD'
       };
-};
+}
 
 function eventEditModalController($scope, $modalInstance, $q, eventFactory, $filter, input, RATE, $timeout) {
 
@@ -330,7 +330,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
           $scope.percent = RATE.hundred * (value / RATE.base);
       };
 
-        var handleSaveEvent = function _handleSaveEvent(organizationId, eventId) {
+      var handleSaveEvent = function _handleSaveEvent() {
 
             var deferred = $q.defer();
             if ($scope.editEvent) {
@@ -408,7 +408,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                 additionalMessage : ''
             };
 
-            $scope.promise = handleSaveEvent(input.organizationId, input.eventId);
+        $scope.promise = handleSaveEvent();
             $scope.promise.then(function(ref) {
                 $scope.editEvent = undefined;
 
