@@ -82,5 +82,6 @@
     "HIDE_HASHTAG" : "隱藏井號",
     "SUBMIT" : "遞交",
     "TOOL" : "工具",
-    "LIBRARY" : "函式庫"
+    "LIBRARY" : "函式庫",
+    "EVENT_PAGE" : "活動網址： "
 }

@@ -36,6 +36,15 @@
         </div>
       </div>
     </div>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.eventPage.$invalid && eventForm.eventPage.$touched }">
+      <label for="venue" class="col-sm-2 control-label" translate>EVENT_PAGE</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="eventPage" name="eventPage" ng-required="true" ng-model="editEvent.eventPage">
+        <div ng-messages="eventForm.eventPage.$error" ng-show="eventForm.eventPage.$touched" class="help-block">
+          <div ng-message="required">Please enter url of the event</div>
+        </div>
+      </div>
+    </div>
     <div class="form-group" ng-class="{ 'has-error' : eventForm.eventDate.$invalid && eventForm.eventDate.$touched }">
       <label for="eventDate" class="col-sm-2 control-label" translate>EVENT_DATE</label>
       <div class="col-sm-9">

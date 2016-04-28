@@ -1,4 +1,4 @@
-  <form class="form-horizontal" name="eventForm" novalidate 
+  <form class="form-horizontal" name="eventForm" novalidate
     ng-submit="addEvent(eventForm.$valid)"
     style="background: #eee;" cg-busy="{promise: promise, minDuriation: minDuration}">
       <div class="modal-header">
@@ -36,6 +36,15 @@
         </div>
       </div>
     </div>
+    <div class="form-group" ng-class="{ 'has-error' : eventForm.eventPage.$invalid && eventForm.eventPage.$touched }">
+      <label for="building" class="col-sm-2 control-label" translate>EVENT_PAGE</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="eventPage" name="eventPage" ng-required="true" ng-model="newEvent.eventPage">
+        <div ng-messages="eventForm.eventPage.$error" ng-show="eventForm.eventPage.$touched" class="help-block">
+          <div ng-message="required">Please enter url of the event</div>
+        </div>
+      </div>
+    </div>
     <div class="form-group" ng-class="{ 'has-error' : eventForm.eventDate.$invalid && eventForm.eventDate.$touched }">
       <label for="eventDate" class="col-sm-2 control-label" translate>EVENT_DATE</label>
       <div class="col-sm-9">
@@ -66,7 +75,7 @@
       <div class="col-md-6 col-lg-6 col-sm-6" ng-class="{ 'has-error' : eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine }">
         <label for="timeTo" class="col-sm-4 col-md-4 col-lg-4 control-label" translate>TIME_TO</label>
         <div class="col-sm-8 col-md-8 col-lg-8">
-          <timepicker ng-model="newEvent.timeTo" ng-required="true" name="timeTo" 
+          <timepicker ng-model="newEvent.timeTo" ng-required="true" name="timeTo"
           id="timeTo" minute-step="state.minStep" show-meridian="state.isMerdian"></timepicker>
          <div ng-messages="eventForm.timeTo.$error" ng-show="eventForm.timeTo.$invalid && !eventForm.timeTo.$pristine" class="help-block">
             <div ng-message="required">Please enter to time</div>
@@ -86,7 +95,7 @@
     </div>
     <!-- div-->
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" 
+        <button type="submit" class="btn btn-primary"
           ng-disabled="eventForm.$invalid" translate>ADD</button>
          <button class="btn btn-warning" ng-click="cancel()" translate>CANCEL</button>
     </div>
