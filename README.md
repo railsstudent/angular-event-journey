@@ -21,6 +21,5 @@ Functions
 - Create new event
 - Edit existing event
 - Delete existing event
-
-
-
+- Filter event by event name
+- Display location in OpenStreetMap
