@@ -1,16 +1,11 @@
 'use strict';
 
-angular.module('angularEventJourney')
-  .controller('EventCtrl', eventController)
-  .controller('EventAddModalCtrl', eventAddModalController)
-  .controller('EventEditModalCtrl', eventEditModalController);
-
 function eventController($scope, $stateParams, eventFactory, mainFactory, $modal, $q, timeFactory, geocoderFactory) {
 
     $scope.events = [];
     $scope.organizationName = undefined;
     $scope.numEvents = 0;
-    // array of hashmap of [ { id : eventId, tags: [hash tags] } ]
+    // array of objects of [ { id : eventId, tags: [hash tags] } ]
     $scope.hashtags = [];
     $scope.searchText = '';
     $scope.isCollapsed = false;
@@ -442,3 +437,8 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
           $scope.opened = true;
         };
 }
+
+angular.module('angularEventJourney')
+  .controller('EventCtrl', eventController)
+  .controller('EventAddModalCtrl', eventAddModalController)
+  .controller('EventEditModalCtrl', eventEditModalController);

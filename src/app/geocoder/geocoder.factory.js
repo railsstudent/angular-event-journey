@@ -6,36 +6,32 @@
  * # geocoder
  * Factory in the angularEventJourney.
  */
-angular.module('angularEventJourney')
-  .constant('APIKEY', '0WGV61dvTFci9Fu8Liu9bmbnTGUz2f7b')
-  .factory('geocoderFactory', geocoder);
 
   function geocoder($http, $q, APIKEY) {
 
   	// use mapquest geocoding api
-    var hkboundingBox = '&boundingBox=22.153549, 113.835083,22.56204, 114.441788';
+    //var hkboundingBox = '&boundingBox=22.153549, 113.835083,22.56204, 114.441788';
     var geocodeUrl = '//www.mapquestapi.com/geocoding/v1/address?key=' +
               APIKEY +
-              hkboundingBox +
     					'&inFormat=kvp&outFormat=json&maxResults=1&thumbMaps=false&location=';
 
 // Public API here
     return {
        initGeocode : function _initGeocode() {
- 		  var obj = {
-              markers : {
-                1: {
+ 		         var obj = {
+               markers : {
+                   1: {
                       lat: 0,
                       lng: 0,
                       focus: true,
                       draggable: false
                     }
-              },
-              center : {
-                lat: 0,
-                lng: 0,
-                zoom : 18
-              }
+                },
+                center : {
+                  lat: 0,
+                  lng: 0,
+                  zoom : 18
+                }
             };
            return obj;
        },
@@ -61,3 +57,7 @@ angular.module('angularEventJourney')
       }
     };
   }
+
+  angular.module('angularEventJourney')
+    .constant('APIKEY', '0WGV61dvTFci9Fu8Liu9bmbnTGUz2f7b')
+    .factory('geocoderFactory', geocoder);
