@@ -44,7 +44,8 @@
 	        	<div class="col-lg-8 col-md-8 col-sm-8">
 			    	<p>{{'BUILDING' | translate}} {{ event.building }}</p>
 			    	<p>{{'VENUE' | translate }} {{event.venue}}</p>
-			        <p>{{'DATE' | translate }} {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
+            <p>{{'EVENT_PAGE' | translate }}<a ng-href="{{event.eventPage}}" target="_blank">{{event.eventPage}}</a></p>
+			      <p>{{'DATE' | translate }} {{event.eventDate | date:'yyyy-MM-dd'}} ({{event.eventDate | date: 'EEE'}})</p>
 			    	<p>{{'TIME' | translate }} {{event.timeFrom | date:'HH:mm'}} - {{event.timeTo | date:'HH:mm'}}</p>
 			    	<p>{{'DURATION' | translate}} {{event.duration}} </p>
 			    	<p>{{'HASH_TAG' | translate }} {{event.hashtag}}</p>
@@ -69,7 +70,7 @@
             <a class="btn btn-default" href="#" ng-repeat="socialProvider in socialProviders track by $index"
                 socialshare
                 socialshare-provider="{{socialProvider.provider}}"
-                socialshare-url="{{organizationUrl}}"
+                socialshare-url="{{event.eventPage}}"
                 socialshare-text="I attended {{event.name}} organized by {{organizationName}} on {{event.eventDate | date:'yyyy-MM-dd'}}.">
                 <i class="fa fa-{{socialProvider.provider}}"></i>&nbsp;{{socialProvider.name}}
              </a>

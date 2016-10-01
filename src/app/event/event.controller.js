@@ -227,6 +227,7 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
               $scope.newEvent.eventDate = undefined;
               $scope.newEvent.timeFrom = undefined;
               $scope.newEvent.timeTo = undefined;
+              $scope.newEvent.eventPage = '';
 
               $scope.eventForm.$setPristine($scope.eventForm.name);
               $scope.eventForm.$setPristine($scope.eventForm.building);
@@ -234,6 +235,7 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
               $scope.eventForm.$setPristine($scope.eventForm.eventDate);
               $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
               $scope.eventForm.$setPristine($scope.eventForm.timeTo);
+              $scope.eventForm.$setPristine($scope.eventForm.eventPage);
 
               // update counter
               refCounter.transaction(function(currentValue) {
@@ -275,6 +277,7 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
                   timeFrom : oEvent.timeFrom,
                   timeTo : oEvent.timeTo,
                   hashtag : $scope.newEvent.hashtag,
+                  eventPage : $scope.newEvent.eventPage,
                   rate : 0,
                   percent : 0,
                   $priority : oEvent.timeTo
@@ -303,10 +306,11 @@ function eventAddModalController($scope, $modalInstance, $q, eventFactory, organ
         name : '',
         building : 'TBD',
         venue : 'TBD',
-        eventDate: today,
-        timeFrom: today,
+        eventDate : today,
+        timeFrom : today,
         timeTo : today,
-        hashtag : 'TBD'
+        hashtag : 'TBD',
+        eventPage : ''
       };
 }
 
@@ -354,6 +358,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                       timeFrom : oEvent.timeFrom,
                       timeTo : oEvent.timeTo,
                       hashtag : $scope.editEvent.hashtag,
+                      eventPage : $scope.editEvent.eventPage,
                       rate : rate,
                       percent: percent
                      };
@@ -385,10 +390,11 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                 timeFrom: data.timeFrom,
                 timeTo: data.timeTo,
                 hashtag: data.hashtag,
+                eventPage : data.eventPage,
                 eventDate: strEventDate,
-                rate: data.rate
+                rate: data.rate,
+                percent: data.percent
               };
-
             }, function(error) {
               $scope.editEvent = undefined;
             }
@@ -408,7 +414,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                 additionalMessage : ''
             };
 
-        $scope.promise = handleSaveEvent();
+            $scope.promise = handleSaveEvent();
             $scope.promise.then(function(ref) {
                 $scope.editEvent = undefined;
 
@@ -419,6 +425,7 @@ function eventEditModalController($scope, $modalInstance, $q, eventFactory, $fil
                 $scope.eventForm.$setPristine($scope.eventForm.timeFrom);
                 $scope.eventForm.$setPristine($scope.eventForm.timeTo);
                 $scope.eventForm.$setPristine($scope.eventForm.rate);
+                $scope.eventForm.$setPristine($scope.eventForm.eventPage);
 
                 $scope.msgObj.message = 'EDIT_EVENT_SUCCESS_CODE'; // 'Congratuation!!! Add event is successful.';
                 $scope.msgObj.cssClassName = 'success';
