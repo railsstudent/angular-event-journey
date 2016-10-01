@@ -11,6 +11,7 @@
     $scope.currentPage = 0;
     $scope.itemPerPage = 0;
     $scope.promise = null;
+    $scope.organizationTypes = mainFactory.getOrganizationTypes();
 
     $scope.goToAboutMe = function _goToAboutMe() {
         $state.go('about_me', {}, { location : true });
@@ -37,6 +38,12 @@
             // store $id in organization object; otherwise edit organiztion function breaks
             _.forEach(vals, function(v, k) {
               v.$id = k;
+              var result = _.find ($scope.organizationTypes, function(o) {
+                 return o.id === v.nature;
+              });
+              if (result) {
+                v.natureDisplayValue = result.value;
+              }
             });
 
             if (!startAtId) {
@@ -61,9 +68,16 @@
             if (endAtId) {
               delete vals[endAtId]; // delete the extraneous record
             }
+
             // store $id in organization object; otherwise edit organiztion function breaks
             _.forEach(vals, function(v, k) {
               v.$id = k;
+              var result = _.find ($scope.organizationTypes, function(o) {
+                 return o.id === v.nature;
+              });
+              if (result) {
+                v.natureDisplayValue = result.value;
+              }
             });
             $scope.organizations = vals;
             deferred.resolve('success');
@@ -131,6 +145,7 @@
                         code : $scope.organization.shortname,
                         description : $scope.organization.description,
                         url : $scope.organization.website,
+                        nature: $scope.organization.nature,
                         facebook : $scope.organization.facebook,
                         meetup : $scope.organization.meetup,
                         name : $scope.organization.name
@@ -159,6 +174,7 @@
                     $scope.organization.shortname = '';
                     $scope.organization.description = '';
                     $scope.organization.website = '';
+                    $scope.organization.nature = '';
                     $scope.organization.facebook = '';
                     $scope.organization.meetup = '';
 
@@ -166,6 +182,7 @@
                     $scope.organizationForm.$setPristine($scope.organizationForm.name);
                     $scope.organizationForm.$setPristine($scope.organizationForm.desc);
                     $scope.organizationForm.$setPristine($scope.organizationForm.website);
+                    $scope.organizationForm.$setPristine($scope.organizationForm.nature);
                     $scope.organizationForm.$setPristine($scope.organizationForm.facebook);
                     $scope.organizationForm.$setPristine($scope.organizationForm.meetup);
 
@@ -189,6 +206,7 @@
                 shortname : '',
                 description : '',
                 website : '',
+                nature : '',
                 facebook : '',
                 meetup : ''
               };
@@ -239,6 +257,7 @@
       };
 
       $scope.promise = null;
+      $scope.organizationTypes = mainFactory.getOrganizationTypes();
 
      var organization = mainFactory.retrieveOrganization($stateParams.id);
      $scope.promise = organization.$loaded();
@@ -257,6 +276,7 @@
                 code : $scope.editObj.code,
                 description : $scope.editObj.description,
                 url : $scope.editObj.url,
+                nature : $scope.editObj.nature,
                 facebook : $scope.editObj.facebook,
                 meetup : $scope.editObj.meetup,
                 events : $scope.editObj.events ? $scope.editObj.events : null,
