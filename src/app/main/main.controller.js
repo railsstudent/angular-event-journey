@@ -1,9 +1,5 @@
 'use strict';
 
-angular.module('angularEventJourney')
-  .controller('MainCtrl', mainController)
-  .controller('MainEditCtrl', mainEditController);
-  
   function mainController($scope, $q, $modal, $state, mainFactory) {
 
     // https://www.firebase.com/docs/web/libraries/angular/guide.html
@@ -20,47 +16,11 @@ angular.module('angularEventJourney')
         $state.go('about_me', {}, { location : true });
     };
 
+    var prevPage = 0;
     var refCounter = mainFactory.refCounter();
     refCounter.on('value', function(dataSnapShot) {
       $scope.numOrganization = dataSnapShot.val();
     });
-
-    var prevPage = 0;
-    $scope.pageChanged = function _pageChanged() {
-      console.log('current page = ' + $scope.currentPage);
-      if (prevPage !== $scope.currentPage) {
-        if ($scope.currentPage === 1) {
-          console.log ('Load first page....');
-          prevPage = $scope.currentPage;
-          $scope.promise = loadNextPage(undefined);
-          $scope.promise.then(function(data) {
-              console.log('loadNextPage result: ' + data);
-            });
-        } else if (prevPage < $scope.currentPage) {
-          console.log('Load next page');
-          // get the key of the last organization
-          var keys1 = _.keys($scope.organizations);
-          var lastKey = keys1[keys1.length - 1];
-          var startAtId = lastKey ? lastKey: undefined;
-          prevPage = $scope.currentPage;
-          $scope.promise = loadNextPage(startAtId);
-          $scope.promise.then(function(data) {
-              console.log('loadNextPage result: ' + data);
-            });
-        } else if (prevPage > $scope.currentPage) {
-          console.log('Load previous page');
-          // get the key of the first organization
-          var keys2 = _.keys($scope.organizations);
-          var firstKey = keys2[0];
-          var endAtId = firstKey ? firstKey : undefined;
-          prevPage = $scope.currentPage;
-          $scope.promise = loadPrevPage(endAtId);
-          $scope.promise.then(function (data) {
-              console.log('loadPrevPage result: ' + data);
-          });
-        }
-      }
-    };
 
     var loadNextPage = function _loadNextPage(startAtId) {
 
@@ -111,6 +71,42 @@ angular.module('angularEventJourney')
         return deferred.promise;
     };
 
+    $scope.pageChanged = function _pageChanged() {
+      console.log('current page = ' + $scope.currentPage);
+      if (prevPage !== $scope.currentPage) {
+        if ($scope.currentPage === 1) {
+          console.log ('Load first page....');
+          prevPage = $scope.currentPage;
+          $scope.promise = loadNextPage(undefined);
+          $scope.promise.then(function(data) {
+              console.log('loadNextPage result: ' + data);
+            });
+        } else if (prevPage < $scope.currentPage) {
+          console.log('Load next page');
+          // get the key of the last organization
+          var keys1 = _.keys($scope.organizations);
+          var lastKey = keys1[keys1.length - 1];
+          var startAtId = lastKey ? lastKey: undefined;
+          prevPage = $scope.currentPage;
+          $scope.promise = loadNextPage(startAtId);
+          $scope.promise.then(function(data) {
+              console.log('loadNextPage result: ' + data);
+            });
+        } else if (prevPage > $scope.currentPage) {
+          console.log('Load previous page');
+          // get the key of the first organization
+          var keys2 = _.keys($scope.organizations);
+          var firstKey = keys2[0];
+          var endAtId = firstKey ? firstKey : undefined;
+          prevPage = $scope.currentPage;
+          $scope.promise = loadPrevPage(endAtId);
+          $scope.promise.then(function (data) {
+              console.log('loadPrevPage result: ' + data);
+          });
+        }
+      }
+    };
+
     var promiseLoadPage = $q.defer();
     $scope.promise = promiseLoadPage.promise;
     mainFactory.getChildRef('/itemPerPage').once('value', function(snapshot) {
@@ -128,6 +124,21 @@ angular.module('angularEventJourney')
         keyboard : false,
         templateUrl: 'app/main/organizationModalContent.html',
         controller:  function _modalController ($scope, $modalInstance, $q, mainFactory) {
+
+              var handleAddOrganization = function _handleAddOrganization() {
+
+                  var newObj = {
+                        code : $scope.organization.shortname,
+                        description : $scope.organization.description,
+                        url : $scope.organization.website,
+                        facebook : $scope.organization.facebook,
+                        meetup : $scope.organization.meetup,
+                        name : $scope.organization.name
+                      };
+
+                  var promise = mainFactory.addOrganization(newObj);
+                  return promise;
+              };
 
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -171,30 +182,6 @@ angular.module('angularEventJourney')
                     $scope.msgObj.cssClassName = 'danger';
                   });
                 }
-              };
-
-              var handleAddOrganization = function _handleAddOrganization() {
-
-//                  var deferred = $q.defer();
-                  var newObj = { code : $scope.organization.shortname,
-                        description : $scope.organization.description,
-                        url : $scope.organization.website,
-                        facebook : $scope.organization.facebook,
-                        meetup : $scope.organization.meetup,
-                        name : $scope.organization.name
-                      };
-
-                  /*mainFactory.addOrganization(newObj)
-                      .then(function (ref) {
-                          if (ref) {
-                            deferred.resolve(ref.key());
-                          } else {
-                            deferred.reject('');
-                          }
-                      });
-                  return deferred.promise;*/
-                  var promise = mainFactory.addOrganization(newObj);
-                  return promise;
               };
 
               $scope.organization = {
@@ -242,7 +229,7 @@ angular.module('angularEventJourney')
           }
         });
     };
-  };
+  }
 
   function mainEditController($scope, $state, $stateParams, $q, mainFactory) {
 
@@ -290,4 +277,8 @@ angular.module('angularEventJourney')
       $scope.cancel = function _cancel() {
         $state.go('home');
       };
-  };
+  }
+
+  angular.module('angularEventJourney')
+    .controller('MainCtrl', mainController)
+    .controller('MainEditCtrl', mainEditController);
