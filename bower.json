@@ -21,9 +21,9 @@
     "angular-moment": "~0.10.x",
     "angular-leaflet-directive": "^0.8.6",
     "angular-messages": "~1.3.x",
-    "headroom.js": "^0.7.0",
     "ng-text-truncate": "*",
-    "angular-socialshare": "angularjs-socialshare#^0.2.4-beta"
+    "angular-socialshare": "angularjs-socialshare#^0.2.4-beta",
+    "headroom.js": "https://npmcdn.com/headroom.js@0.9.3/bower.zip"
   },
   "overrides": {
     "bootstrap": {
