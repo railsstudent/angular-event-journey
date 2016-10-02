@@ -83,5 +83,6 @@
     "SUBMIT" : "遞交",
     "TOOL" : "工具",
     "LIBRARY" : "函式庫",
-    "EVENT_PAGE" : "活動網址： "
+    "EVENT_PAGE" : "活動網址： ",
+    "NATURE" : "類型："
 }

@@ -23,28 +23,39 @@
   	    <div class="col-sm-9 col-md-9 col-lg-9">
   	        <input name="name" type="text" class="form-control" ng-model="editObj.name" required></input>
   	        <div class="help-block" ng-messages="form1.name.$error" ng-show="form1.name.$touched">
-              <div ng-message="required">Please enter name</div>  
+              <div ng-message="required">Please enter name</div>
             </div>
   	    </div>
       </div>
-      
+
       <div class="form-group" ng-class="{ 'has-error' : form1.desc.$invalid && form1.desc.$touched }">
           <label for="desc" translate class="col-sm-2 col-md-2 col-lg-2 control-label">DESCRIPTION</label>
           <div class="col-sm-9 col-md-9 col-lg-9">
               <textarea required name="desc" id="desc" class="form-control" ng-model="editObj.description">
               </textarea>
             <div class="help-block" ng-messages="form1.desc.$error" ng-show="form1.desc.$touched">
-              <div ng-message="required">Please enter description</div>  
+              <div ng-message="required">Please enter description</div>
             </div>
           </div>
       </div>
-              
+
       <div class="form-group" ng-class="{ 'has-error' : form1.website.$invalid && form1.website.$touched }">
         <label translate for="website" class="col-sm-2 col-md-2 col-lg-2 control-label">WEB_SITE</label>
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="website" id="website" class="form-control" ng-model="editObj.url"></input>
           <div class="help-block" ng-messages="form1.website.$error" ng-show="form1.website.$touched">
-            <div ng-message="url">Please enter valid url</div>  
+            <div ng-message="url">Please enter valid url</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : form1.nature.$invalid && form1.nature.$touched }">
+        <label translate for="nature" class="col-sm-2 col-md-2 col-lg-2 control-label">NATURE</label>
+        <div class="col-sm-9 col-md-9 col-lg-9">
+          <select required ng-model="editObj.nature" class="form-control" id="nature" name="nature"
+              ng-options="a.id as a.value for a in organizationTypes"></select>
+          <div class="help-block" ng-messages="form1.nature.$error" ng-show="form1.nature.$touched">
+            <div ng-message="required">Please select organization type</div>
           </div>
         </div>
       </div>
@@ -54,7 +65,7 @@
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="facebook" id="facebook" class="form-control" ng-model="editObj.facebook"></input>
           <div class="help-block" ng-messages="form1.facebook.$error" ng-show="form1.facebook.$touched">
-            <div ng-message="url">Please enter valid url</div>  
+            <div ng-message="url">Please enter valid url</div>
           </div>
         </div>
       </div>
@@ -64,15 +75,15 @@
         <div class="col-sm-9 col-md-9 col-lg-9">
           <input type="url" name="meetup" id="meetup" class="form-control" ng-model="editObj.meetup"></input>
           <div class="help-block" ng-messages="form1.meetup.$error" ng-show="form1.meetup.$touched">
-            <div ng-message="url">Please enter valid url</div>  
+            <div ng-message="url">Please enter valid url</div>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="col-md-offset-10 col-sm-offset-10 col-lg-offset-10">
             <button type="submit" class="btn btn-md btn-default" ng-disabled="form1.$invalid" translate>SAVE</button>
-            <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>      
-        </div>           
+            <button type="button" class="btn btn-md btn-warning" ng-click="cancel()" translate>CANCEL</button>
+        </div>
       </div>
   </form>
 </div>

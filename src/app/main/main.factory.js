@@ -16,7 +16,7 @@ angular.module('angularEventJourney')
     var refSkill1 = new Firebase('https://blazing-fire-2680.firebaseio.com/skills');
 
     var organizationUrl = 'https://blazing-fire-2680.firebaseio.com/organizations';
-    var refRecords1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations/records');    
+    var refRecords1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations/records');
     var refCounter1 = new Firebase('https://blazing-fire-2680.firebaseio.com/organizations/counter');
     var refCategories1 = new Firebase('https://blazing-fire-2680.firebaseio.com/categories');
 
@@ -25,14 +25,14 @@ angular.module('angularEventJourney')
           if (relativePath.substring(0, 1) !== '/') {
             relativePath = '/' + relativePath;
           }
-          return new Firebase(organizationUrl + relativePath);   
+          return new Firebase(organizationUrl + relativePath);
         }
         return null;
       };
 
 // Public API here
     return {
-      
+
       ref : function _ref() {
       	return ref1;
       },
@@ -83,12 +83,21 @@ angular.module('angularEventJourney')
         // http://jsfiddle.net/katowulf/yumaB/
         var priority = startAtId ? null : undefined;
         return refRecords1.startAt(priority, startAtId)
-                .limitToFirst(limit);  
+                .limitToFirst(limit);
       },
 
       getPrevPage : function _getPrevPage(endAtId, limit) {
           return refRecords1.endAt(null, endAtId)
-                .limitToLast(limit);       
+                .limitToLast(limit);
+      },
+
+      getOrganizationTypes : function _getOrganizationTypes() {
+          return [
+                  { id: 'COMMUNITY', value: 'Community' },
+                  { id: 'MEETUP', value: 'Meetup Group' },
+                  { id: 'STARTUP', value: 'Startup' },
+                  { id: 'OTHERS', value: 'Others' }
+                ];
       }
     };
   });

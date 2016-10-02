@@ -1,12 +1,12 @@
 
 
-  <form class="form-horizontal" name="organizationForm" novalidate 
+  <form class="form-horizontal" name="organizationForm" novalidate
     ng-submit="addOrganization(organizationForm.$valid)"
     style="background: #eee;" cg-busy="promise">
       <div class="modal-header">
             <h3 class="modal-title" translate>ADD_ORGANIZATION</h3>
       </div>
-     
+
       <div class="page-loader" ng-show="isLoading">
         <div class="row">
           <img id="spinner" src="assets/images/loader.gif" >
@@ -21,7 +21,7 @@
      <div class="form-group" ng-class="{ 'has-error' : organizationForm.shortname.$invalid && organizationForm.shortname.$touched }">
       <label for="shortname" class="col-sm-2 control-label" translate>SHORT_NAME</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="shortname" name="shortname" required 
+        <input type="text" class="form-control" id="shortname" name="shortname" required
           ng-model="organization.shortname">
         <div class="help-block" ng-messages="organizationForm.shortname.$error" ng-show="organizationForm.shortname.$touched">
           <div ng-message="required">Please enter short name</div>
@@ -50,10 +50,20 @@
     <div class="form-group" ng-class="{ 'has-error' : organizationForm.website.$invalid && organizationForm.website.$touched }">
       <label for="website" class="col-sm-2 control-label" translate>WEB_SITE</label>
       <div class="col-sm-9">
-        <input type="url" class="form-control" id="website" name="website" 
+        <input type="url" class="form-control" id="website" name="website"
           ng-model="organization.website">
         <div ng-messages="organizationForm.website.$error" ng-show="organizationForm.website.$touched" class="help-block">
           <div ng-message="url">Please enter valid url</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : organizationForm.nature.$invalid && organizationForm.nature.$touched }">
+      <label translate for="nature" class="col-sm-2 col-md-2 col-lg-2 control-label">NATURE</label>
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <select required ng-model="organization.nature" class="form-control" id="nature" name="nature"
+            ng-options="a.id as a.value for a in organizationTypes"></select>
+        <div ng-messages="organizationForm.nature.$error" ng-show="organizationForm.nature.$touched" class="help-block">
+          <div ng-message="required">Please select organization type</div>
         </div>
       </div>
     </div>
@@ -79,7 +89,7 @@
     </div>
     <!-- div-->
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" 
+        <button type="submit" class="btn btn-primary"
           ng-disabled="organizationForm.$invalid" translate>ADD</button>
          <button class="btn btn-warning" ng-click="cancel()" translate>CANCEL</button>
     </div>
