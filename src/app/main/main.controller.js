@@ -159,6 +159,7 @@
                 $modalInstance.dismiss('cancel');
               };
 
+              $scope.organizationTypes = mainFactory.getOrganizationTypes();
               $scope.refRecords = mainFactory.refRecords();
 
               $scope.addOrganization = function _addOrganization(isValid) {
@@ -206,7 +207,7 @@
                 shortname : '',
                 description : '',
                 website : '',
-                nature : '',
+                nature : 'COMMUNITY',
                 facebook : '',
                 meetup : ''
               };
